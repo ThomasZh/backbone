@@ -1,0 +1,7 @@
+# Development, documentation & testing requirements.
+-e .
+tornado=3.4.0
+pymongo=3.3.0
+xlwt=1.0.0
+qrcode=5.3
+Imaging=1.1.7
