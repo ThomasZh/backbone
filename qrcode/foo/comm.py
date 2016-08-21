@@ -53,6 +53,12 @@ class IndexHandle(tornado.web.RequestHandler):
         self.render('index.html')
 
 
+class DemoUiHandle(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('demo-ui.html')
+
+
 class ApiQrcodeHandle(tornado.web.RequestHandler):
     def post(self):
         logging.info(self.request)

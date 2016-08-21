@@ -16,6 +16,7 @@ def map():
 
         # GET: 根据 HTTP header 收集客户端相关信息：是否手机、操作系统、浏览器等信息。
         (r'/', getattr(comm, 'IndexHandle')),
+        (r'/demo-ui', getattr(comm, 'DemoUiHandle')),
         (r'/api/qrcode', getattr(comm, 'ApiQrcodeHandle')),
 
         # comm
