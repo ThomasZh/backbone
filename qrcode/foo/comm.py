@@ -19,8 +19,32 @@
 import tornado.web
 import logging
 import time
+import sys
+import os
 import uuid
 from qrcode import *
+
+
+#获取脚本文件的当前路径
+def cur_file_dir():
+     #获取脚本路径
+     path = sys.path[0]
+     #判断为脚本文件还是py2exe编译后的文件，如果是脚本文件，则返回的是脚本的目录，如果是py2exe编译后的文件，则返回的是编译后的文件路径
+     if os.path.isdir(path):
+         return path
+     elif os.path.isfile(path):
+         return os.path.dirname(path)
+
+
+# 时间格式转换
+def timestamp_date(value):
+    #_format = '%Y-%m-%d %H:%M:%S'
+    _format = '%Y/%m/%d/%H'
+    # value is timestamp(int), eg: 1332888820
+    _value = time.localtime(value)
+    ## time.struct_time(tm_year=2012, tm_mon=3, tm_mday=28, tm_hour=6, tm_min=53, tm_sec=40, tm_wday=2, tm_yday=88, tm_isdst=0)
+    _dt = time.strftime(_format, _value)
+    return _dt
 
 
 class IndexHandle(tornado.web.RequestHandler):
@@ -55,11 +79,19 @@ class ApiQrcodeHandle(tornado.web.RequestHandler):
         qr.make() # Generate the QRCode itself
         # im contains a PIL.Image.Image object
         img = qr.make_image()
-        # To save it
-        _id = str(uuid.uuid1()).replace('-', '')
-        img.save('static/qrcode/' + _id + '.png')     # Save file
 
-        img_url = '/static/qrcode/' + _id + '.png'
+        _id = str(uuid.uuid1()).replace('-', '')
+        _date = timestamp_date(time.time())
+        path = cur_file_dir()
+        logging.info("got path %r", path)
+        if not os.path.exists(path + "/static/qrcode/" + _date):
+            os.makedirs(path + "/static/qrcode/" + _date)
+
+        # To save it
+        img.save(path + "/static/qrcode/" + _date + "/" + _id + '.png')     # Save file
+
+        img_url = self.request.protocol + "://" + self.request.host
+        img_url = img_url + '/static/qrcode/' + _date + "/" + _id + '.png'
         self.write(img_url)
         self.finish()
 

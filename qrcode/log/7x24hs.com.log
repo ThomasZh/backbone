@@ -1919,3 +1919,6 @@
 [I 160821 00:19:47 web:1946] 304 GET /static/css/images/arrow.svg (::1) 0.93ms
 [I 160821 00:19:47 web:1946] 304 GET /static/fonts/fontawesome-webfont.woff2?v=4.4.0 (::1) 1.44ms
 [I 160821 00:19:47 web:1946] 304 GET /images/bg.jpg (::1) 1.72ms
+[I 160821 02:21:41 autoreload:204] /Users/thomas/backbone/qrcode/foo/comm.py modified; restarting server
+[I 160821 02:22:50 autoreload:204] /Users/thomas/backbone/qrcode/foo/comm.py modified; restarting server
+[I 160821 02:24:10 autoreload:204] /Users/thomas/backbone/qrcode/foo/comm.py modified; restarting server

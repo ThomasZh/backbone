@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Get in touch</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Three -->
+		<section id="three" class="main">
+			<div class="container">
+				<div class="content">
+					<header class="major">
+						<h2>Get in touch</h2>
+					</header>
+					<form method="post" action="#">
+						<div class="row uniform">
+							<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
+							<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email | Phone" /></div>
+							<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+							<div class="12u$">
+								<ul class="actions">
+									<li><a onclick="SubmitSend();" class="button special fit">Send Message</a></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<a href="#footer" class="goto-next scrolly">Next</a>
+		</section>
+
+		<section id="four" class="main">
+			<div class="container">
+				<div class="content">
+					<header class="major">
+						<h2>API</h2>
+					</header>
+
+					<blockquote>
+						<p>http://kit.7x24hs.com/api/kits</p>
+						<p>mothed: post</p>
+						<p>body: {"name":"your_name", "email":"your_email", "message": "your_message"}</p>
+						<p>response: SUCCESS</p>
+					</blockquote>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<section id="footer">
+			<footer>
+				<ul class="icons">
+					<li><a href="http://weibo.com/sedums" class="icon alt fa-weibo"><span class="label">Weibo</span></a></li>
+					<li><a href="https://www.linkedin.com/in/璟天-张-33a65a102" class="icon alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+					<li><a href="https://github.com/ThomasZh/backbone" class="icon alt fa-github"><span class="label">Github</span></a></li>
+					<li><a href="2677269755" class="icon alt fa-qq"><span class="label">QQ</span></a></li>
+					<li><a href="mailto:support@7x24hs.com" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; 2016 7x24hs.com</li>
+				</ul>
+			</footer>
+		</section>
+
+		<!-- Scripts -->
+		<script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/jquery.scrollex.min.js"></script>
+		<script src="/static/js/jquery.scrolly.min.js"></script>
+		<script src="/static/js/skel.min.js"></script>
+		<script src="/static/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="/static/js/main.js"></script>
+
+		<script type="text/javascript">
+			function SubmitSend() {
+				var name = $("#name").val();
+				var email = $("#email").val();
+				var message = $("#message").val();
+				$.post("/api/kits", {"name":name, "email":email, "message":message}, function(result){
+					alert(result);
+				});
+			}
+		</script>
+
+	</body>
+</html>
