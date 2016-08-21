@@ -279,6 +279,7 @@
 							<input name="email" type="email" class="form-control" id="email" placeholder="Your Email | Phone">
 							<textarea name="message" rows="5" class="form-control" id="message" placeholder="Your Message"></textarea>
 							<input onclick="SubmitSend();" name="send" type="button" class="form-control" id="send" value="SEND ME">
+							<div id="success_msg" name="success_msg" class="contact-title"></div>
 						</form>
 					</div>
 					<div class="col-md-1 col-sm-1"></div>
@@ -328,8 +329,13 @@
 				var email = $("#email").val();
 				var message = $("#message").val();
 				$.post("http://kit.7x24hs.com/api/kits", {"name":name, "email":email, "message":message}, function(result){
-					alert(result);
+					alert('Send message success!');
+					//$("#success_msg").html('Send message success!');
 				});
+				alert('Send message success!');
+				$("#name").val("");
+				$("#email").val("");
+				$("#message").val("");
 			}
 		</script>
 

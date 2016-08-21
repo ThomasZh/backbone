@@ -384,6 +384,11 @@ h1,h2,h3,h4,h5
         font-weight: bold;
         transition: all 0.4s ease-in-out;
     }
+#contact input[type="button"]:hover
+    {
+        background: #D43F52;
+        color: #ffffff;
+    }
 /* end contact */
 
 /* start footer */

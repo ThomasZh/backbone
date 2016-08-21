@@ -83,7 +83,7 @@
 				var email = $("#email").val();
 				var message = $("#message").val();
 				$.post("/api/kits", {"name":name, "email":email, "message":message}, function(result){
-					alert(result);
+					alert('Send message success!');
 				});
 			}
 		</script>

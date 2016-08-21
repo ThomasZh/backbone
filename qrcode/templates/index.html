@@ -133,7 +133,10 @@
 					var email = $("#email").val();
 					var message = $("#message").val();
 					$.post("http://kit.7x24hs.com/api/kits", {"name":name, "email":email, "message":message}, function(result){
-						alert(result);
+						alert('Send message success!');
+						$("#name").val("");
+						$("#email").val("");
+						$("#message").val("");						
 					});
 				}
 			</script>
