@@ -82,11 +82,11 @@
 					<form method="post" action="#">
 						<div class="row uniform">
 							<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
-							<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
+							<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email | Phone" /></div>
 							<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
 							<div class="12u$">
 								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="special" /></li>
+									<li><a onclick="SubmitSend();" class="button special fit">Send Message</a></li>
 								</ul>
 							</div>
 						</div>
@@ -126,6 +126,15 @@
 
 				function SubmitReset() {
 					$("#url").val("");
+				}
+
+				function SubmitSend() {
+					var name = $("#name").val();
+					var email = $("#email").val();
+					var message = $("#message").val();
+					$.post("http://kit.7x24hs.com/api/kits", {"name":name, "email":email, "message":message}, function(result){
+						alert(result);
+					});
 				}
 			</script>
 

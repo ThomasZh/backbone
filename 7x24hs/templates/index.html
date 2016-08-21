@@ -274,11 +274,11 @@
 						</address>
 					</div>
 					<div class="col-lg-6 col-md-6 col-xs-10 wow fadeInUp" data-wow-delay="0.6s">
-						<form role="form" method="post" action="#">
+						<form role="form">
 							<input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
 							<input name="email" type="email" class="form-control" id="email" placeholder="Your Email | Phone">
 							<textarea name="message" rows="5" class="form-control" id="message" placeholder="Your Message"></textarea>
-							<input name="send" type="submit" class="form-control" id="send" value="SEND ME">
+							<input onclick="SubmitSend();" name="send" type="button" class="form-control" id="send" value="SEND ME">
 						</form>
 					</div>
 					<div class="col-md-1 col-sm-1"></div>
@@ -321,6 +321,17 @@
 		<script src="/static/js/jquery.simple-text-rotator.js"></script>
 		<!-- custom -->
 		<script src="/static/js/custom.js"></script>
+
+		<script type="text/javascript">
+			function SubmitSend() {
+				var name = $("#name").val();
+				var email = $("#email").val();
+				var message = $("#message").val();
+				$.post("http://kit.7x24hs.com/api/kits", {"name":name, "email":email, "message":message}, function(result){
+					alert(result);
+				});
+			}
+		</script>
 
 	</body>
 </html>

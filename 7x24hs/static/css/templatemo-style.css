@@ -3,7 +3,7 @@
 Lavish
 
 http://www.templatemo.com/preview/templatemo_458_lavish
-		
+
 */
 
 body
@@ -127,7 +127,7 @@ h1,h2,h3,h4,h5
   z-index: 2;
   display: block;
   opacity: 1;
-  
+
   -webkit-transform: rotateY(180deg) translate3d(0,0,0);
   -moz-transform: rotateY(180deg) translate3d(0,0,0);
   -ms-transform: rotateY(180deg) translate3d(0,0,0);
@@ -168,7 +168,7 @@ h1,h2,h3,h4,h5
 }
 /* end simpletextrotator */
 
-/* start home */       
+/* start home */
 #home
 	{
         background: url('../images/home-bg.jpg');
@@ -225,7 +225,7 @@ h1,h2,h3,h4,h5
     {
       margin-top: 30px;
     }
-	
+
 #work .media .fa
     {
         border: 2px solid #ffffff;
@@ -331,7 +331,7 @@ h1,h2,h3,h4,h5
     {
       padding-bottom: 18px;
     }
-	
+
 #contact .contact-title
     {
 		font-size: 24px;
@@ -375,6 +375,14 @@ h1,h2,h3,h4,h5
     {
         background: #ffffff;
         color: #D43F52;
+    }
+#contact input[type="button"]
+    {
+        background: #D43F52;
+        border: 2px solid transparent;
+        color: #ffffff;
+        font-weight: bold;
+        transition: all 0.4s ease-in-out;
     }
 /* end contact */
 
