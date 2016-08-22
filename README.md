@@ -5,7 +5,7 @@
 ## include
 * 7x24hs 是主站，单页网站，个人信息展示，[Demo](http://www.7x24hs.com)
 * qrcode 输入URL，获取二维码，[Demo](http://qrcode.7x24hs.com)
-* kit (语keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长, [Demo](http://kit.7x24hs.com)
+* kit (keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长, [Demo](http://kit.7x24hs.com)
 
 
 ## 部署系统环境：
@@ -140,7 +140,7 @@ Nginx配置
     set from=no_reply@7x24hs.com
     set smtp=smtp.mxhichina.com
     set smtp-auth-user=no_reply@7x24hs.com
-    set smtp-auth-password=need4sPeedno
+    set smtp-auth-password=your_password
     set smtp-auth=login
 
 然后通过命令来发送测试邮件
