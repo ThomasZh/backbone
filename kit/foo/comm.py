@@ -25,6 +25,14 @@ import uuid
 import smtplib
 
 
+class singleton(object):
+    _singleton = None;
+    def __new__(cls):
+        if cls._singleton is None:
+            cls._singleton = object.__new__(cls);
+        return cls._singleton;
+
+
 #获取脚本文件的当前路径
 def cur_file_dir():
      #获取脚本路径
@@ -45,49 +53,6 @@ def timestamp_date(value):
     ## time.struct_time(tm_year=2012, tm_mon=3, tm_mday=28, tm_hour=6, tm_min=53, tm_sec=40, tm_wday=2, tm_yday=88, tm_isdst=0)
     _dt = time.strftime(_format, _value)
     return _dt
-
-
-class IndexHandle(tornado.web.RequestHandler):
-    def get(self):
-        logging.info(self.request)
-        self.render('index.html')
-
-
-class ApiKitHandle(tornado.web.RequestHandler):
-    def post(self):
-        logging.info(self.request)
-
-        name = self.get_argument("name", "")
-        email = self.get_argument("email", "")
-        message = self.get_argument("message", "")
-        name = name.encode("utf-8")
-        email = email.encode("utf-8")
-        message = message.encode("utf-8")
-        logging.info("got name %r", name)
-        logging.info("got email %r", email)
-        logging.info("got message %r", message)
-
-        _id = str(uuid.uuid1()).replace('-', '')
-        _date = timestamp_date(time.time())
-        path = cur_file_dir()
-        logging.info("got path %r", path)
-        filename = path + '/static/mail/' + _date + '/' + _id
-        logging.info("got filename %r", filename)
-        if not os.path.exists(path + "/static/mail/" + _date):
-            os.makedirs(path + "/static/mail/" + _date)
-
-        content = 'from: ' + name + '\n' \
-                + 'email: ' + email + '\n' \
-                + 'message: ' + message
-        logging.info("got content %r", content)
-        f = file(filename,'w')
-        f.write(content)
-        f.close()
-
-        os.system('mail -s "kits notify" thomas.zh@qq.com < ' + filename)
-
-        self.write("SUCCESS")
-        self.finish()
 
 
 class PageNotFoundHandler(tornado.web.RequestHandler):

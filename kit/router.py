@@ -8,6 +8,7 @@
 import tornado.web
 
 from foo import comm
+from foo.kit import kit_index
 
 
 def map():
@@ -15,8 +16,8 @@ def map():
     config = [
 
         # GET: 根据 HTTP header 收集客户端相关信息：是否手机、操作系统、浏览器等信息。
-        (r'/', getattr(comm, 'IndexHandle')),
-        (r'/api/kits', getattr(comm, 'ApiKitHandle')),
+        (r'/', getattr(kit_index, 'IndexHandle')),
+        (r'/api/kits', getattr(kit_index, 'ApiKitHandle')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

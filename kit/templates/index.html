@@ -11,32 +11,38 @@
 	</head>
 	<body>
 
-		<!-- Three -->
 		<section id="three" class="main">
 			<div class="container">
 				<div class="content">
 					<header class="major">
 						<h2>Get in touch</h2>
 					</header>
-					<form method="post" action="#">
-						<div class="row uniform">
-							<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
-							<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email | Phone" /></div>
-							<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-							<div class="12u$">
-								<ul class="actions">
-									<li><a onclick="SubmitSend();" class="button special fit">Send Message</a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<a href="#footer" class="goto-next scrolly">Next</a>
-		</section>
 
-		<section id="four" class="main">
-			<div class="container">
+					<div class="table-wrapper">
+						<table class="alt">
+							<thead>
+								<tr>
+									<th>time</th>
+									<th>name</th>
+									<th>email</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2"></td>
+									<td>
+										<ul class="actions small">
+											<li><a id="OnGetMore" class="button special small">More &rarr;</a></li>
+										</ul>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+
 				<div class="content">
 					<header class="major">
 						<h2>API</h2>
@@ -49,11 +55,30 @@
 						<p>response: SUCCESS</p>
 					</blockquote>
 				</div>
+
 			</div>
 		</section>
 
+
 		<!-- Footer -->
 		<section id="footer">
+			<div class="container">
+				<header class="major">
+					<h2>Get in touch</h2>
+				</header>
+				<form>
+					<div class="row uniform">
+						<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
+						<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email | Phone" /></div>
+						<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+						<div class="12u$">
+							<ul class="actions">
+								<li><a onclick="SubmitSend();" class="button special fit">Send Message</a></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
 			<footer>
 				<ul class="icons">
 					<li><a href="http://weibo.com/sedums" class="icon alt fa-weibo"><span class="label">Weibo</span></a></li>
@@ -86,6 +111,79 @@
 					alert('Send message success!');
 				});
 			}
+		</script>
+
+		<script type="text/javascript">
+
+			function fmt(timestamp) {
+				date = new Date(timestamp * 1000),
+				d = [
+			  	date.getFullYear(),
+			   	date.getMonth()+1,
+			   	date.getDate(),
+			   	date.getHours(),
+			   	date.getMinutes(),
+			   	date.getSeconds(),
+				];
+				return d[1] + '/' + d[2] + ' ' + d[3] + ':' + d[4];
+				//alert(datevalues); //=> [2011, 3, 25, 23, 0, 0]
+			}
+
+			var preAllow = true;   // when ajax not completed, cannot do the next request
+			var lastTimestamp = '';
+
+			function query() {
+	      console.log(lastTimestamp);
+				$.get("/api/kits?before="+lastTimestamp,function(data,status){
+					var ajaxobj = eval("("+data+")");
+
+					for (var i in ajaxobj) {
+	          console.log(ajaxobj[i]._id);
+	          var inner_html = '<tr>';
+							inner_html += '<td>';
+							inner_html += fmt(ajaxobj[i].create_time);
+							inner_html += '</td>';
+
+	            inner_html += '<td>';
+	            inner_html += ajaxobj[i].name;
+	            inner_html += '</td>';
+
+							inner_html += '<td>';
+	            inner_html += ajaxobj[i].email;
+	            inner_html += '</td>';
+						inner_html += '</tr>';
+						inner_html += '<tr>';
+							inner_html += '<td>';
+							inner_html += '<input type="checkbox" checked>';
+							inner_html += '<label></label>'
+							inner_html += '</td>';
+
+							inner_html += '<td colspan="2">';
+	            inner_html += ajaxobj[i].message;
+	            inner_html += '</td>';
+
+	          inner_html += '</tr>';
+	          $('#tbody').append(inner_html);
+	          lastTimestamp = ajaxobj[i].create_time;
+					}
+
+					preAllow = true;
+				});
+			}
+
+			$("#OnGetMore").click(function(){ // This event fires when a button is clicked
+				if (preAllow) {
+				  preAllow = false;
+				  query();
+				}
+			});
+
+			$(document).ready(function(){ // init after open this page
+				if (preAllow) {
+				  preAllow = false;
+					query();
+				}
+			});
 		</script>
 
 	</body>
