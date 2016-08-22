@@ -5,7 +5,7 @@
 ## include
 * 7x24hs 是主站，单页网站，个人信息展示，[Demo](http://www.7x24hs.com)
 * qrcode 输入URL，获取二维码，[Demo](http://qrcode.7x24hs.com)
-* kit (语keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长
+* kit (语keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长, [Demo](http://kit.7x24hs.com)
 
 
 ## 部署系统环境：
@@ -94,7 +94,7 @@ Nginx配置
         }
     }
 
-    # vi /etc/nginx/conf.d/qrcode.7x24hs.com.conf 
+>    # vi /etc/nginx/conf.d/qrcode.7x24hs.com.conf 
 
     server {
         listen   80;
