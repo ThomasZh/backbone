@@ -3,13 +3,14 @@
 
 
 ## include
-* 7x24hs 是主站，单页网站，个人信息展示，Demo: http://www.7x24hs.com
-* qrcode 输入URL，获取二维码，Demo: http://qrcode.7x24hs.com
+* 7x24hs 是主站，单页网站，个人信息展示，[Demo](http://www.7x24hs.com)
+* qrcode 输入URL，获取二维码，[Demo](http://qrcode.7x24hs.com)
 * kit (语keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长
 
 
 ## 部署系统环境：
 Linux CentOS 7.0 x86-64
+
 Python 2.7.3
 
     # yum install libtool -y
@@ -30,7 +31,7 @@ Python 2.7.3
     # pip install --upgrade Image
 
 Nginx配置
-    # vi /etc/nginx/conf.d/7x24hs.com.conf 
+>    # vi /etc/nginx/conf.d/7x24hs.com.conf 
 
     server {
         listen   80;
@@ -74,7 +75,7 @@ Nginx配置
         }
     }
 
-    # vi /etc/nginx/conf.d/kit.7x24hs.com.conf
+>    # vi /etc/nginx/conf.d/kit.7x24hs.com.conf
 
     server {
         listen   80;
@@ -112,7 +113,7 @@ Nginx配置
         }
     }
 
-    # vi /etc/nginx/conf.d/ssl.conf
+>    # vi /etc/nginx/conf.d/ssl.conf
 
     # HTTPS server
     server {
@@ -134,7 +135,7 @@ Nginx配置
     }
 
 使用外部的smtp服务器发送mail
-    # vi /etc/mail.rc  
+>    # vi /etc/mail.rc  
 
     set from=no_reply@7x24hs.com
     set smtp=smtp.mxhichina.com
