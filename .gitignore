@@ -1,0 +1,14 @@
+
+*.log
+
+*.log
+
+7x24hs/log/7x24hs.com.log
+
+*.out
+
+*.pyc
+
+*.log
+
+kit/pidfile
