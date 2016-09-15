@@ -1,0 +1,1810 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone" style="font-size: 61.25px;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>Light7 Mobile 使用样例</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+    <style>
+      /*
+       *  针对ios的sticky布局
+       *  ios下使用-webkit-overflow-scrolling:touch; + fixed布局会出现滑动时tab抖动的问题
+       *  解决办法：在_scrollHandler函数中增加ios机型的判断，如果是ios,则使用position:sticky来布局
+       */
+      .fixed-tab.sticky{position:-webkit-sticky;position:sticky;}
+    </style>
+    <style type="text/css">
+      .swiper-container1 .swiper-slide{
+        width:60px;
+      }
+    </style>
+
+    <style id="forhtml">html{font-size:61.25px !important;}</style>
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page, 第一个.page默认被展示. 基础组件 -->
+      <div class="page page-current" id="page1" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="icon icon-me pull-left open-panel"></a>
+          <h1 class="title">Light7 Mobile 基础组件</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item active" href="#page1">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">组件</span>
+            <span class="badge">5</span>
+          </a>
+          <a class="tab-item" href="#page2">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">媒体</span>
+          </a>
+          <a class="tab-item" href="#page3">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">商城</span>
+          </a>
+          <a class="tab-item" href="#page4">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">社交</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content native-scroll">
+          <div class="content-padded">
+            <h4>Light7 Mobile</h4>
+            <p>是一套基于 Framework7 开发的UI库。它非常轻量、精美，Light7 是一个库而不是一个框架。它提供了 20+ 个常用的组件，却只有 82K JS 和 117K CSS 大小的两个文件。大部分时候你只需把组件的HTML代码复制到自己的HTML文件中即可。并且能兼容到 iOS 6.0+ 和 Android 4.0+，方便迅速搭建手机H5应用，非常适合开发跨平台Web App。</p>
+          </div>
+
+          <div class="buttons-tab fixed-tab" data-offset="0">
+            <a href="#tab1" class="tab-link active button">列表</a>
+            <a href="#tab2" class="tab-link button">输入框</a>
+            <a href="#tab3" class="tab-link button">按钮</a>
+            <a href="#tab4" class="tab-link button">对话框</a>
+          </div>
+
+          <div class="tabs">
+            <div id="tab1" class="tab active">
+              <div class="content-block-title">图标、标题和副标题</div>
+              <div class="list-block">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-gift"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">商品名称</div>
+                      <div class="item-after">iPhone</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-code"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">型号</div>
+                      <div class="item-after">6s plus</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block-title">标题和副标题</div>
+              <div class="list-block">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">标题</div>
+                      <div class="item-after"></div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">标题</div>
+                      <div class="item-after">副标题</div>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">标题栏和工具栏</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">带标记</div>
+                      <div class="item-after"><span class="badge">5</span></div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">带按钮</div>
+                      <div class="item-after">
+                        <a href="#" class="button button-danger">button</a>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">开关</div>
+                      <div class="item-after">
+                        <label class="label-switch">
+                          <input type="checkbox" checked="true">
+                          <div class="checkbox"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">带箭头</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link item-content">
+                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">商品名称</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="//7x24hs.com" class="item-link item-content external">
+                      <div class="item-media"><i class="icon icon-code"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">型号</div>
+                        <div class="item-after">外部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/fixed-tab" class="item-link item-content">
+                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">iOS固定tabbar</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/bottom-scroll" class="item-link item-content">
+                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">无限滚动</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/fixed-tab-scroll" class="item-link item-content">
+                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">多tabbar无限滚动</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div> <!-- tab1 -->
+
+            <div id="tab2" class="tab">
+              <div class="list-block">
+                <ul>
+                  <!-- Text inputs -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-name"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">姓名</div>
+                        <div class="item-input">
+                          <input type="text" placeholder="Your name">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-email"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">邮箱</div>
+                        <div class="item-input">
+                          <input type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-password"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">密码</div>
+                        <div class="item-input">
+                          <input type="password" placeholder="Password" class="">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">性别</div>
+                        <div class="item-input">
+                          <select>
+                            <option>Male</option>
+                            <option>Female</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Date -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-calendar"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">生日</div>
+                        <div class="item-input">
+                          <input type="date" placeholder="Birth day" value="2014-04-30">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Switch (Checkbox) -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">开关</div>
+                        <div class="item-input">
+                          <label class="label-switch">
+                            <input type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="align-top">
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">文本域</div>
+                        <div class="item-input">
+                          <textarea></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
+                  <div class="col-50"><a href="#" class="button button-big button-fill button-success">提交</a></div>
+                </div>
+              </div>
+
+              <div class="content-block-title">只有图标的表单</div>
+              <div class="list-block">
+                <ul>
+                  <!-- Text inputs -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-me"></i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input type="text" placeholder="Your name">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-card"></i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Select -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-share"></i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <select>
+                            <option>Male</option>
+                            <option>Female</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">没有图标的表单</div>
+              <div class="list-block">
+                <ul>
+                  <!-- Text inputs -->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input type="text" placeholder="Your name">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="align-top">
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <textarea placeholder="文本域"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">单选</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="radio" name="radio" value="1" checked="true">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项1</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="radio" name="radio" value="2">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项2</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="radio" name="radio" value="3">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项3</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">多选（可以全选或都不选）</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="select" value="1">
+                      <div class="item-media"><i class="icon icon-form-checkbox" style="border-radius:0"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项1</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="select" value="2">
+                      <div class="item-media"><i class="icon icon-form-checkbox" style="border-radius:0"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项2</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="select" value="3">
+                      <div class="item-media"><i class="icon icon-form-checkbox" style="border-radius:0"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">选项3</div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div> <!-- tab2 -->
+
+            <div id="tab3" class="tab">
+              <div class="content-block-title">List block buttons</div>
+              <div class="list-block">
+                <ul>
+                  <li><a href="#" class="item-link list-button">List Button 1</a></li>
+                  <li><a href="#" class="item-link list-button">List Button 2</a></li>
+                  <li><a href="#" class="item-link list-button">List Button 3</a></li>
+                </ul>
+              </div>
+              <div class="content-block-title">Inset list block buttons</div>
+              <div class="list-block inset">
+                <ul>
+                  <li><a href="#" class="item-link list-button">List Button 1</a></li>
+                  <li><a href="#" class="item-link list-button">List Button 2</a></li>
+                  <li><a href="#" class="item-link list-button">List Button 3</a></li>
+                </ul>
+              </div>
+              <div class="content-block-title">Using Grid</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50"><a href="#" class="button button-big button-fill button-danger">Cancel</a></div>
+                  <div class="col-50"><a href="#" class="button button-big button-fill button-success">Submit</a></div>
+                </div>
+              </div>
+            </div> <!-- tab3 -->
+
+            <div id="tab4" class="tab">
+              <div class="content-block-title">Alert</div>
+              <div class="content-block">
+                <p><a href="#" class="alert-text">Alert With Text</a></p>
+                <p><a href="#" class="alert-text-title">Alert With Text and Title</a></p>
+                <p><a href="#" class="alert-text-title-callback">Alert With Text and Title and Callback</a></p>
+                <p><a href="#" class="alert-text-callback">Alert With Text and Callback</a></p>
+              </div>
+
+              <div class="content-block-title">Confirm</div>
+              <div class="content-block">
+                <p><a href="#" class="confirm-ok">Confirm with text and Ok callback</a></p>
+                <p><a href="#" class="confirm-ok-cancel">Confirm with text, Ok and Cancel callbacks</a></p>
+                <p><a href="#" class="confirm-title-ok">Confirm with text, title and Ok callback</a></p>
+                <p><a href="#" class="confirm-title-ok-cancel">Confirm with text, title, Ok and Cancel callback</a></p>
+              </div>
+
+              <div class="content-block-title">Prompt</div>
+              <div class="content-block">
+                <p><a href="#" class="prompt-ok">Prompt with text and Ok callback</a></p>
+                <p><a href="#" class="prompt-ok-cancel">Prompt with text, Ok and Cancel callbacks</a></p>
+                <p><a href="#" class="prompt-title-ok">Prompt with text, title and Ok callback</a></p>
+                <p><a href="#" class="prompt-title-ok-cancel">Prompt with text, title, Ok and Cancel callback</a></p>
+              </div>
+
+              <div class="content-block-title">自定义Modals</div>
+              <div class="content-block">
+                <p><a href="#" class="open-3-modal">Modal With 3 Buttons</a></p>
+                <p><a href="#" class="open-slider-modal">Modal With Slider</a></p>
+                <p><a href="#" class="open-tabs-modal">Modal With Tabs</a></p>
+                <p><a href="#" class="open-vertical-modal">Modal With Vertical Buttons</a></p>
+              </div>
+
+              <div class="content-block-title">预加载 Modal (Preloader Modal)</div>
+              <div class="content-block">
+                <p><a href="#" class="open-preloader">Open Preloader</a></p>
+                <p><a href="#" class="open-preloader-title">Open Preloader with custom title</a></p>
+                <p><a href="#" class="open-indicator">Open Indicator</a></p>
+              </div>
+            </div> <!-- tab4 -->
+          </div>
+        </div> <!-- content -->
+      </div> <!-- page 1 -->
+
+      <!-- 其他的单个page内联页. 媒体组件 -->
+      <div class="page" id="page2" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="icon icon-me pull-left open-panel"></a>
+          <h1 class="title">Light7 Mobile 媒体组件</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item" href="#page1">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">组件</span>
+            <span class="badge">5</span>
+          </a>
+          <a class="tab-item active" href="#page2">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">媒体</span>
+          </a>
+          <a class="tab-item" href="#page3">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">商城</span>
+          </a>
+          <a class="tab-item" href="#page4">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">社交</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="club-logo"><img src="/static/images/avatar.jpg"/></div>
+          <div class="bookmarks green">招募中</div>
+          <img src="/static/images/img05.jpg" class="banner-img" />
+
+          <div class="content-padded">
+            <p>使用Light7 Mobile制作新闻媒体（图文混排）示例</p>
+          </div>
+
+          <div class="buttons-tab fixed-tab">
+            <a href="#tab21" class="tab-link active button">基本控件</a>
+            <a href="#tab22" class="tab-link button">图片布局</a>
+            <a href="#tab23" class="tab-link button">优秀案例</a>
+          </div>
+
+          <div class="tabs">
+            <div id="tab21" class="tab active">
+              <div class="content-block-title">这里是content</div>
+              <div class="content-padded">
+                <h1>标题一</h1>
+                <h2>标题二</h2>
+                <h3>标题三</h3>
+                <h4>标题四</h4>
+                <h5>标题五</h5>
+                <h6>标题六</h6>
+                <p>我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白</p>
+              </div>
+
+              <div class="content-block-title">List Unordered</div>
+              <div class="content-block">
+                <ul>
+                  <li><a href="#router1">链接1</a></li>
+                  <li><a href="#router2">链接2</a></li>
+                  <li><a href="#router3">链接3</a></li>
+                  <li><a href="#router4">链接4</a></li>
+                  <li><a href="#router5">链接5</a></li>
+                  <li><a href="#router6">链接6</a></li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">List Ordered</div>
+              <div class="content-block">
+                <ol>
+                  <li>当时的绅士俱乐部源于</li>
+                  <li>除古香古色的房间</li>
+                  <li>和美轮美奂的装饰</li>
+                  <li>书房餐厅</li>
+                  <li>图书馆</li>
+                  <li>茶室</li>
+                </ol>
+              </div>
+
+              <div class="content-block-title">List Alternate</div>
+              <div class="content-block">
+                <ul class="alt">
+                  <li>有数百年的历史</li>
+                  <li>英国上层社会的一种民间社交</li>
+                  <li>F和娱乐室</li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">引用语句</div>
+              <div class="content-block">
+                <blockquote class="blockquote">俱乐部是个很特殊的商业交际平台，因为如果在普通氛围里不可能办到的事，在俱乐部里就可以做成，这是因为俱乐部的平等传统。只要是会员，大家就是平等的，即使是全球500强企业的CEO，也不可能在俱乐部里拒绝其他会员喝一杯、坐下来聊聊的邀请。有人觉得这些俱乐部的会员大都是身居高位的企业领导者，对于习惯了“单位”文化背景下的人来说，会在比较之下觉得心理不平衡，其实是根本没必要的。一个社会只有中产阶级的数量越多，社会才越稳定。</blockquote>
+              </div>
+
+              <div class="content-block-title">Table</div>
+              <div class="table-wrapper">
+                <table class="alt">
+                  <thead>
+                    <tr>
+                      <th>名称</th>
+                      <th>详情</th>
+                      <th>价格</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>张三</td>
+                      <td>年龄24 性别男</td>
+                      <td>29.99</td>
+                    </tr>
+                    <tr>
+                      <td>丽丽</td>
+                      <td>年龄24 性别女</td>
+                      <td>19.99</td>
+                    </tr>
+                    <tr>
+                      <td>小童</td>
+                      <td>年龄24 性别男</td>
+                      <td>29.99</td>
+                    </tr>
+                    <tr>
+                      <td>兰兰</td>
+                      <td>年龄24 性别女</td>
+                      <td>19.99</td>
+                    </tr>
+                    <tr>
+                      <td>王聪</td>
+                      <td>年龄24 性别男</td>
+                      <td>29.99</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2"></td>
+                      <td>总计：100.00元</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div> <!-- tab21 -->
+
+            <div id="tab22" class="tab">
+              <div class="content-block-title">单张图片</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-100">
+                    <dl>
+                      <dt><img src="/static/images/img250px-1.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">两张图片</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-50">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">三张图片</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">四张图片</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">image left</div>
+              <div class="content-block">
+                <p>
+                  <span class="image left">
+                    <img src="/static/images/img250px-9.jpg" alt="" />
+                  </span>
+                  俱乐部定期组织社交活动外，还向会员提供餐饮、银行保险、联系和接洽等各项服务。以前，标准的英国绅士是不会随便下馆子、去银行的，他们总是在自己的俱乐部里完成这些事情。
+                </p>
+              </div>
+
+              <div class="content-block-title">image right</div>
+              <div class="content-block">
+                <p>
+                  <span class="image right">
+                    <img src="/static/images/img250px-8.jpg" alt="" />
+                  </span>
+                  就连写信、写短笺他们也都尽量用所在俱乐部的纸张，因为这样才得体。在传统的英国俱乐部中，英国绅士良好的教养、优雅的传统及对生活的高雅品位都可以得到充分体现。可以说在英国社会，一个人拥有多少知名俱乐部的会员资格是此人社会地位高低的体现。
+                </p>
+              </div>
+            </div> <!-- tab22 -->
+
+            <div id="tab23" class="tab">
+              <div class="content-block-title">招募贴</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="/mobile/activity-info" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">活动邀请</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/activity-applicant" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">填写报名信息</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/activity-order-confirm" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">订单确认</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">编辑招募贴</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="/mobile/title-edit" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">编辑标题</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mobile/wysiwyg-editor" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">富媒体编辑器</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page 2 -->
+
+      <!-- 其他的单个page内联页. 商城组件 -->
+      <div class="page" id="page3" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="icon icon-me pull-left open-panel"></a>
+          <h1 class="title">Light7 Mobile 商城组件</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item" href="#page1">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">组件</span>
+            <span class="badge">5</span>
+          </a>
+          <a class="tab-item" href="#page2">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">媒体</span>
+          </a>
+          <a class="tab-item active" href="#page3">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">商城</span>
+          </a>
+          <a class="tab-item" href="#page4">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">社交</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="content-block swiper-content-block">
+            <div class="swiper-container">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide"><img src="/static/images/img05.jpg" alt="" class="img-size"></div>
+                <div class="swiper-slide"><img src="/static/images/img06.jpg" alt="" class="img-size"></div>
+                <div class="swiper-slide"><img src="/static/images/img07.jpg" alt="" class="img-size"></div>
+              </div>
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="content-padded">
+            <p>使用Light7 Mobile制作电商移动客户端</p>
+          </div>
+
+          <div class="buttons-tab fixed-tab">
+            <a href="#tab31" class="tab-link active button">商品列表</a>
+            <a href="#tab32" class="tab-link button">个人中心</a>
+          </div>
+
+          <div class="tabs">
+            <div id="tab31" class="tab active">
+              <div class="content-block-title">类别</div>
+              <div class="content-block list-content-block">
+                <div class="content-padded no-border-grid-panel list-content-padded">
+                  <div class="row no-gutter">
+                    <div class="col-25">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media">
+                          <img src="/static/images/avatar.jpg" class="item-media-img">
+                        </div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title pay">北京</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-25">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media">
+                          <img src="/static/images/avatar.jpg" class="item-media-img">
+                        </div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title pay">国内</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-25">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media">
+                          <img src="/static/images/avatar.jpg" class="item-media-img">
+                        </div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title pay">国际</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-25">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media">
+                          <img src="/static/images/avatar.jpg" class="item-media-img">
+                        </div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title pay">中秋节</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">热门商品列表</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" class="img-size"></dt>
+                      <dd class="shoe">秋季新款高帮帆布鞋</dd>
+                      <dd class="money-two">$586.0</dd>
+                    </dl>
+                  </div>
+                  <div class="col-50">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" class="img-size"></dt>
+                      <dd class="shoe">秋季新款高帮帆布鞋</dd>
+                      <dd class="money-two">$333.7</dd>
+                    </dl>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" class="img-size"></dt>
+                      <dd class="shoe">秋季新款</dd>
+                      <dd class="money-two">$586.0</dd>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" class="img-size"></dt>
+                      <dd class="shoe">秋季新款</dd>
+                      <dd class="money-two">$333.7</dd>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" class="img-size"></dt>
+                      <dd class="shoe">帆布鞋</dd>
+                      <dd class="money-two">$586.0</dd>
+                    </dl>
+                  </div>
+                  <div class="col-25">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" class="img-size"></dt>
+                      <dd class="shoe">帆布鞋</dd>
+                      <dd class="money-two">$333.7</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-block-title">商品列表</div>
+              <div class="list-block">
+                <ul class="list-container">
+                  <li class="item-content list-item-content">
+                    <div class="item-3c normal">
+                        <a href="#" class="item-3c-block">
+                          <div class="item-3c-block-img">
+                            <img class="main " src="/static/images/img02.jpg">
+                          </div>
+                          <div class="item-3c-title">荣耀8 双摄像头 双面2.5D玻璃</div>
+                          <div class="item-3c-subTitle">再次开售！ 送TPU保护壳！</div>
+                          <div class="item-3c-monthsell">月销33441笔</div>
+                          <div class="item-3c-price">
+                            <span class="mui-price normal red promit">
+                              <i>&yen;</i>
+                              <span class="mui-price-inter">2099</span>
+                            </span>
+                            <span class="mui-price normal gray origin">
+                              <i>&yen;</i>
+                              <span class="mui-price-inter">2099</span>
+                            </span>
+                          </div>
+                          <div class="item-3c-btnarea btn-undergoing">
+                            <div class="item-3c-btn">马上抢</div>
+                          </div>
+                          <div class="item-3c-bottom-border"></div>
+                        </a>
+                      </div>
+                  </li>
+                  <li class="item-content list-item-content">
+                    <div class="item-3c normal">
+                      <a href="#" class="item-3c-block">
+                        <div class="item-3c-block-img">
+                          <img class="main" src="/static/images/img04.jpg">
+                        </div>
+                        <div class="item-3c-title">乐2原力金</div>
+                        <div class="item-3c-subTitle">9期免息，领券减30</div>
+                        <div class="item-3c-monthsell">月销14260笔</div>
+                        <div class="item-3c-price">
+                          <span class="mui-price normal red promit">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1099</span>
+                          </span>
+                          <span class="mui-price normal gray origin">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1099</span>
+                          </span>
+                        </div>
+                        <div class="item-3c-btnarea btn-undergoing">
+                          <div class="item-3c-btn">马上抢</div>
+                        </div>
+                        <div class="item-3c-bottom-border"></div>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="item-content list-item-content">
+                    <div class="item-3c normal">
+                      <a href="#" class="item-3c-block">
+                        <div class="item-3c-block-img">
+                          <img class="main" src="/static/images/img02.jpg">
+                        </div>
+                        <div class="item-3c-title">魅族MX6全网通</div>
+                        <div class="item-3c-subTitle">年度旗舰 分期免息 多仓发货 急速达</div>
+                        <div class="item-3c-monthsell">月销7049笔</div>
+                        <div class="item-3c-price">
+                          <span class="mui-price normal red promit">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1999</span>
+                          </span>
+                          <span class="mui-price normal gray origin">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1999</span>
+                          </span>
+                        </div>
+                        <div class="item-3c-btnarea btn-undergoing">
+                          <div class="item-3c-btn">马上抢</div>
+                        </div>
+                        <div class="item-3c-bottom-border"></div>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="item-content list-item-content">
+                    <div class="item-3c normal">
+                      <a href="#" class="item-3c-block">
+                        <div class="item-3c-block-img">
+                          <img class="main" src="/static/images/img04.jpg">
+                        </div>
+                        <div class="item-3c-title">360手机N4 4+32G 指纹10核CPU</div>
+                        <div class="item-3c-subTitle">官方标配 限量抢购</div>
+                        <div class="item-3c-monthsell">月销10545笔</div>
+                        <div class="item-3c-price">
+                          <span class="mui-price normal red promit ">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">999</span>
+                          </span>
+                          <span class="mui-price normal gray origin">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">999</span>
+                          </span>
+                        </div>
+                        <div class="item-3c-btnarea btn-undergoing">
+                          <div class="item-3c-btn">马上抢</div>
+                        </div>
+                        <div class="item-3c-bottom-border"></div>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="item-content list-item-content">
+                    <div class="item-3c normal">
+                      <a href="#" class="item-3c-block">
+                        <div class="item-3c-block-img">
+                          <img class="main" src="/static/images/img02.jpg">
+                        </div>
+                        <div class="item-3c-title">魅族MX6全网通</div>
+                        <div class="item-3c-subTitle">年度旗舰 分期免息 多仓发货 急速达</div>
+                        <div class="item-3c-monthsell">月销7049笔</div>
+                        <div class="item-3c-price">
+                          <span class="mui-price normal red promit">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1999</span>
+                          </span>
+                          <span class="mui-price normal gray origin">
+                            <i>&yen;</i>
+                            <span class="mui-price-inter">1999</span>
+                          </span>
+                        </div>
+                        <div class="item-3c-btnarea btn-undergoing">
+                          <div class="item-3c-btn">马上抢</div>
+                        </div>
+                        <div class="item-3c-bottom-border"></div>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div> <!-- tab31 -->
+
+            <div id="tab32" class="tab">
+              <div class="content-block-title">个人订单</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">订单</div>
+                        <div class="item-after">查看全部</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="no-border-grid-panel">
+                <div class="row no-gutter">
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                         <span class="icon-icon-pay icon-size"></span>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title pay">待付款</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <span class="icon-icon-refund icon-size"></span>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title pay">待填报</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <span class="icon-icon-evaluation icon-size"></span>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title pay">待填报</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <span class="icon-icon-signup icon-size"></span>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title pay">待骑行</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content-block-title">个人成就</div>
+                <div class="grid-panel">
+                  <a href="#">
+                  <div class="row no-gutter">
+                    <div class="col-25">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">任务</div>
+                          </div>
+                        </div>
+                        <div class="item-media"><img src="{{ static_url( 'images/level.png' ) }}" style='width: 1.6rem;'></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">8</div>
+                          </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+                    <div class="col-25">
+                      <a href="/mobile/pc-certs">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">证书</div>
+                          </div>
+                        </div>
+                        <div class="item-media"><img src="{{ static_url( 'images/certificate.png' ) }}" style='width: 1.6rem;'></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">3</div>
+                          </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+                    <div class="col-25">
+                      <a href="#">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">积分</div>
+                          </div>
+                        </div>
+                        <div class="item-media"><img src="{{ static_url( 'images/point.png' ) }}" style='width: 1.6rem;'></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">150</div>
+                          </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+                    <div class="col-25">
+                      <a href="/mobile/pc-vouchers">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">代金券</div>
+                          </div>
+                        </div>
+                        <div class="item-media"><img src="{{ static_url( 'images/louchers.png' ) }}" style='width: 1.6rem;'></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">25元</div>
+                          </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- tab32 -->
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page 3 -->
+
+      <!-- 其他的单个page内联页. 社交组件 -->
+      <div class="page" id="page4" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="icon icon-me pull-left open-panel"></a>
+          <h1 class="title">Light7 Mobile 社交组件</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item" href="#page1">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">组件</span>
+            <span class="badge">5</span>
+          </a>
+          <a class="tab-item" href="#page2">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">媒体</span>
+          </a>
+          <a class="tab-item" href="#page3">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">商城</span>
+          </a>
+          <a class="tab-item active" href="#page4">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">社交</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="content-block-title">活动招募贴</div>
+          <div class="card facebook-card">
+            <div class="card-header no-border">
+              <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
+              <div class="facebook-name">夜萧</div>
+              <div class="facebook-date">星期一 3:47pm</div>
+            </div>
+            <div class="card-content"><img src="/static/images/img06.jpg" width="100%"></div>
+            <div class="card-footer no-border">
+              <p class="color-gray">西藏，是远方，更是故乡(一年内两次进藏，1W+)</p>
+            </div>
+          </div>
+
+          <div class="content-block-title">精彩瞬间</div>
+          <div class="card facebook-card">
+            <div class="card-header no-border">
+              <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
+              <div class="facebook-name">夜萧</div>
+              <div class="facebook-date">星期一 3:47pm</div>
+            </div>
+            <div class="card-content">
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-100">
+                  写在前面的话：此次游记感谢我的先生提供的所有的照片，非常棒，谢谢。 此次出行的时间、路线是由摄影师陈先生制定的，并在旅途中不断修正，看了最想看的美景，在国庆123这么出行人气爆棚的
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                  <div class="col-33">
+                    <dl>
+                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer no-border">
+              <a href="#" class="link"><span class="icon-list icon-icon-praise"></span>赞</a>
+              <a href="#" class="link"><span class="icon-list icon-icon-comments"></span>评论</a>
+              <a href="#" class="link"><span class="icon-list icon-icon-browse"></span>分享</a>
+            </div>
+          </div>
+
+          <div class="content-block-title">游记</div>
+          <div class="card facebook-card">
+            <div class="card-header no-border">
+              <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
+              <div class="facebook-name">夜萧</div>
+              <div class="facebook-date">星期一 3:47pm</div>
+            </div>
+            <div class="card-content">
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-100">
+                    <dl>
+                      <dt><img src="/static/images/img07.jpg" width="100%"></dt>
+                    </dl>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-100">
+                  2015年09月20日，我向自己预约了这篇游记，当时我说： 10月的某天-10月的某天， 我计划去 黄山 ， 出发前，我敲下了这些文字： 就这样吧 牛背山 + 泸沽湖 的游记
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer no-border">
+              <a href="#" class="link"><span class="icon-list icon-icon-praise"></span>赞</a>
+              <a href="#" class="link"><span class="icon-list icon-icon-comments"></span>评论</a>
+              <a href="#" class="link"><span class="icon-list icon-icon-browse"></span>分享</a>
+            </div>
+          </div>
+
+          <div class="content-block-title">简单卡片</div>
+          <div class="card">
+            <div class="card-header">卡头</div>
+            <div class="card-content">
+              <div class="card-content-inner">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>
+            </div>
+            <div class="card-footer">卡脚</div>
+          </div>
+
+          <div class="content-block-title">风格卡片</div>
+          <div class="card demo-card-header-pic">
+            <div valign="bottom" class="card-header color-white no-border no-padding">
+              <img class='card-cover' src="/static/images/img05.jpg" alt="">
+            </div>
+            <div class="card-content">
+              <div class="card-content-inner">
+                <p class="color-gray">发表于 2015/01/15</p>
+                <p>此处是内容...</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="link">赞</a>
+              <a href="#" class="link" id="create-actions">更多</a>
+            </div>
+          </div>
+
+          <div class="content-block-title">列表视图卡片</div>
+          <div class="card">
+            <div class="card-content">
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="//7x24hs.com" class="item-link item-content external">
+                      <div class="item-media"><i class="icon icon-browser"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">7x24hs.com</div>
+                        <div class="item-after">外部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">新的公布:</div>
+            <div class="card-content">
+              <div class="list-block media-list">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-media">
+                      <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+                    </div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">标题</div>
+                      </div>
+                      <div class="item-subtitle">子标题</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span>2015/01/15</span>
+              <span>5 评论</span>
+            </div>
+          </div>
+
+          <div class="content-block-title">精彩瞬间</div>
+          <div class="img_structure">
+            <div class="list_w" id="resourceWrap">
+              <div class="instantaneous_big">
+                <div class="instantaneous_box">
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img02.jpg">
+                  </span>
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img04.jpg">
+                  </span>
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img02.jpg">
+                  </span>
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img04.jpg">
+                  </span>
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img02.jpg">
+                  </span>
+                  <span class="instantaneousspan01">
+                    <img src="/static/images/img04.jpg">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page 4 -->
+    </div> <!-- page group -->
+
+    <!-- popup, panel 等放在这里 -->
+    <div class="panel-overlay">
+      <!-- 如果有 popup -->
+      <div class="popup popup-about">...</div>
+    </div>
+
+    <!-- Left Panel with Reveal effect -->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p></p>
+        <!-- Click on link with "close-panel" class will close panel -->
+        <p><a href="#" class="close-panel">关闭</a></p>
+      </div>
+    </div>
+
+    <script type='text/javascript' src='{{ static_url("js/jquery.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
+
+    <!--
+      ios下使用-webkit-overflow-scrolling:touch; + fixed布局会出现滑动时tab抖动的问题
+      解决办法：在_scrollHandler函数中增加ios机型的判断，如果是ios,则使用position:sticky来布局。
+    -->
+    <script>
+      (function (doc, win) {
+        var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function () {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            // 针对uc横竖屏rem html没有重绘的问题
+            var style;
+            if(style=document.getElementById("forhtml")){
+              style.parentNode.removeChild(style);
+            }
+            style = document.createElement("style");
+            style.id="forhtml";
+            document.head.appendChild(style);
+            style.appendChild(document.createTextNode("html{font-size:"+20 * (clientWidth / 320)+"px !important;}"));
+            //
+            docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+          };
+        recalc();
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+    </script>
+
+    <script>
+      // Alert
+      $(function(){
+        $(document).on('click','.alert-text',function () {
+          $.alert('Here goes alert text');
+        });
+
+        $(document).on('click','.alert-text-title', function () {
+          $.alert('Here goes alert text', 'Custom Title!');
+        });
+
+        $(document).on('click', '.alert-text-title-callback',function () {
+          $.alert('Here goes alert text', 'Custom Title!', function () {
+            $.alert('Button clicked!')
+          });
+        });
+
+        $(document).on('click', '.alert-text-callback',function () {
+          $.alert('Here goes alert text', function () {
+            $.alert('Button clicked!')
+          });
+        });
+      })
+
+      // Confirm
+      $(function(){
+        $(document).on('click','.confirm-ok', function () {
+          $.confirm('Are you sure?', function () {
+            $.alert('You clicked Ok button');
+          });
+        });
+
+        $(document).on('click', '.confirm-ok-cancel',function () {
+          $.confirm('Are you sure?',
+            function () {
+              $.alert('You clicked Ok button');
+            },
+            function () {
+              $.alert('You clicked Cancel button');
+            }
+          );
+        });
+
+        $(document).on('click','.confirm-title-ok', function () {
+          $.confirm('Are you sure?', 'Custom Title', function () {
+            $.alert('You clicked Ok button');
+          });
+        });
+
+        $(document).on('click','.confirm-title-ok-cancel', function () {
+          $.confirm('Are you sure?', 'Custom Title',
+            function () {
+              $.alert('You clicked Ok button');
+            },
+            function () {
+              $.alert('You clicked Cancel button');
+            }
+          );
+        });
+      })
+
+      // Prompt
+      $(function(){
+        $(document).on('click','.prompt-ok', function () {
+          $.prompt('What is your name?', function (value) {
+            $.alert('Your name is "' + value + '". You clicked Ok button');
+          });
+        });
+
+        $(document).on('click','.prompt-ok-cancel', function () {
+          $.prompt('What is your name?',
+            function (value) {
+              $.alert('Your name is "' + value + '". You clicked Ok button');
+            },
+            function (value) {
+              $.alert('Your name is "' + value + '". You clicked Cancel button');
+            }
+          );
+        });
+
+        $(document).on('click', '.prompt-title-ok',function () {
+          $.prompt('What is your name?', 'Custom Title', function (value) {
+            $.alert('Your name is "' + value + '". You clicked Ok button');
+          });
+        });
+
+        $(document).on('click', '.prompt-title-ok-cancel',function () {
+          $.prompt('What is your name?', 'Custom Title',
+            function (value) {
+              $.alert('Your name is "' + value + '". You clicked Ok button');
+            },
+            function (value) {
+              $.alert('Your name is "' + value + '". You clicked Cancel button');
+            }
+          );
+        });
+      })
+
+      // 自定义Modals
+      $(function(){
+        $(document).on('click','.open-3-modal', function () {
+          $.modal({
+            title:  'Modal with 3 buttons',
+            text: 'Vivamus feugiat diam velit. Maecenas aliquet egestas lacus, eget pretium massa mattis non. Donec volutpat euismod nisl in posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae',
+            buttons: [
+              {
+                text: 'B1',
+                onClick: function() {
+                  $.alert('You clicked first button!')
+                }
+              },
+              {
+                text: 'B2',
+                onClick: function() {
+                  $.alert('You clicked second button!')
+                }
+              },
+              {
+                text: 'B3',
+                bold: true,
+                onClick: function() {
+                  $.alert('You clicked third button!')
+                }
+              },
+            ]
+          })
+        });
+
+        $(document).on('click','.open-slider-modal', function () {
+          var modal = $.modal({
+            title: 'Awesome Photos?',
+            text: 'What do you think about my photos?',
+            afterText:  '<div class="swiper-container" style="width: auto; margin:5px -15px -15px">'+
+                    '<div class="swiper-pagination"></div>'+
+                    '<div class="swiper-wrapper">'+
+                      '<div class="swiper-slide"><img src="..." height="150" style="display:block"></div>' +
+                      '<div class="swiper-slide"><img src="..." height="150" style="display:block"></div>'+
+                    '</div>'+
+                  '</div>',
+            buttons: [
+              {
+                text: 'Bad :('
+              },
+              {
+                text: 'Awesome!',
+                bold: true,
+                onClick: function () {
+                  $.alert('Thanks! I know you like it!')
+                }
+              },
+            ]
+          })
+          $.swiper($$(modal).find('.swiper-container'), {pagination: '.swiper-pagination'});
+        });
+
+        $(document).on('click','.open-tabs-modal', function () {
+          $.modal({
+            title:  '<div class="buttons-row">'+
+                      '<a href="#tab1" class="button active tab-link">Tab 1</a>'+
+                      '<a href="#tab2" class="button tab-link">Tab 2</a>'+
+                    '</div>',
+            text: '<div class="tabs">'+
+                    '<div class="tab active" id="tab1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam convallis nunc non dolor euismod feugiat. Sed at sapien nisl. Ut et tincidunt metus. Suspendisse nec risus vel sapien placerat tincidunt. Nunc pulvinar urna tortor.</div>'+
+                    '<div class="tab" id="tab2">Vivamus feugiat diam velit. Maecenas aliquet egestas lacus, eget pretium massa mattis non. Donec volutpat euismod nisl in posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>'+
+                  '</div>',
+            buttons: [
+              {
+                text: 'Ok, got it',
+                bold: true
+              },
+            ]
+          })
+        });
+
+        $(document).on('click','.open-vertical-modal', function () {
+          $.modal({
+            title:  'Vertical Buttons Layout',
+            text: 'Vivamus feugiat diam velit. Maecenas aliquet egestas lacus, eget pretium massa mattis non. Donec volutpat euismod nisl in posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae',
+            verticalButtons: true,
+            buttons: [
+              {
+                text: 'Button 1',
+                onClick: function() {
+                  $.alert('You clicked first button!')
+                }
+              },
+              {
+                text: 'Button 2',
+                onClick: function() {
+                  $.alert('You clicked second button!')
+                }
+              },
+              {
+                text: 'Button 3',
+                onClick: function() {
+                  $.alert('You clicked third button!')
+                }
+              },
+            ]
+          })
+        });
+      })
+
+      // 预加载 Modal (Preloader Modal)
+      $(function(){
+        $(document).on('click', '.open-preloader', function () {
+          $.showPreloader();
+          setTimeout(function () {
+              $.hidePreloader();
+          }, 2000);
+        });
+
+        $(document).on('click','.open-preloader-title', function () {
+          $.showPreloader('Custom Title')
+          setTimeout(function () {
+              $.hidePreloader();
+          }, 2000);
+        });
+
+        $(document).on('click','.open-indicator', function () {
+          $.showIndicator();
+          setTimeout(function () {
+            $.hideIndicator();
+          }, 2000);
+        });
+      })
+
+      $(document).on('click','#create-actions', function () {
+        var buttons1 = [
+          {
+            text: '请选择',
+            label: true
+          },
+          {
+            text: '卖出',
+            bold: true,
+            color: 'danger',
+            onClick: function() {
+              $.alert("你选择了“卖出“");
+            }
+          },
+          {
+            text: '买入',
+            onClick: function() {
+              $.alert("你选择了“买入“");
+            }
+          }
+        ];
+        var buttons2 = [
+          {
+            text: '取消',
+            bg: 'danger'
+          }
+        ];
+        var groups = [buttons1, buttons2];
+        $.actions(groups);
+      });
+    </script>
+
+    <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
+    <script>
+      $.init()
+
+      // swiper
+      $(".swiper-container").swiper({
+        speed: 400,
+        spaceBetween: 100
+      });
+    </script>
+
+  </body>
+</html>

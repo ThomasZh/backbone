@@ -63,7 +63,10 @@ class ApiQrcodeHandle(tornado.web.RequestHandler):
     def post(self):
         logging.info(self.request)
 
-        _url = self.get_argument("url", "")
+        input_url = self.request.body
+        logging.info("got input_url %r", input_url)
+        data = tornado.escape.json_decode(input_url)
+        _url = data['url']
         logging.info("got _url %r", _url)
 
         qr = QRCode(
