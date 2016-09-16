@@ -8,7 +8,7 @@
 import tornado.web
 
 from foo import comm
-from foo.ui import ui_mobile
+from foo.ui import ui_light7
 
 
 def map():
@@ -16,19 +16,21 @@ def map():
     config = [
 
         # GET: 根据 HTTP header 收集客户端相关信息：是否手机、操作系统、浏览器等信息。
-        (r'/', getattr(ui_mobile, 'IndexHandle')),
-        (r'/mobile', getattr(ui_mobile, 'MobileIndexHandler')),
-        (r'/mobile/activity-info', getattr(ui_mobile, 'MobileActivityInfoHandler')),
-        (r'/mobile/activity-applicant', getattr(ui_mobile, 'MobileActivityApplicantHandler')),
-        (r'/mobile/activity-hha', getattr(ui_mobile, 'MobileActivityHhaHandler')),
-        (r'/mobile/activity-order-confirm', getattr(ui_mobile, 'MobileActivityOrderConfirmHandler')),
-        (r'/mobile/title-edit', getattr(ui_mobile, 'MobileTitleEditHandler')),
-        (r'/mobile/wysiwyg-editor', getattr(ui_mobile, 'MobileWysiwygEditorHandler')),
-        (r'/mobile/fixed-tab', getattr(ui_mobile, 'MobileFixedTabHandler')),
-        (r'/mobile/bottom-scroll', getattr(ui_mobile, 'MobileBottomScrollHandler')),
-        (r'/mobile/fixed-tab-scroll', getattr(ui_mobile, 'MobileFixedTabScrollHandler')),
-        (r'/mobile/pc-vouchers', getattr(ui_mobile, 'MobilePcVouchersHandler')),
-        (r'/mobile/pc-certs', getattr(ui_mobile, 'MobilePcCertsHandler')),
+        (r'/', getattr(ui_light7, 'IndexHandle')),
+        (r'/light7', getattr(ui_light7, 'Light7IndexHandler')),
+        (r'/light7/activity-info', getattr(ui_light7, 'Light7ActivityInfoHandler')),
+        (r'/light7/activity-applicant', getattr(ui_light7, 'Light7ActivityApplicantHandler')),
+        (r'/light7/activity-hha', getattr(ui_light7, 'Light7ActivityHhaHandler')),
+        (r'/light7/activity-order-confirm', getattr(ui_light7, 'Light7ActivityOrderConfirmHandler')),
+        (r'/light7/title-edit', getattr(ui_light7, 'Light7TitleEditHandler')),
+        (r'/light7/wysiwyg-editor', getattr(ui_light7, 'Light7WysiwygEditorHandler')),
+        (r'/light7/fixed-tab', getattr(ui_light7, 'Light7FixedTabHandler')),
+        (r'/light7/bottom-scroll', getattr(ui_light7, 'Light7BottomScrollHandler')),
+        (r'/light7/fixed-tab-scroll', getattr(ui_light7, 'Light7FixedTabScrollHandler')),
+        (r'/light7/pc-vouchers', getattr(ui_light7, 'Light7PcVouchersHandler')),
+        (r'/light7/pc-certs', getattr(ui_light7, 'Light7PcCertsHandler')),
+        (r'/light7/product-detail', getattr(ui_light7, 'Light7ProductDetailHandler')),
+        (r'/light7/login', getattr(ui_light7, 'Light7LoginHandler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="ks-phone" style="font-size: 61.25px;">
+<html lang="en" class="ks-phone">
   <head>
     <meta charset="utf-8">
     <meta name="aplus-terminal" content="1" />
@@ -12,26 +12,12 @@
 
     <title>Light7 Mobile 使用样例</title>
 
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
-    <style>
-      /*
-       *  针对ios的sticky布局
-       *  ios下使用-webkit-overflow-scrolling:touch; + fixed布局会出现滑动时tab抖动的问题
-       *  解决办法：在_scrollHandler函数中增加ios机型的判断，如果是ios,则使用position:sticky来布局
-       */
-      .fixed-tab.sticky{position:-webkit-sticky;position:sticky;}
-    </style>
-    <style type="text/css">
-      .swiper-container1 .swiper-slide{
-        width:60px;
-      }
-    </style>
-
-    <style id="forhtml">html{font-size:61.25px !important;}</style>
   </head>
 
   <body>
@@ -42,6 +28,9 @@
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel"></a>
+          <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+            <span class="icon icon-menu"></span>
+          </a>
           <h1 class="title">Light7 Mobile 基础组件</h1>
         </header>
 
@@ -63,6 +52,10 @@
           <a class="tab-item" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
+          </a>
+          <a class="tab-item no-transition replace" href="#page-settings">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
           </a>
         </nav>
 
@@ -173,7 +166,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/fixed-tab" class="item-link item-content">
+                    <a href="/light7/fixed-tab" class="item-link item-content">
                       <div class="item-media"><i class="icon icon-gift"></i></div>
                       <div class="item-inner">
                         <div class="item-title">iOS固定tabbar</div>
@@ -182,7 +175,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/bottom-scroll" class="item-link item-content">
+                    <a href="/light7/bottom-scroll" class="item-link item-content">
                       <div class="item-media"><i class="icon icon-gift"></i></div>
                       <div class="item-inner">
                         <div class="item-title">无限滚动</div>
@@ -191,13 +184,48 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/fixed-tab-scroll" class="item-link item-content">
+                    <a href="/light7/fixed-tab-scroll" class="item-link item-content">
                       <div class="item-media"><i class="icon icon-gift"></i></div>
                       <div class="item-inner">
                         <div class="item-title">多tabbar无限滚动</div>
                         <div class="item-after">内部链接</div>
                       </div>
                     </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-block-title">Swipeout</div>
+              <div class="list-block">
+                <ul>
+                  <li class="swipeout">
+                    <div class="swipeout-content">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">Swipe me left!</div>
+                          <div class="item-after">666</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swipeout-actions-right">
+                      <a class="bg-success">Action 1</a>
+                      <!-- close -->
+                      <a class="swipeout-close" href="#">Close</a>
+                    </div>
+                  </li>
+                  <li class="swipeout">
+                    <div class="swipeout-content">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">Remove me after confirm!</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swipeout-actions-right">
+                      <!-- delete with confirm -->
+                      <a class="bg-danger swipeout-delete" href="#" data-confirm="Are you sure want to delete me?" data-confirm-title="Confirm Delete">Delete</a>
+                      <a href="#">Action 2</a>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -530,6 +558,9 @@
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel"></a>
+          <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+            <span class="icon icon-menu"></span>
+          </a>
           <h1 class="title">Light7 Mobile 媒体组件</h1>
         </header>
 
@@ -551,6 +582,10 @@
           <a class="tab-item" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
+          </a>
+          <a class="tab-item no-transition replace" href="#page-settings">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
           </a>
         </nav>
 
@@ -769,7 +804,7 @@
               <div class="list-block">
                 <ul>
                   <li>
-                    <a href="/mobile/activity-info" class="item-link item-content">
+                    <a href="/light7/activity-info" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">活动邀请</div>
                         <div class="item-after">内部链接</div>
@@ -777,7 +812,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/activity-applicant" class="item-link item-content">
+                    <a href="/light7/activity-applicant" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">填写报名信息</div>
                         <div class="item-after">内部链接</div>
@@ -785,7 +820,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/activity-order-confirm" class="item-link item-content">
+                    <a href="/light7/activity-order-confirm" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">订单确认</div>
                         <div class="item-after">内部链接</div>
@@ -799,7 +834,7 @@
               <div class="list-block">
                 <ul>
                   <li>
-                    <a href="/mobile/title-edit" class="item-link item-content">
+                    <a href="/light7/title-edit" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">编辑标题</div>
                         <div class="item-after">内部链接</div>
@@ -807,7 +842,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/mobile/wysiwyg-editor" class="item-link item-content">
+                    <a href="/light7/wysiwyg-editor" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">富媒体编辑器</div>
                         <div class="item-after">内部链接</div>
@@ -828,6 +863,9 @@
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel"></a>
+          <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+            <span class="icon icon-menu"></span>
+          </a>
           <h1 class="title">Light7 Mobile 商城组件</h1>
         </header>
 
@@ -850,12 +888,16 @@
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
+          <a class="tab-item no-transition replace" href="#page-settings">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
+          </a>
         </nav>
 
         <!-- 这里是页面内容区 -->
         <div class="content">
           <div class="content-block swiper-content-block">
-            <div class="swiper-container">
+            <div class="swiper-container" data-space-between='10' data-pagination='.swiper-pagination' data-autoplay="1000">
               <!-- Additional required wrapper -->
               <div class="swiper-wrapper">
                 <!-- Slides -->
@@ -879,6 +921,64 @@
 
           <div class="tabs">
             <div id="tab31" class="tab active">
+
+              <div class="list-block media-list">
+                <ul>
+                  <li>
+                    <a href="/light7/product-detail" class="item-link item-content">
+                      <div class="item-media"><img src="/static/images/img02.jpg" width="80"></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">SoundAsleep Products</div>
+                          <div class="item-after">$120</div>
+                        </div>
+                        <div class="item-subtitle">203 Like</div>
+                        <div class="item-text">SoundAsleep Dream Series Air Mattress with ComfortCoil Technology</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/light7/product-detail" class="item-link item-content">
+                      <div class="item-media"><img src="/static/images/img04.jpg" width="80"></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">J Pillow</div>
+                          <div class="item-after">$150</div>
+                        </div>
+                        <div class="item-subtitle">145 Like</div>
+                        <div class="item-text">J Pillow - Travel Pillow - Winner of British Invention of the Year 2013 - Consistently #1 BEST SELLING TRAVE</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/light7/product-detail" class="item-link item-content">
+                      <div class="item-media"><img src="/static/images/img02.jpg" width="80"></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">Rozene</div>
+                          <div class="item-after">$120</div>
+                        </div>
+                        <div class="item-subtitle">345 Like</div>
+                        <div class="item-text">WayHomeDecor Cotton Linen Decorative Throw Pillow Case Cushion Cover Cute </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                  <a href="/light7/product-detail" class="item-link item-content">
+                    <div class="item-media"><img src="/static/images/img04.jpg" width="80"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">SoundAsleep Products</div>
+                        <div class="item-after">$120</div>
+                      </div>
+                      <div class="item-subtitle">203 Like</div>
+                      <div class="item-text">SoundAsleep Dream Series Air Mattress with ComfortCoil Technology</div>
+                    </div>
+                  </a>
+                </li>
+                </ul>
+              </div>
+
               <div class="content-block-title">类别</div>
               <div class="content-block list-content-block">
                 <div class="content-padded no-border-grid-panel list-content-padded">
@@ -1209,7 +1309,7 @@
                       </a>
                     </div>
                     <div class="col-25">
-                      <a href="/mobile/pc-certs">
+                      <a href="/light7/pc-certs">
                       <div href="#" class="item-link item-content">
                         <div class="item-inner">
                           <div class="item-title-row">
@@ -1243,7 +1343,7 @@
                       </a>
                     </div>
                     <div class="col-25">
-                      <a href="/mobile/pc-vouchers">
+                      <a href="/light7/pc-vouchers">
                       <div href="#" class="item-link item-content">
                         <div class="item-inner">
                           <div class="item-title-row">
@@ -1273,6 +1373,9 @@
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel"></a>
+          <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+            <span class="icon icon-menu"></span>
+          </a>
           <h1 class="title">Light7 Mobile 社交组件</h1>
         </header>
 
@@ -1294,6 +1397,10 @@
           <a class="tab-item active" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
+          </a>
+          <a class="tab-item no-transition replace" href="#page-settings">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
           </a>
         </nav>
 
@@ -1482,19 +1589,160 @@
 
         </div> <!-- content -->
       </div> <!-- page 4 -->
+
+      <div id="page-settings" class="page page-settings">
+        <header class="bar bar-nav">
+          <a class="icon icon-me pull-left open-panel">
+          <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+            <span class="icon icon-menu"></span>
+          </a>
+          <h1 class="title">Settings</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item" href="#page1">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">组件</span>
+            <span class="badge">5</span>
+          </a>
+          <a class="tab-item" href="#page2">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">媒体</span>
+          </a>
+          <a class="tab-item" href="#page3">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">商城</span>
+          </a>
+          <a class="tab-item active" href="#page4">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">社交</span>
+          </a>
+          <a class="tab-item no-transition replace" href="#page-settings">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
+          </a>
+        </nav>
+
+        <div class="content">
+          <div class="page-settings">
+            <div class="list-block media-list person-card">
+              <ul>
+                <li>
+                  <div href="#" class="item-content">
+                    <div class="item-media"><img src="/static/images/avatar.jpg" width="80"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Mr Potato</div>
+                      </div>
+                      <div class="item-subtitle">Time is money</div>
+                      <div class="item-text"><strong>528</strong> Follow</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="row text-center">
+              <div class="col-25">
+                <h4>12</h4>
+                <div class="color-gray">in Cart</div>
+              </div>
+              <div class="col-25">
+                <h4>5</h4>
+                <div class="color-gray">Sent</div>
+              </div>
+              <div class="col-25">
+                <h4>2</h4>
+                <div class="color-gray">Delivery</div>
+              </div>
+              <div class="col-25">
+                <h4>85</h4>
+                <div class="color-gray">Comments</div>
+              </div>
+            </div>
+            <div class="list-block list">
+              <ul>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-settings"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Account</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-me"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Me</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-message"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Noti</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-star"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Fav</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-friends"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Help</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-block">
+              <a href="/light7/login" class="button button-big button-fill button-success">Login</a>
+            </div>
+            <div class="content-block">
+              <a href="/light7" class="button button-big button-fill button-danger">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div> <!-- page group -->
 
     <!-- popup, panel 等放在这里 -->
     <div class="panel-overlay">
       <!-- 如果有 popup -->
-      <div class="popup popup-about">...</div>
+      <div class="popup popup-about">
+        <div class="content-block">
+          <h2 class="text-center">About Light7 Mobile</h2>
+          <p>It's a demo webapp of Light7.</p>
+          <p><a href="#" class="button close-popup">OK</a></p>
+        </div>
+      </div>
     </div>
 
     <!-- Left Panel with Reveal effect -->
-    <div class="panel panel-left panel-reveal">
+    <div class="panel panel-left panel-reveal theme-dark" id='panel-themes'>
       <div class="content-block">
         <p>这是一个侧栏</p>
         <p></p>
+
+        <p>Themes</p>
+        <div class="list-block">
+          <ul>
+            <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title label" style='width: 60%;'>Night Mode</div>
+                  <div class="item-input">
+                    <label class="label-switch">
+                      <input type="checkbox" id="dark-switch">
+                      <div class="checkbox"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
         <!-- Click on link with "close-panel" class will close panel -->
         <p><a href="#" class="close-panel">关闭</a></p>
       </div>
@@ -1505,36 +1753,7 @@
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
-
-    <!--
-      ios下使用-webkit-overflow-scrolling:touch; + fixed布局会出现滑动时tab抖动的问题
-      解决办法：在_scrollHandler函数中增加ios机型的判断，如果是ios,则使用position:sticky来布局。
-    -->
-    <script>
-      (function (doc, win) {
-        var docEl = doc.documentElement,
-          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-          recalc = function () {
-            var clientWidth = docEl.clientWidth;
-            if (!clientWidth) return;
-            // 针对uc横竖屏rem html没有重绘的问题
-            var style;
-            if(style=document.getElementById("forhtml")){
-              style.parentNode.removeChild(style);
-            }
-            style = document.createElement("style");
-            style.id="forhtml";
-            document.head.appendChild(style);
-            style.appendChild(document.createTextNode("html{font-size:"+20 * (clientWidth / 320)+"px !important;}"));
-            //
-            docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-          };
-        recalc();
-        if (!doc.addEventListener) return;
-        win.addEventListener(resizeEvt, recalc, false);
-        doc.addEventListener('DOMContentLoaded', recalc, false);
-      })(document, window);
-    </script>
+    <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
 
     <script>
       // Alert
@@ -1793,17 +2012,18 @@
         var groups = [buttons1, buttons2];
         $.actions(groups);
       });
-    </script>
 
-    <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
-    <script>
-      $.init()
-
-      // swiper
-      $(".swiper-container").swiper({
-        speed: 400,
-        spaceBetween: 100
+      $('.swipeout').on('swipeout', function (e) {
+        console.log('Item opened on: ' + e.detail.progress + '%');
       });
+
+      // theme
+      var $dark = $("#dark-switch").on("change", function() {
+        $(document.body)[$dark.is(":checked") ? "addClass" : "removeClass"]("theme-dark");
+      });
+
+      // 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行
+      $.init()
     </script>
 
   </body>

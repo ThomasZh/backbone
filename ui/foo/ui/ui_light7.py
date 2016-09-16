@@ -36,15 +36,15 @@ from comm import timestamp_date
 class IndexHandle(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('mobile/index.html')
+        self.render('light7/index.html')
 
 
-class MobileIndexHandler(tornado.web.RequestHandler):
+class Light7IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/index.html')
+        self.render('light7/index.html')
 
 
-class MobileActivityInfoHandler(tornado.web.RequestHandler):
+class Light7ActivityInfoHandler(tornado.web.RequestHandler):
     def get(self):
         content = u'<h1>标题一</h1>' + \
                 u'<h2>标题二</h2>' + \
@@ -71,54 +71,64 @@ class MobileActivityInfoHandler(tornado.web.RequestHandler):
                 u'</ol>' + \
                 u'<blockquote class="blockquote">俱乐部是个很特殊的商业交际平台，因为如果在普通氛围里不可能办到的事，在俱乐部里就可以做成，这是因为俱乐部的平等传统。只要是会员，大家就是平等的，即使是全球500强企业的CEO，也不可能在俱乐部里拒绝其他会员喝一杯、坐下来聊聊的邀请。有人觉得这些俱乐部的会员大都是身居高位的企业领导者，对于习惯了“单位”文化背景下的人来说，会在比较之下觉得心理不平衡，其实是根本没必要的。一个社会只有中产阶级的数量越多，社会才越稳定。</blockquote>'
 
-        self.render('mobile/activity-info.html', content=content)
+        self.render('light7/activity-info.html', content=content)
 
 
-class MobileActivityApplicantHandler(tornado.web.RequestHandler):
+class Light7ActivityApplicantHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/activity-applicant.html')
+        self.render('light7/activity-applicant.html')
 
 
-class MobileActivityHhaHandler(tornado.web.RequestHandler):
+class Light7ActivityHhaHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/activity-hha.html')
+        self.render('light7/activity-hha.html')
 
 
-class MobileActivityOrderConfirmHandler(tornado.web.RequestHandler):
+class Light7ActivityOrderConfirmHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/activity-order-confirm.html')
+        self.render('light7/activity-order-confirm.html')
 
 
-class MobileTitleEditHandler(tornado.web.RequestHandler):
+class Light7TitleEditHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/title-edit.html')
+        self.render('light7/title-edit.html')
 
 
-class MobileWysiwygEditorHandler(tornado.web.RequestHandler):
+class Light7WysiwygEditorHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/wysiwyg-editor.html')
+        self.render('light7/wysiwyg-editor.html')
 
 
-class MobileFixedTabHandler(tornado.web.RequestHandler):
+class Light7FixedTabHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/fixed-tab.html')
+        self.render('light7/fixed-tab.html')
 
 
-class MobileBottomScrollHandler(tornado.web.RequestHandler):
+class Light7BottomScrollHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/bottom-infinite-scroll.html')
+        self.render('light7/bottom-infinite-scroll.html')
 
 
-class MobileFixedTabScrollHandler(tornado.web.RequestHandler):
+class Light7FixedTabScrollHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/fixed-tab-infinite-scroll.html')
+        self.render('light7/fixed-tab-infinite-scroll.html')
 
 
-class MobilePcVouchersHandler(tornado.web.RequestHandler):
+class Light7PcVouchersHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/pc-vouchers.html')
+        self.render('light7/pc-vouchers.html')
 
 
-class MobilePcCertsHandler(tornado.web.RequestHandler):
+class Light7PcCertsHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('mobile/pc-certs.html')
+        self.render('light7/pc-certs.html')
+
+
+class Light7ProductDetailHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('light7/product-detail.html')
+
+
+class Light7LoginHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('light7/login.html')

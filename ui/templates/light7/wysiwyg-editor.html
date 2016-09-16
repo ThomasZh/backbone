@@ -33,7 +33,7 @@
       <div class="page page-current">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left back" href="/mobile">
+          <a class="button button-link button-nav pull-left back" href="/light7">
             <span class="icon icon-left"></span>
           </a>
           <h1 class="title">富媒体编辑器</h1>
@@ -59,7 +59,9 @@
       </div> <!-- page -->
 
       <!-- 其他的单个page内联页（如果有） -->
+      <!--
       <div class="page">...</div>
+      -->
     </div> <!-- page group -->
 
     <!-- popup, panel 等放在这里 -->
@@ -137,10 +139,8 @@
   		    toolbarSticky: true,
         })
       });
-    </script>
 
-    <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
-    <script>
+      <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
       $.init()
     </script>
 
