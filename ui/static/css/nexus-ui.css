@@ -14,7 +14,7 @@ p{
     margin: 0;
 }
 .desc{
-    line-height: 1.8rem;
+/*    line-height: 1.8rem;*/
 }
 .swiper-slide a img{
     display: inherit;
@@ -26,6 +26,7 @@ p{
 .banner-head{
 	background:white;
 }
+
 .swiper-container1{
     overflow: hidden;
     margin-bottom: 15px;
@@ -33,6 +34,7 @@ p{
 .swiper-container1 .swiper-wrapper{
     margin-left: 3%;
 }
+
 .list_msg{
 	list-style:none;
 	-webkit-padding-start:3%;
@@ -123,6 +125,39 @@ p{
     border: 9px solid #dddddd;
     border-color:  transparent #dddddd #dddddd transparent ;
 }
+
+
+
+.weui_article .flag{
+    position:relative;
+    padding:6px 12px 6px 12px;
+    background:#F5A623 ;
+    color:#fff;
+    display:inline-block;
+    font-size: 16px;
+    margin-right: 22px;
+}
+.weui_article .flag::after {
+    position: absolute;
+    top: 0px;
+    right: -17px;
+    content: '';
+    border: 9px solid #F5A623;
+    border-color: #F5A623 transparent transparent #F5A623 ;
+    /*border-top-right-radius: 4px;*/
+}
+.weui_article .flag::before {
+    position: absolute;
+    bottom: 0px;
+    right: -17px;
+    content: '';
+    border: 9px solid #F5A623;
+    border-color: transparent transparent #F5A623 #F5A623 ;
+    /*border-bottom-right-radius: 4px;*/
+}
+
+
+
 .article .bm{
     position:relative;
     padding:6px 12px 6px 12px;
@@ -226,14 +261,25 @@ p{
     width: 1.6rem;
     border-radius: 50%;
 }
-.no-border-grid-panel .row > [class*=col-]{
+.no-border-grid-panel{
   text-align: center;
-  background-color: #fff;
   font-size: 0.7rem;
   background: white;
   height: 3.5rem;
   padding-top: 0.5rem;
 }
+
+.theme-dark .no-border-grid-panel,
+.no-border-grid-panel.theme-dark {
+  color: #bbb;
+  background: black;
+}
+
+.theme-dark .weui_grids .weui_grid_label,
+.weui_grids .weui_grid_label .theme-dark {
+  color: #bbb;
+}
+
 .list-content-block{
     padding: 0;
 }

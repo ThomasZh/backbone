@@ -89,6 +89,11 @@ class Light7ActivityOrderConfirmHandler(tornado.web.RequestHandler):
         self.render('light7/activity-order-confirm.html')
 
 
+class Light7PaySuccessHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('light7/pay-success.html')
+
+
 class Light7TitleEditHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('light7/title-edit.html')
@@ -97,6 +102,11 @@ class Light7TitleEditHandler(tornado.web.RequestHandler):
 class Light7WysiwygEditorHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('light7/wysiwyg-editor.html')
+
+
+class Light7UploadFileHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('light7/upload-file.html')
 
 
 class Light7FixedTabHandler(tornado.web.RequestHandler):

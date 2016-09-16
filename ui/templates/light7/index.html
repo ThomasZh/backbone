@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+
+    <link rel="stylesheet" href="{{static_url("froala_editor_2/css/froala_editor.css")}}">
+    <link rel="stylesheet" href="{{static_url("froala_editor_2/css/plugins/code_view.css")}}">
+    <link rel="stylesheet" href="{{static_url("froala_editor_2/css/plugins/colors.css")}}">
+    <link rel="stylesheet" href="{{static_url("froala_editor_2/css/plugins/line_breaker.css")}}">
+    <link rel="stylesheet" href="{{static_url("froala_editor_2/css/plugins/char_counter.css")}}">
+
+    <!-- customer css files -->
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
   </head>
 
@@ -24,7 +33,7 @@
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page, 第一个.page默认被展示. 基础组件 -->
-      <div class="page page-current" id="page1" >
+      <div class="page page-current" id="page-basic-component" >
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel"></a>
@@ -36,20 +45,20 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-          <a class="tab-item active" href="#page1">
+          <a class="tab-item no-transition active" href="#page-basic-component">
             <span class="icon icon-settings"></span>
             <span class="tab-label">组件</span>
             <span class="badge">5</span>
           </a>
-          <a class="tab-item" href="#page2">
+          <a class="tab-item no-transition" href="#page2">
             <span class="icon icon-picture"></span>
             <span class="tab-label">媒体</span>
           </a>
-          <a class="tab-item" href="#page3">
+          <a class="tab-item no-transition" href="#page3">
             <span class="icon icon-cart"></span>
             <span class="tab-label">商城</span>
           </a>
-          <a class="tab-item" href="#page4">
+          <a class="tab-item no-transition" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
@@ -148,26 +157,17 @@
               <div class="list-block">
                 <ul>
                   <li>
-                    <a href="#" class="item-link item-content">
-                      <div class="item-media"><i class="icon icon-gift"></i></div>
-                      <div class="item-inner">
-                        <div class="item-title">商品名称</div>
-                        <div class="item-after">内部链接</div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
                     <a href="//7x24hs.com" class="item-link item-content external">
-                      <div class="item-media"><i class="icon icon-code"></i></div>
+                      <div class="item-media"><i class="icon icon-browser"></i></div>
                       <div class="item-inner">
-                        <div class="item-title">型号</div>
+                        <div class="item-title">7x24hs.com</div>
                         <div class="item-after">外部链接</div>
                       </div>
                     </a>
                   </li>
                   <li>
                     <a href="/light7/fixed-tab" class="item-link item-content">
-                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-media"><i class="icon icon-menu"></i></div>
                       <div class="item-inner">
                         <div class="item-title">iOS固定tabbar</div>
                         <div class="item-after">内部链接</div>
@@ -176,16 +176,16 @@
                   </li>
                   <li>
                     <a href="/light7/bottom-scroll" class="item-link item-content">
-                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-media"><i class="icon icon-down"></i></div>
                       <div class="item-inner">
-                        <div class="item-title">无限滚动</div>
+                        <div class="item-title">底部无限滚动</div>
                         <div class="item-after">内部链接</div>
                       </div>
                     </a>
                   </li>
                   <li>
                     <a href="/light7/fixed-tab-scroll" class="item-link item-content">
-                      <div class="item-media"><i class="icon icon-gift"></i></div>
+                      <div class="item-media"><i class="icon icon-refresh"></i></div>
                       <div class="item-inner">
                         <div class="item-title">多tabbar无限滚动</div>
                         <div class="item-after">内部链接</div>
@@ -566,20 +566,20 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-          <a class="tab-item" href="#page1">
+          <a class="tab-item no-transition" href="#page-basic-component">
             <span class="icon icon-settings"></span>
             <span class="tab-label">组件</span>
             <span class="badge">5</span>
           </a>
-          <a class="tab-item active" href="#page2">
+          <a class="tab-item no-transition active" href="#page2">
             <span class="icon icon-picture"></span>
             <span class="tab-label">媒体</span>
           </a>
-          <a class="tab-item" href="#page3">
+          <a class="tab-item no-transition" href="#page3">
             <span class="icon icon-cart"></span>
             <span class="tab-label">商城</span>
           </a>
-          <a class="tab-item" href="#page4">
+          <a class="tab-item no-transition" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
@@ -827,6 +827,14 @@
                       </div>
                     </a>
                   </li>
+                  <li>
+                    <a href="/light7/pay-success" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">支付成功</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
                 </ul>
               </div>
 
@@ -845,6 +853,14 @@
                     <a href="/light7/wysiwyg-editor" class="item-link item-content">
                       <div class="item-inner">
                         <div class="item-title">富媒体编辑器</div>
+                        <div class="item-after">内部链接</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/light7/upload-file" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title">图片上传</div>
                         <div class="item-after">内部链接</div>
                       </div>
                     </a>
@@ -871,20 +887,20 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-          <a class="tab-item" href="#page1">
+          <a class="tab-item no-transition" href="#page-basic-component">
             <span class="icon icon-settings"></span>
             <span class="tab-label">组件</span>
             <span class="badge">5</span>
           </a>
-          <a class="tab-item" href="#page2">
+          <a class="tab-item no-transition" href="#page2">
             <span class="icon icon-picture"></span>
             <span class="tab-label">媒体</span>
           </a>
-          <a class="tab-item active" href="#page3">
+          <a class="tab-item no-transition active" href="#page3">
             <span class="icon icon-cart"></span>
             <span class="tab-label">商城</span>
           </a>
-          <a class="tab-item" href="#page4">
+          <a class="tab-item no-transition" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
@@ -921,6 +937,60 @@
 
           <div class="tabs">
             <div id="tab31" class="tab active">
+
+              <div class="content-block-title">类别</div>
+              <div class="no-border-grid-panel">
+                <div class="row no-gutter text-center">
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <img src="/static/images/avatar.jpg" class="item-media-img">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">北京</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <img src="/static/images/avatar.jpg" class="item-media-img">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">国内</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <img src="/static/images/avatar.jpg" class="item-media-img">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">国际</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media">
+                        <img src="/static/images/avatar.jpg" class="item-media-img">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">中秋节</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="list-block media-list">
                 <ul>
@@ -977,62 +1047,6 @@
                   </a>
                 </li>
                 </ul>
-              </div>
-
-              <div class="content-block-title">类别</div>
-              <div class="content-block list-content-block">
-                <div class="content-padded no-border-grid-panel list-content-padded">
-                  <div class="row no-gutter">
-                    <div class="col-25">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-media">
-                          <img src="/static/images/avatar.jpg" class="item-media-img">
-                        </div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title pay">北京</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-25">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-media">
-                          <img src="/static/images/avatar.jpg" class="item-media-img">
-                        </div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title pay">国内</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-25">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-media">
-                          <img src="/static/images/avatar.jpg" class="item-media-img">
-                        </div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title pay">国际</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-25">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-media">
-                          <img src="/static/images/avatar.jpg" class="item-media-img">
-                        </div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title pay">中秋节</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div class="content-block-title">热门商品列表</div>
@@ -1237,7 +1251,7 @@
                 </ul>
               </div>
               <div class="no-border-grid-panel">
-                <div class="row no-gutter">
+                <div class="row no-gutter text-center">
                   <div class="col-25">
                     <div href="#" class="item-link item-content">
                       <div class="item-media">
@@ -1287,83 +1301,200 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="content-block-title">个人成就</div>
-                <div class="grid-panel">
-                  <a href="#">
-                  <div class="row no-gutter">
-                    <div class="col-25">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">任务</div>
-                          </div>
-                        </div>
-                        <div class="item-media"><img src="{{ static_url( 'images/level.png' ) }}" style='width: 1.6rem;'></div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">8</div>
-                          </div>
+              <div class="content-block-title">个人成就</div>
+              <div class="content-block">
+                <div class="weui_grids">
+                  <a href="#buttons.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_button.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Button
+                    </p>
+                  </a>
+                  <a href="#cell.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      List
+                    </p>
+                  </a>
+                  <a href="#form.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Form
+                    </p>
+                  </a>
+                  <a href="#toast.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_toast.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Toast
+                    </p>
+                  </a>
+                  <a href="#dialog.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_dialog.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Dialog
+                    </p>
+                  </a>
+                  <a href="#progress.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Progress
+                    </p>
+                  </a>
+                  <a href="#msg.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Msg
+                    </p>
+                  </a>
+                  <a href="#article.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_article.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Article
+                    </p>
+                  </a>
+                  <a href="#action-sheet.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_actionSheet.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      ActionSheet
+                    </p>
+                  </a>
+                  <a href="#icons.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_icons.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Icons
+                    </p>
+                  </a>
+                  <a href="#panel.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_panel.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Panel
+                    </p>
+                  </a>
+                  <a href="#tabbar.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_tab.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Tabbar
+                    </p>
+                  </a>
+                  <a href="#searchbar.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_search_bar.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      SearchBar
+                    </p>
+                  </a>
+                  <a href="#toptip.html" class="weui_grid js_grid">
+                    <div class="weui_grid_icon">
+                      <img src="/static/weui/demos/images/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui_grid_label">
+                      Toptip
+                    </p>
+                  </a>
+                </div>
+              </div>
+
+              <div class="no-border-grid-panel">
+                <a href="#">
+                <div class="row no-gutter text-center">
+                  <div class="col-25">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">任务</div>
                         </div>
                       </div>
-                      </a>
-                    </div>
-                    <div class="col-25">
-                      <a href="/light7/pc-certs">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">证书</div>
-                          </div>
-                        </div>
-                        <div class="item-media"><img src="{{ static_url( 'images/certificate.png' ) }}" style='width: 1.6rem;'></div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">3</div>
-                          </div>
+                      <div class="item-media"><img src="{{ static_url( 'images/level.png' ) }}" style='width: 1.6rem;'></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">8</div>
                         </div>
                       </div>
-                      </a>
                     </div>
-                    <div class="col-25">
-                      <a href="#">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">积分</div>
-                          </div>
-                        </div>
-                        <div class="item-media"><img src="{{ static_url( 'images/point.png' ) }}" style='width: 1.6rem;'></div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">150</div>
-                          </div>
+                    </a>
+                  </div>
+                  <div class="col-25">
+                    <a href="/light7/pc-certs">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">证书</div>
                         </div>
                       </div>
-                      </a>
-                    </div>
-                    <div class="col-25">
-                      <a href="/light7/pc-vouchers">
-                      <div href="#" class="item-link item-content">
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">代金券</div>
-                          </div>
-                        </div>
-                        <div class="item-media"><img src="{{ static_url( 'images/louchers.png' ) }}" style='width: 1.6rem;'></div>
-                        <div class="item-inner">
-                          <div class="item-title-row">
-                            <div class="item-title">25元</div>
-                          </div>
+                      <div class="item-media"><img src="{{ static_url( 'images/certificate.png' ) }}" style='width: 1.6rem;'></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">3</div>
                         </div>
                       </div>
-                      </a>
                     </div>
+                    </a>
+                  </div>
+                  <div class="col-25">
+                    <a href="#">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">积分</div>
+                        </div>
+                      </div>
+                      <div class="item-media"><img src="{{ static_url( 'images/point.png' ) }}" style='width: 1.6rem;'></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">150</div>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-25">
+                    <a href="/light7/pc-vouchers">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">代金券</div>
+                        </div>
+                      </div>
+                      <div class="item-media"><img src="{{ static_url( 'images/louchers.png' ) }}" style='width: 1.6rem;'></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">25元</div>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
-            </div> <!-- tab32 -->
-          </div>
+            </div>
+          </div> <!-- tab32 -->
 
         </div> <!-- content -->
       </div> <!-- page 3 -->
@@ -1381,20 +1512,20 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-          <a class="tab-item" href="#page1">
+          <a class="tab-item no-transition" href="#page-basic-component">
             <span class="icon icon-settings"></span>
             <span class="tab-label">组件</span>
             <span class="badge">5</span>
           </a>
-          <a class="tab-item" href="#page2">
+          <a class="tab-item no-transition" href="#page2">
             <span class="icon icon-picture"></span>
             <span class="tab-label">媒体</span>
           </a>
-          <a class="tab-item" href="#page3">
+          <a class="tab-item no-transition" href="#page3">
             <span class="icon icon-cart"></span>
             <span class="tab-label">商城</span>
           </a>
-          <a class="tab-item active" href="#page4">
+          <a class="tab-item no-transition active" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
@@ -1408,20 +1539,20 @@
         <div class="content">
           <div class="content-block-title">活动招募贴</div>
           <div class="card facebook-card">
-            <div class="card-header no-border">
+            <div class="card-header">
               <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
               <div class="facebook-name">夜萧</div>
               <div class="facebook-date">星期一 3:47pm</div>
             </div>
             <div class="card-content"><img src="/static/images/img06.jpg" width="100%"></div>
-            <div class="card-footer no-border">
+            <div class="card-footer">
               <p class="color-gray">西藏，是远方，更是故乡(一年内两次进藏，1W+)</p>
             </div>
           </div>
 
           <div class="content-block-title">精彩瞬间</div>
           <div class="card facebook-card">
-            <div class="card-header no-border">
+            <div class="card-header">
               <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
               <div class="facebook-name">夜萧</div>
               <div class="facebook-date">星期一 3:47pm</div>
@@ -1452,7 +1583,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer no-border">
+            <div class="card-footer">
               <a href="#" class="link"><span class="icon-list icon-icon-praise"></span>赞</a>
               <a href="#" class="link"><span class="icon-list icon-icon-comments"></span>评论</a>
               <a href="#" class="link"><span class="icon-list icon-icon-browse"></span>分享</a>
@@ -1461,7 +1592,7 @@
 
           <div class="content-block-title">游记</div>
           <div class="card facebook-card">
-            <div class="card-header no-border">
+            <div class="card-header">
               <div class="facebook-avatar"><img src="/static/images/avatar.jpg" width="34" height="34"></div>
               <div class="facebook-name">夜萧</div>
               <div class="facebook-date">星期一 3:47pm</div>
@@ -1482,7 +1613,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer no-border">
+            <div class="card-footer">
               <a href="#" class="link"><span class="icon-list icon-icon-praise"></span>赞</a>
               <a href="#" class="link"><span class="icon-list icon-icon-comments"></span>评论</a>
               <a href="#" class="link"><span class="icon-list icon-icon-browse"></span>分享</a>
@@ -1590,7 +1721,7 @@
         </div> <!-- content -->
       </div> <!-- page 4 -->
 
-      <div id="page-settings" class="page page-settings">
+      <div class="page page-settings" id="page-settings">
         <header class="bar bar-nav">
           <a class="icon icon-me pull-left open-panel">
           <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
@@ -1601,24 +1732,24 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-          <a class="tab-item" href="#page1">
+          <a class="tab-item no-transition" href="#page-basic-component">
             <span class="icon icon-settings"></span>
             <span class="tab-label">组件</span>
             <span class="badge">5</span>
           </a>
-          <a class="tab-item" href="#page2">
+          <a class="tab-item no-transition" href="#page2">
             <span class="icon icon-picture"></span>
             <span class="tab-label">媒体</span>
           </a>
-          <a class="tab-item" href="#page3">
+          <a class="tab-item no-transition" href="#page3">
             <span class="icon icon-cart"></span>
             <span class="tab-label">商城</span>
           </a>
-          <a class="tab-item active" href="#page4">
+          <a class="tab-item no-transition" href="#page4">
             <span class="icon icon-share"></span>
             <span class="tab-label">社交</span>
           </a>
-          <a class="tab-item no-transition replace" href="#page-settings">
+          <a class="tab-item no-transition replace active" href="#page-settings">
             <span class="icon icon-me"></span>
             <span class="tab-label">Me</span>
           </a>
@@ -1642,6 +1773,7 @@
                 </li>
               </ul>
             </div>
+
             <div class="row text-center">
               <div class="col-25">
                 <h4>12</h4>
@@ -1660,6 +1792,7 @@
                 <div class="color-gray">Comments</div>
               </div>
             </div>
+
             <div class="list-block list">
               <ul>
                 <li class="item-content item-link">
@@ -1708,13 +1841,14 @@
 
     <!-- popup, panel 等放在这里 -->
     <div class="panel-overlay">
-      <!-- 如果有 popup -->
-      <div class="popup popup-about">
-        <div class="content-block">
-          <h2 class="text-center">About Light7 Mobile</h2>
-          <p>It's a demo webapp of Light7.</p>
-          <p><a href="#" class="button close-popup">OK</a></p>
-        </div>
+    </div>
+
+    <!-- 如果有 popup -->
+    <div class="popup popup-about">
+      <div class="content-block">
+        <h2 class="text-center">About Light7 Mobile</h2>
+        <p>It's a demo webapp of Light7.</p>
+        <p><a href="#" class="button close-popup">OK</a></p>
       </div>
     </div>
 
@@ -1748,12 +1882,24 @@
       </div>
     </div>
 
-    <script type='text/javascript' src='{{ static_url("js/jquery.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
+
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/froala_editor.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/align.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/colors.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/font_size.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/link.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/lists.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/paragraph_format.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/paragraph_style.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/url.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/plugins/char_counter.min.js")}}"></script>
+    <script type="text/javascript" src="{{static_url("froala_editor_2/js/languages/zh_cn.js")}}"></script>
 
     <script>
       // Alert
@@ -2025,6 +2171,9 @@
       // 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行
       $.init()
     </script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("js/light7-demo.js") }}' charset='utf-8'></script>
 
   </body>
 </html>

@@ -43,7 +43,7 @@
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current">
+      <div class="page page-current" id="page-login">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="button button-link button-nav pull-left back" href="/light7">
@@ -82,7 +82,7 @@
           </div>
 
           <div class="content-block">
-            <p><a class="button button-big button-fill external" href='/light7' data-transition='fade'>Login</a></p>
+            <p><a class="button button-big button-fill" href='/light7#page-basic-component' data-transition='fade'>Login</a></p>
             <p class='text-center signup'>
               <a href="#" class='pull-left'>No Accout?</a>
               <a href="#" class='pull-right'>Forget Password?</a>
@@ -120,7 +120,7 @@
       </div>
     </div>
 
-    <script type='text/javascript' src='{{ static_url("js/jquery.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
