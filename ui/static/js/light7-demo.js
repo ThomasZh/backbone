@@ -103,7 +103,7 @@ $(function () {
 
   // 加载 activity-info.html 时初始化swiper
   $(document).on("pageInit", "#page-activity-info", function(e, id, $page) {
-    $('.swiper-container').swiper({
+    $('.swiper-container1').swiper({
       // Disable preloading of all images
       preloadImages: true,
       // Enable lazy loading

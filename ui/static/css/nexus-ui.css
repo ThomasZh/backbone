@@ -128,36 +128,6 @@ p{
 
 
 
-.weui_article .flag{
-    position:relative;
-    padding:6px 12px 6px 12px;
-    background:#F5A623 ;
-    color:#fff;
-    display:inline-block;
-    font-size: 16px;
-    margin-right: 22px;
-}
-.weui_article .flag::after {
-    position: absolute;
-    top: 0px;
-    right: -17px;
-    content: '';
-    border: 9px solid #F5A623;
-    border-color: #F5A623 transparent transparent #F5A623 ;
-    /*border-top-right-radius: 4px;*/
-}
-.weui_article .flag::before {
-    position: absolute;
-    bottom: 0px;
-    right: -17px;
-    content: '';
-    border: 9px solid #F5A623;
-    border-color: transparent transparent #F5A623 #F5A623 ;
-    /*border-bottom-right-radius: 4px;*/
-}
-
-
-
 .article .bm{
     position:relative;
     padding:6px 12px 6px 12px;
@@ -604,9 +574,9 @@ table.alt tbody tr td {
     border-top-width: 0;
 }
 
-    table.alt tbody tr td:first-child {
-        border-left-width: 1px;
-    }
+table.alt tbody tr td:first-child {
+    border-left-width: 1px;
+}
 
 table.alt tbody tr:first-child td {
     border-top-width: 1px;
@@ -619,6 +589,55 @@ table.alt thead {
 table.alt tfoot {
     border-top: 0;
 }
+
+
+
+.page-settings .person-card {
+  margin: .6rem 0;
+}
+.page-settings .row {
+  border: 1px solid #ccc;
+  background: white;
+  border-left: 0;
+  border-right: 0;
+}
+
+.theme-dark .page-settings .row,
+.page-settings .row .theme-dark {
+  color: #bbb;
+  background: black;
+}
+
+.page-settings .row h4 {
+  margin: 0.3rem 0;
+}
+.page-settings .row .color-gray {
+  margin: 0.3rem 0;
+  font-size: 0.7rem;
+}
+
+.page-settings .col-25 + .col-25 {
+  border-left: 1px solid #ccc;
+}
+
+.page-settings .person-card img {
+  border-radius: 100%;
+}
+
+.page-settings .person-card ul{
+  background: transparent;
+}
+.page-settings .person-card .item-text {
+  height: auto;
+}
+.page-settings .person-card ul:before,
+.page-settings .person-card ul:after {
+  display: none;
+}
+.page-settings .list .icon {
+  font-size: 1rem;
+}
+
 
 
 /*
