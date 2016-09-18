@@ -16,6 +16,9 @@ p{
 .desc{
 /*    line-height: 1.8rem;*/
 }
+.desc img{
+  width:100%;
+}
 .swiper-slide a img{
     display: inherit;
 }
