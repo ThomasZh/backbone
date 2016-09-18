@@ -9,6 +9,8 @@ import tornado.web
 
 from foo import comm
 from foo.ui import ui_light7
+from foo.ui import ui_bf
+from foo.ui import ui_club
 
 
 def map():
@@ -33,6 +35,15 @@ def map():
         (r'/light7/pc-certs', getattr(ui_light7, 'Light7PcCertsHandler')),
         (r'/light7/product-detail', getattr(ui_light7, 'Light7ProductDetailHandler')),
         (r'/light7/login', getattr(ui_light7, 'Light7LoginHandler')),
+
+        (r'/bf', getattr(ui_bf, 'BfIndexHandler')),
+        (r'/bf/pc/vouchers', getattr(ui_bf, 'BfPcVouchersHandler')),
+        (r'/bf/pc/certs', getattr(ui_bf, 'BfPcCertsHandler')),
+
+        (r'/club', getattr(ui_club, 'ClubIndexHandler')),
+        (r'/club/me/vouchers', getattr(ui_club, 'ClubMeVouchersHandler')),
+        (r'/club/me/certs', getattr(ui_club, 'ClubMeCertsHandler')),
+        (r'/club/me/settings', getattr(ui_club, 'ClubMeSettingsHandler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))
