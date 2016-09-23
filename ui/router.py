@@ -11,6 +11,8 @@ from foo import comm
 from foo.ui import ui_light7
 from foo.ui import ui_bf
 from foo.ui import ui_club
+from foo.ui import ui_blog
+from foo.ui import ui_journey
 
 
 def map():
@@ -44,6 +46,17 @@ def map():
         (r'/club/me/vouchers', getattr(ui_club, 'ClubMeVouchersHandler')),
         (r'/club/me/certs', getattr(ui_club, 'ClubMeCertsHandler')),
         (r'/club/me/settings', getattr(ui_club, 'ClubMeSettingsHandler')),
+        (r'/club/me/grid-photo', getattr(ui_club, 'ClubMeGridPhotoHandler')),
+
+        (r'/blog', getattr(ui_blog, 'BlogIndexHandler')),
+        (r'/blog/article', getattr(ui_blog, 'BlogArticleHandler')),
+        (r'/blog/article-edit', getattr(ui_blog, 'BlogArticleEditHandler')),
+        (r'/blog/paragraph-edit', getattr(ui_blog, 'BlogParagraphEditHandler')),
+
+        (r'/journey', getattr(ui_journey, 'JourneyIndexHandler')),
+        (r'/journey/article', getattr(ui_journey, 'JourneyArticleHandler')),
+        (r'/journey/article-edit', getattr(ui_journey, 'JourneyArticleEditHandler')),
+        (r'/journey/paragraph-edit', getattr(ui_journey, 'JourneyParagraphEditHandler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

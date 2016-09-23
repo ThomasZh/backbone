@@ -77,13 +77,25 @@
           <div class="content-block-title"></div>
           <div class="list-block list">
             <ul>
+              <li class="item-content">
+                <div class="item-media"><i class="icon icon-settings"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Night Theme</div>
+                  <div class="item-after">
+                    <label class="label-switch">
+                      <input type="checkbox" id="dark-switch">
+                      <div class="checkbox"></div>
+                    </label>
+                  </div>
+                </div>
+              </li>
               <li class="item-content item-link">
                 <div class="item-media"><i class="icon icon-message"></i></div>
                 <div class="item-inner">
                   <div class="item-title">Help</div>
                 </div>
               </li>
-              <li class="item-content item-link">
+              <li class="item-content item-link open-popup" data-popup=".popup-about">
                 <div class="item-media"><i class="icon icon-app"></i></div>
                 <div class="item-inner">
                   <div class="item-title">About</div>
@@ -106,6 +118,15 @@
         </div> <!-- content -->
       </div> <!-- page -->
     </div> <!-- page group -->
+
+    <!-- 如果有 popup -->
+    <div class="popup popup-about">
+      <div class="content-block">
+        <h2 class="text-center">About Light7 Mobile</h2>
+        <p>It's a demo webapp of Light7.</p>
+        <p><a href="#" class="button close-popup">OK</a></p>
+      </div>
+    </div>
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>

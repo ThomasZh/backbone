@@ -33,31 +33,25 @@ from comm import cur_file_dir
 from comm import timestamp_date
 
 
-class ClubIndexHandler(tornado.web.RequestHandler):
+class BlogIndexHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('club/index.html')
+        self.render('blog/index.html')
 
 
-class ClubMeVouchersHandler(tornado.web.RequestHandler):
+class BlogArticleHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('club/me-vouchers.html')
+        self.render('blog/article.html')
 
 
-class ClubMeCertsHandler(tornado.web.RequestHandler):
+class BlogArticleEditHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('club/me-certs.html')
+        self.render('blog/article-edit.html')
 
 
-class ClubMeSettingsHandler(tornado.web.RequestHandler):
+class BlogParagraphEditHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('club/me-settings.html')
-
-
-class ClubMeGridPhotoHandler(tornado.web.RequestHandler):
-    def get(self):
-        logging.info(self.request)
-        self.render('club/me-grid-photo.html')
+        self.render('blog/paragraph-edit.html')
