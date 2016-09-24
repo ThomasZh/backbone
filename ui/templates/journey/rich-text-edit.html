@@ -10,7 +10,7 @@
     <meta name="spm-id" content="a222t.7900232">
     <meta name="format-detection" content="telephone=no, address=no">
 
-    <title>富媒体编辑器</title>
+    <title>富文本编辑器</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
@@ -20,42 +20,37 @@
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+
   </head>
 
   <body>
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current" id="page-1">
+      <div class="page page-current" id="page-rich-text-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="button button-link button-nav pull-left back" href="/club">
             <span class="icon icon-left"></span>
           </a>
-          <h1 class="title">富媒体编辑器</h1>
+          <h1 class="title">富文本编辑器</h1>
         </header>
 
         <!-- 工具栏 -->
-        <nav class="bar bar-tab">
-          <a class="tab-item no-transition active" href="#page-1">
-            <span class="icon icon-home"></span>
-            <span class="tab-label">首页</span>
-          </a>
-          <a class="tab-item no-transition" href="#page-2">
-            <span class="icon icon-star"></span>
-            <span class="tab-label">收藏</span>
-            <span class="badge">2</span>
-          </a>
-          <a class="tab-item no-transition" href="#page-3">
-            <span class="icon icon-settings"></span>
-            <span class="tab-label">设置</span>
-          </a>
-        </nav>
+        <div class="bar bar-standard bar-footer">
+          <a class="icon icon-code pull-left" id="edit_content"></a>
+        </div>
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-          ...
+          <!-- Create the editor container -->
+          <div id="editor">
+            <p>Hello World!</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p><br></p>
+          </div>
         </div> <!-- content -->
       </div> <!-- page -->
 
@@ -65,22 +60,6 @@
       -->
     </div> <!-- page group -->
 
-    <!-- popup, panel 等放在这里 -->
-    <div class="panel-overlay">
-      <!-- 如果有 popup -->
-      <div class="popup popup-about">...</div>
-    </div>
-
-    <!-- Left Panel with Reveal effect -->
-    <div class="panel panel-left panel-reveal">
-      <div class="content-block">
-        <p>这是一个侧栏</p>
-        <p></p>
-        <!-- Click on link with "close-panel" class will close panel -->
-        <p><a href="#" class="close-panel">关闭</a></p>
-      </div>
-    </div>
-
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
@@ -88,7 +67,13 @@
     <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
 
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
     <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("js/journey-app.js") }}' charset='utf-8'></script>
 
   </body>

@@ -55,3 +55,9 @@ class JourneyParagraphEditHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
         self.render('journey/paragraph-edit.html')
+
+
+class JourneyRichTextEditHandler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('journey/rich-text-edit.html')

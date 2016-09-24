@@ -49,6 +49,25 @@ function uploadUpyun(file) {
 
 $(function () {
 
+  $(document).on("pageInit", "#page-rich-text-edit", function(e, id, $page) {
+    var quill = new Quill('#editor', {
+      modules: { toolbar: true },
+      theme: 'snow'
+    });
+
+    $(document).on('click','#edit_content', function () {
+      var length = quill.getLength();
+      var text = quill.getText(0, length);
+      //$.alert("" + length + ": " + text);
+
+      var contents = quill.getContents();
+      console.log('contents', contents);
+      
+      // var delta = quill.getContents();
+      alert(document.getElementById("editor").innerHTML);
+    });
+  });
+
   $(document).on("pageInit", "#page-article-edit", function(e, id, $page) {
     $(document).on('click','#showActionSheet', function () {
       var mask = $('#mask');
