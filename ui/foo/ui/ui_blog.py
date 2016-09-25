@@ -29,8 +29,13 @@ from bson import json_util
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
 
-from comm import cur_file_dir
-from comm import timestamp_date
+from tornado.escape import json_encode, json_decode
+from tornado.httpclient import HTTPClient
+from tornado.httputil import url_concat
+from bson import json_util
+
+from comm import *
+from global_const import STP
 
 
 class BlogIndexHandler(tornado.web.RequestHandler):
@@ -40,18 +45,85 @@ class BlogIndexHandler(tornado.web.RequestHandler):
 
 
 class BlogArticleHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, article_id):
+        logging.info("got article_id %r in uri", article_id)
         logging.info(self.request)
-        self.render('blog/article.html')
+
+        url = "http://" + STP + "/blogs/articles/" + article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got _article response %r", response.body)
+        _article = json_decode(response.body)
+        _timestamp = _article["timestamp"]
+        _datetime = timestamp_datetime(_timestamp / 1000)
+        _article["timestamp"] = _datetime
+        try:
+            _article['accountNickname']
+        except:
+            _article['accountNickname'] = "anonymous"
+
+        url = "http://" + STP + "/blogs/my-articles/" + article_id + "/paragraphs"
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got _paragraphs response %r", response.body)
+        _paragraphs = json_decode(response.body)
+
+        self.render('blog/article.html',
+                article=_article,
+                paragraphs=_paragraphs)
 
 
 class BlogArticleEditHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, article_id):
+        logging.info("got article_id %r in uri", article_id)
         logging.info(self.request)
-        self.render('blog/article-edit.html')
+
+        url = "http://" + STP + "/blogs/articles/" + article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got _article response %r", response.body)
+        _article = json_decode(response.body)
+        _timestamp = _article["timestamp"]
+        _datetime = timestamp_datetime(_timestamp / 1000)
+        _article["timestamp"] = _datetime
+        try:
+            _article['accountNickname']
+        except:
+            _article['accountNickname'] = "anonymous"
+
+        url = "http://" + STP + "/blogs/my-articles/" + article_id + "/paragraphs"
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got _paragraphs response %r", response.body)
+        _paragraphs = json_decode(response.body)
+
+        self.render('blog/article-edit.html',
+                article=_article,
+                paragraphs=_paragraphs)
 
 
 class BlogParagraphEditHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
         self.render('blog/paragraph-edit.html')
+
+
+class BlogArticleTitleEditHandler(tornado.web.RequestHandler):
+    def get(self, article_id):
+        logging.info("got article_id %r in uri", article_id)
+        logging.info(self.request)
+
+        url = "http://" + STP + "/blogs/articles/" + article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got _article response %r", response.body)
+        _article = json_decode(response.body)
+
+        self.render('blog/article-title-edit.html',
+                article=_article)
+
+
+class BlogRichTextEditHandler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('blog/rich-text-edit.html')

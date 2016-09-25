@@ -17,6 +17,8 @@
 # under the License.
 
 
+STP = "123.56.105.78"
+
 # mongodb
 MONGO_HOST = "123.57.136.99"
 MONGO_PORT = 27017

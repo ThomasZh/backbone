@@ -740,3 +740,7 @@ table.alt tfoot {
   width: 100%;
   height: 100%;*/
 }
+
+.pull-center {
+  clear: both;
+}

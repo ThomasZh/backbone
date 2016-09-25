@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
   </head>
 
@@ -27,96 +28,97 @@
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current" id="page-activity-info">
+      <div class="page page-current" id="page-article-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left back" href="/blog">
+          <a class="button button-link button-nav pull-left back" href="/blog/articles/{{ article['id'] }}">
             <span class="icon icon-left"></span>
-          </a>
-          <a class="button button-link button-nav pull-right" href="#">
-            <span class="icon icon-edit"></span>
           </a>
           <h1 class="title">博客文章编辑</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-          <div class="banner-head">
-            <img src="/static/images/img05.jpg" class="banner-img" />
+          <div class="bd">
+            <div class="weui_panel weui_panel_access">
+              <div class="weui_panel_bd">
+                <img src="{{ article['imgUrl'] }}" class="banner-img" />
 
-            <!-- 活动基本信息 -->
-            <ul class="list_msg">
-              <li>博客文章名称</li>
-              <li>发布于: 9月6 星期五 15:15:28</li>
-            </ul>
-	        </div>
-
-          <div class="card facebook-card">
-            <div class="card-header">
-            </div>
-            <div class="card-content">
-              <div class="content-block">
-                <div class="row">
-                  <div class="col-100">
-                    <dl>
-                      <dt><img src="/static/images/img07.jpg" width="100%"></dt>
-                    </dl>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-100">
-                  2015年09月20日，我向自己预约了这篇游记，当时我说： 10月的某天-10月的某天， 我计划去 黄山 ， 出发前，我敲下了这些文字： 就这样吧 牛背山 + 泸沽湖 的游记
-                  </div>
+                <div class="weui_media_box weui_media_text">
+                  <h4 class="weui_media_title">文章标题: {{ article["title"] }}</h4>
+                  <p class="weui_media_desc">{{ article["content"] }}</p>
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">{{ article["accountNickname"] }}</li>
+                    <li class="weui_media_info_meta">{{ article["timestamp"] }}</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">只有创建者本人可以编辑文章标题,其他人可以编辑内容</li>
+                  </ul>
                 </div>
               </div>
+              <a href="/blog/articles/{{ article['id'] }}/title-edit" class="weui_panel_ft">
+                <slot name="footer">编辑文章标题</slot>
+              </a>
             </div>
-            <div class="card-footer">
-              <a href="#" class="link"><span class="icon icon-remove"></span></a>
-              <a href="#" class="link"><span class="icon icon-down"></span></a>
-              <a href="#" class="link"><span class="icon icon-up"></span></a>
-              <a href="/blog/paragraph-edit" class="link"><span class="icon icon-edit"></span></a>
-            </div>
-          </div>
-          <div class="content-block-title color-gray"><center>最后修改于: 2016年10月30日 19:28</center></div>
 
-          <div class="card facebook-card">
-            <div class="card-header">
-            </div>
-            <div class="card-content">
-              <div class="content-block">
-                <div class="row">
-                  <div class="col-33">
-                    <dl>
-                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
-                    </dl>
-                  </div>
-                  <div class="col-33">
-                    <dl>
-                      <dt><img src="/static/images/img04.jpg" width="100%"></dt>
-                    </dl>
-                  </div>
-                  <div class="col-33">
-                    <dl>
-                      <dt><img src="/static/images/img02.jpg" width="100%"></dt>
-                    </dl>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-100">
-                  写在前面的话：此次游记感谢我的先生提供的所有的照片，非常棒，谢谢。 此次出行的时间、路线是由摄影师陈先生制定的，并在旅途中不断修正，看了最想看的美景，在国庆123这么出行人气爆棚的
-                  </div>
+            <input id="i" type="hidden" value="{{ i=1 }}"/>
+{% for paragraph in paragraphs %}
+            <div class="weui_panel weui_panel_access">
+              <div class="weui_panel_hd">#{{ i }}
+{% if paragraph["type"] == "img" %}
+                图片
+{% elif paragraph["type"] == "heading" %}
+                标题
+{% else %}
+                段落
+{% end %}
+              </div>
+              <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+{% if paragraph["type"] == "img" %}
+                  <img src="{{ paragraph['content'] }}" width="100%">
+{% else %}
+                  <p class="weui_media_desc">{% raw paragraph["content"] %}</p>
+{% end %}
                 </div>
               </div>
+              <a id="showActionSheet" class="weui_panel_ft">更多操作</a>
             </div>
-            <div class="card-footer">
-              <a href="#" class="link"><span class="icon icon-remove"></span></a>
-              <a href="#" class="link"><span class="icon icon-down"></span></a>
-              <a href="#" class="link"><span class="icon icon-up"></span></a>
-              <a href="/blog/paragraph-edit" class="link"><span class="icon icon-edit"></span></a>
+            <input id="i" type="hidden" value="{{ i=i+1 }}"/>
+{% end %}
+          </div> <!-- bd -->
+
+          <div class="weui_btn_area">
+          </div>
+
+          <!--BEGIN actionSheet-->
+          <div id="actionSheet_wrap">
+              <div class="weui_mask_transition" id="mask"></div>
+              <div class="weui_actionsheet" id="weui_actionsheet">
+                  <div class="weui_actionsheet_menu">
+                      <div class="weui_actionsheet_cell" id="actionsheet_edit">编辑</div>
+                      <div class="weui_actionsheet_cell">向上移动</div>
+                      <div class="weui_actionsheet_cell">向下移动</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_delete"><span style="color:red">删除</span></div>
+                  </div>
+                  <div class="weui_actionsheet_action">
+                      <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+                  </div>
+              </div>
+          </div>
+          <!--END actionSheet-->
+
+          <!--BEGIN dialog1-->
+          <div class="weui_dialog_confirm" id="dialog1" style="display: none;">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+              <div class="weui_dialog_hd"><strong class="weui_dialog_title">弹窗标题</strong></div>
+              <div class="weui_dialog_bd">自定义弹窗内容，居左对齐显示，告知需要确认的信息等</div>
+              <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog default">取消</a>
+                <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+              </div>
             </div>
           </div>
-          <div class="content-block-title color-gray"><center>最后修改于: 2016年10月30日 17:16</center></div>
-
+          <!--END dialog1-->
         </div> <!-- content -->
       </div> <!-- page -->
 
@@ -126,29 +128,19 @@
       -->
     </div> <!-- page group -->
 
-    <!-- popup, panel 等放在这里 -->
-    <div class="panel-overlay">
-      <!-- 如果有 popup -->
-      <div class="popup popup-about">...</div>
-    </div>
-
-    <!-- Left Panel with Reveal effect -->
-    <div class="panel panel-left panel-reveal">
-      <div class="content-block">
-        <p>这是一个侧栏</p>
-        <p></p>
-        <!-- Click on link with "close-panel" class will close panel -->
-        <p><a href="#" class="close-panel">关闭</a></p>
-      </div>
-    </div>
-
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
 
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
     <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
 
   </body>

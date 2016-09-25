@@ -13,6 +13,7 @@ from foo.ui import ui_bf
 from foo.ui import ui_club
 from foo.ui import ui_blog
 from foo.ui import ui_journey
+from foo.api import api_blog
 
 
 def map():
@@ -49,9 +50,13 @@ def map():
         (r'/club/me/grid-photo', getattr(ui_club, 'ClubMeGridPhotoHandler')),
 
         (r'/blog', getattr(ui_blog, 'BlogIndexHandler')),
-        (r'/blog/article', getattr(ui_blog, 'BlogArticleHandler')),
-        (r'/blog/article-edit', getattr(ui_blog, 'BlogArticleEditHandler')),
+        (r'/blog/articles/([a-z0-9]*)', getattr(ui_blog, 'BlogArticleHandler')),
+        (r'/blog/articles/([a-z0-9]*)/edit', getattr(ui_blog, 'BlogArticleEditHandler')),
+        (r'/blog/articles/([a-z0-9]*)/title-edit', getattr(ui_blog, 'BlogArticleTitleEditHandler')),
         (r'/blog/paragraph-edit', getattr(ui_blog, 'BlogParagraphEditHandler')),
+        (r'/blog/rich-text-edit', getattr(ui_blog, 'BlogRichTextEditHandler')),
+
+        (r'/api/blog/articles', getattr(api_blog, 'ApiBlogArticlesXHR')),
 
         (r'/journey', getattr(ui_journey, 'JourneyIndexHandler')),
         (r'/journey/article', getattr(ui_journey, 'JourneyArticleHandler')),
