@@ -1,20 +1,146 @@
 /*公共*/
-
+.bg-color{
+    background:#fff;
+}
 .page{
     min-width: 320px;
     max-width: 640px;
     width: 100%;
     margin: 0 auto;
 }
+/*遮罩*/
+.shade{
+    position:absolute;
+    left:0;
+    top:0;
+    display:block;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+/*渐变*/
+
+.img-gradient{
+    background-image:-webkit-linear-gradient(top,red,rgba(0,0,255,0.5)); 
+    box-shadow: inset 0 1px 5px rgba(0,0,0,.5);
+    z-index: 9;  
+}
+.content-noscroll{
+    overflow-x: hidden;
+}
+.content-block-title.title-club-intro{
+    margin:0 0.75rem 0.5rem;
+}
 .list_msg .icon1 b{
 	padding-right:5px;
 	font-size:0.9rem;
 }
+.banner-head-two{
+    position: relative;
+    margin: 2px 4px;
+    line-height: 0;
+}
+.banner-img-two{
+    width: 100%;
+    height: 11.1rem;
+    border-radius: 5px;
+}
+.act-detail{
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    color: white;
+}
+.act-detail p{
+    padding: 0.2rem 0;
+}
+.icon-dollar{
+    color: rgb(247,192,100);
+    font-weight: bold;
+}
+.icon-actname{
+    font-size: 1.1rem;
+}
+.icon-actdate{
+    font-size: 0.7rem;
+}
+.row-care{
+    width: 100%;
+    margin-bottom: 0.5rem;
+    border-top: 1px solid #ebebeb;
+    padding-top: 0.5rem;
+    margin-left: 0;
+}
+.row-care .col-33{
+    color: white;
+}
+.row-care .col-33 .care-font{
+    font-size: 0.8rem;
+    height: 2rem;
+    line-height: 2rem;
+}
+.instantaneous{
+    text-align: left;
+    padding-left: 15px;
+    clear: both;
+    color: #858585;
+}
+.instantaneous_box span {
+    line-height: 0;
+}
 p{
     margin: 0;
+    -webkit-margin-before:0;
+    -webkit-margin-after:0;
+}
+.member-img{
+    width: 100%;
+    float: left;
+    padding-left: 10px;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+}
+.member-img a{
+    float: left;
+    height: 2rem;
+}
+.item-media-img{
+    width: 1.5rem;
+    border-radius: 50%;
+    margin: 0.25rem;
+}
+.out {
+    text-align:left;
+    font-size: 13px;
+    padding: 5px 0 10px 15px;
+    color: #858585;
+
+}
+.club-title{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 25px;
+    color: white;
+    z-index: 9;
+}
+.club-title2{
+    position: absolute;
+    left: 20px;
+    top: 62.5px;
+    font-size: 11px;
+    color: white;
+    z-index: 9;
+}
+.item-title-name{
+    white-space: inherit;
 }
 .desc{
-/*    line-height: 1.8rem;*/
+/*    line-height: 1.8rem; */
+}
+.row-100-dis{
+    margin-left:0;
 }
 .desc img{
   width:100%;
@@ -28,8 +154,11 @@ p{
 }
 .banner-head{
 	background:white;
+    position: relative;
 }
-
+.swiper-container{
+    padding-bottom: 0;
+}
 .swiper-container1{
     overflow: hidden;
     margin-bottom: 15px;
@@ -37,11 +166,11 @@ p{
 .swiper-container1 .swiper-wrapper{
     margin-left: 3%;
 }
-
 .list_msg{
 	list-style:none;
 	-webkit-padding-start:3%;
 	-webkit-margin-before:0;
+    padding-bottom: 3%;
 }
 .list_msg li span{
 	padding-right:6px;
@@ -64,45 +193,57 @@ p{
 .list-block-dis{
     margin: 0;
 }
+
 /*club-logo*/
 .icon11{
     position: absolute;
-    top: 8rem;
+    top: 9.2rem;
     left: 0.75rem;
     color: white;
 }
-.icon1{
-    color: #ffc568;
-}
 .club-logo{
-    position: absolute;
-    left: 0.75rem;
-    top: 0.75rem;
+    position:absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9;  
 }
 .club-logo img{
-    width: 30%;
-    border:1px solid white;
-    border-radius: 5px;
+    width: 62.5px;
+     border-radius: 5px;
+     border:2px solid white;
+}
+.club-logo-down{
+    position:absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 9;  
+}
+.club-logo-down img{
+    width: 1.7rem;
+     border-radius: 5px;
+     border:1px solid white;
 }
 .bookmarks{
     position:absolute;
     right:0;
     top:0.75rem;
     padding:3px 6px;
-    font-size:0.9rem;
+    font-size:0.8rem;
     color:#fff;
+    z-index: 9;
+    line-height: 1rem;
 }
 .bookmarks::after {
     position: absolute;
     top: 0px;
-    left: -17px;
+    left: -13px;
     content: '';
     /*border-top-left-radius: 7px;*/
 }
 .bookmarks::before {
     position: absolute;
     bottom: 0px;
-    left: -17px;
+    left: -13px;
     content: '';
     /*border-bottom-left-radius: 7px;*/
 }
@@ -110,11 +251,11 @@ p{
     background:#8cdd6f;
 }
 .green::after {
-    border: 9px solid #8cdd6f;
+    border: 7px solid #8cdd6f;
     border-color: #8cdd6f #8cdd6f transparent transparent;
 }
 .green::before {
-    border: 9px solid #8cdd6f;
+    border: 7px solid #8cdd6f;
     border-color:  transparent #8cdd6f #8cdd6f transparent ;
 }
 .grey {
@@ -128,9 +269,6 @@ p{
     border: 9px solid #dddddd;
     border-color:  transparent #dddddd #dddddd transparent ;
 }
-
-
-
 .article .bm{
     position:relative;
     padding:6px 12px 6px 12px;
@@ -171,6 +309,7 @@ p{
 	width:50%;
 	margin:0;
 }
+
 .button.button-apply{
 	border-radius:0;
 }
@@ -202,6 +341,7 @@ p{
 /*img*/
 .banner-img{
     width: 100%;
+    height: 11.1rem;
 }
 .image img {
    display: block;
@@ -226,37 +366,96 @@ p{
 .image.left img, .image.right img {
     width: 100%;
 }
+#textspread{
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    margin:0rem 1.2rem;
+    margin-bottom: 15px;
+}
+#textspread span{
+    color: #6d6d72;
+
+}
+.moreoh{
+    font-size: 12px;
+    color: #44aaff;
+}
+.moreText{
+    font-size: 12px;
+}
+.col-33-community{
+    border-bottom: 1px solid #eee;
+    padding: 0.3rem 0;
+}
+.row .col-33-community:last-child center{
+    border-right: none;
+}
+.col-33-community center{
+    border-right: 1px solid #eee;
+}
+.col-33-community a{
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    color: black;
+}
+.activity-month{
+    text-align: center;
+    margin-top: 15px;
+}
+.last-month{
+    font-size: 20px;
+}
+.now-month{
+    font-size: 25px;
+    color: #f0c277;
+}
+.activity-month-last{
+    margin-top: 25px;
+}
+.activity-month span{
+    font-size: 0.55rem;
+    color: #7f7f7f;
+}
+.last-month{
+    width: 55px;
+    height: 55px;
+    line-height: 52px;
+    display: inline-block;
+    border:2px solid lightblue;
+    border-radius: 50%;
+    text-align: center;
+}
+.now-month{
+    width: 65px;
+    height: 65px;
+    line-height: 63px;
+    display: inline-block;
+    border:2px solid #f0c277;
+    border-radius: 50%;
+    text-align: center;
+}
+.activity-month a:hover{
+    color: red;
+}
 /*列表list*/
 .content-block-title{
     margin: 0.75rem;
 }
-.item-media-img{
-    width: 1.6rem;
-    border-radius: 50%;
-}
-.no-border-grid-panel{
+
+.no-border-grid-panel .row > [class*=col-]{
   text-align: center;
+  background-color: #fff;
   font-size: 0.7rem;
   background: white;
-  height: 3.5rem;
   padding-top: 0.5rem;
 }
-
-.theme-dark .no-border-grid-panel,
-.no-border-grid-panel.theme-dark {
-  color: #bbb;
-  background: black;
-}
-
-.theme-dark .weui_grids .weui_grid_label,
-.weui_grids .weui_grid_label .theme-dark {
-  color: #bbb;
-}
-
 .list-content-block{
     padding: 0;
 }
 .list-content-padded{
+    background: white;
+    padding:0.5rem 0;
     margin: 0;
 }
 /*左图右文*/
@@ -532,20 +731,11 @@ table {
         margin:0 15px;
     }
 
-table {
-    margin: 0 0 2em 0;
-    width: 100%;
-}
-
-table tbody tr {
-    border: solid 1px #dddddd;
-    border-left: 0;
-    border-right: 0;
-}
-
-    table tbody tr:nth-child(2n + 1) {
-        background-color: rgba(144, 144, 144, 0.075);
+    table {
+        margin: 0 0 2em 0;
+        width: 100%;
     }
+
 
 table td {
     padding: 0.75em 0.75em;
@@ -744,3 +934,4 @@ table.alt tfoot {
 .pull-center {
   clear: both;
 }
+
