@@ -13,13 +13,11 @@
     <title>博客</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
   </head>
 
@@ -53,12 +51,14 @@
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
 
     <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
 
   </body>

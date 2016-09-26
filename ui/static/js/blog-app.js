@@ -133,7 +133,7 @@ $(function () {
       }
 
       $('#actionsheet_edit').one('click', function () {
-        location.href = "/blog/paragraph-edit";
+        // location.href = "/blog/paragraph-edit";
       });
 
       $('#actionsheet_delete').one('click', function () {
