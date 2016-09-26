@@ -79,6 +79,10 @@ $(function () {
           $.detachInfiniteScroll($('.infinite-scroll'));
           // 删除加载提示符
           $('.infinite-scroll-preloader').remove();
+
+          // 添加没有更多了显示
+          var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+          $('.infinite-scroll .bd').append(html);
         }
 
         // 恢复flag

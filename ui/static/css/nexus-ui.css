@@ -11,6 +11,15 @@
 .number-dis{
     margin-left: 0.8rem;
 }
+
+.desc ul,ol{
+  margin-left: 1.0rem;
+}
+
+.weui_article ul,ol{
+  margin-left: 1.0rem;
+}
+
 /*遮罩*/
 .shade{
     position:absolute;
@@ -25,9 +34,9 @@
 /*渐变*/
 
 .img-gradient{
-    background-image:-webkit-linear-gradient(top,red,rgba(0,0,255,0.5)); 
+    background-image:-webkit-linear-gradient(top,red,rgba(0,0,255,0.5));
     box-shadow: inset 0 1px 5px rgba(0,0,0,.5);
-    z-index: 9;  
+    z-index: 9;
 }
 .content-noscroll{
     overflow-x: hidden;
@@ -208,7 +217,7 @@ p{
     position:absolute;
     bottom: 20px;
     right: 20px;
-    z-index: 9;  
+    z-index: 9;
 }
 .club-logo img{
     width: 62.5px;
@@ -219,7 +228,7 @@ p{
     position:absolute;
     top: 0.75rem;
     left: 0.75rem;
-    z-index: 9;  
+    z-index: 9;
 }
 .club-logo-down img{
     width: 1.7rem;
@@ -937,4 +946,3 @@ table.alt tfoot {
 .pull-center {
   clear: both;
 }
-
