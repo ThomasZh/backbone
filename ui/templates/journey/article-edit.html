@@ -102,7 +102,7 @@
                   </ul>
                 </div>
               </div>
-              <a id="showActionSheet" class="weui_panel_ft">更多操作</a>
+              <a onclick="showActionSheet('paragraph_id');" class="weui_panel_ft" data="paragraph_id">更多操作</a>
             </div>
 
             <div class="weui_panel weui_panel_access" id="panel_2">
@@ -134,7 +134,7 @@
                   </ul>
                 </div>
               </div>
-              <a id="showActionSheet" class="weui_panel_ft">更多操作</a>
+              <a onclick="showActionSheet('paragraph_id2');" class="weui_panel_ft" data="paragraph_id2">更多操作</a>
             </div>
 
             <div class="weui_panel weui_panel_access" id="panel_3">
@@ -181,7 +181,7 @@
               <div class="weui_actionsheet" id="weui_actionsheet">
                   <div class="weui_actionsheet_menu">
                       <div class="weui_actionsheet_cell" id="actionsheet_edit">编辑</div>
-                      <div class="weui_actionsheet_cell">向上移动</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_up">向上移动</div>
                       <div class="weui_actionsheet_cell">向下移动</div>
                       <div class="weui_actionsheet_cell" id="actionsheet_delete"><span style="color:red">删除</span></div>
                   </div>

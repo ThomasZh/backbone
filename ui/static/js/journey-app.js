@@ -4,6 +4,47 @@
 // 在demo中我们每个页面都引用了相同的脚本，是为了在子页面刷新的时候也可以用。
 
 
+function showActionSheet(paragraph_id) {
+  var mask = $('#mask');
+  var weuiActionsheet = $('#weui_actionsheet');
+  weuiActionsheet.addClass('weui_actionsheet_toggle');
+  mask.show()
+    .focus()//加focus是为了触发一次页面的重排(reflow or layout thrashing),使mask的transition动画得以正常触发
+    .addClass('weui_fade_toggle').one('click', function () {
+    hideActionSheet(weuiActionsheet, mask);
+  });
+  $('#actionsheet_cancel').one('click', function () {
+    hideActionSheet(weuiActionsheet, mask);
+  });
+  mask.unbind('transitionend').unbind('webkitTransitionEnd');
+
+  function hideActionSheet(weuiActionsheet, mask) {
+    weuiActionsheet.removeClass('weui_actionsheet_toggle');
+    mask.removeClass('weui_fade_toggle');
+    mask.on('transitionend', function () {
+      mask.hide();
+    }).on('webkitTransitionEnd', function () {
+      mask.hide();
+    })
+  }
+
+  $('#actionsheet_up').one('click', function () {
+    $.alert(paragraph_id);
+  });
+
+  $('#actionsheet_edit').one('click', function () {
+    location.href = "/journey/paragraph-edit";
+  });
+
+  $('#actionsheet_delete').one('click', function () {
+    $('#dialog1').show().on('click', '.weui_btn_dialog', function () {
+      $('#dialog1').off('click').hide();
+      hideActionSheet(weuiActionsheet, mask);
+    });
+  });
+}
+
+
 function uuid() {
   var s = [];
   var hexDigits = "0123456789abcdef";
@@ -62,7 +103,7 @@ $(function () {
 
       var contents = quill.getContents();
       console.log('contents', contents);
-      
+
       // var delta = quill.getContents();
       alert(document.getElementById("editor").innerHTML);
     });
@@ -93,6 +134,10 @@ $(function () {
         })
       }
 
+      $('#actionsheet_up').one('click', function () {
+        $.alert('actionsheet_up');
+      });
+
       $('#actionsheet_edit').one('click', function () {
         location.href = "/journey/paragraph-edit";
       });
@@ -103,9 +148,7 @@ $(function () {
           hideActionSheet(weuiActionsheet, mask);
         });
       });
-
     });
-
   });
 
 

@@ -20,6 +20,14 @@
   margin-left: 1.0rem;
 }
 
+.weui_media_desc ul,ol{
+  margin-left: 1.0rem;
+}
+
+.weui_media_text ul,ol{
+  margin-left: 1.0rem;
+}
+
 /*遮罩*/
 .shade{
     position:absolute;

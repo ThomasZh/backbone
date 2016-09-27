@@ -53,7 +53,7 @@ def map():
         (r'/blog/articles/([a-z0-9]*)', getattr(ui_blog, 'BlogArticleHandler')),
         (r'/blog/articles/([a-z0-9]*)/edit', getattr(ui_blog, 'BlogArticleEditHandler')),
         (r'/blog/articles/([a-z0-9]*)/title-edit', getattr(ui_blog, 'BlogArticleTitleEditHandler')),
-        (r'/blog/paragraph-edit', getattr(ui_blog, 'BlogParagraphEditHandler')),
+        (r'/blog/paragraphs/([a-z0-9]*)/edit', getattr(ui_blog, 'BlogParagraphEditHandler')),
         (r'/blog/rich-text-edit', getattr(ui_blog, 'BlogRichTextEditHandler')),
 
         (r'/api/blog/articles', getattr(api_blog, 'ApiBlogArticlesXHR')),

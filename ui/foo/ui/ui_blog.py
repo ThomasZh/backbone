@@ -103,9 +103,18 @@ class BlogArticleEditHandler(tornado.web.RequestHandler):
 
 
 class BlogParagraphEditHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, paragraph_id):
+        logging.info("got paragraph_id %r in uri", paragraph_id)
         logging.info(self.request)
-        self.render('blog/paragraph-edit.html')
+
+        url = "http://"+STP+"/blogs/paragraphs/" + paragraph_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got response %r", response.body)
+        _paragraph = json_decode(response.body)
+
+        self.render('blog/paragraph-edit.html',
+                paragraph=_paragraph)
 
 
 class BlogArticleTitleEditHandler(tornado.web.RequestHandler):

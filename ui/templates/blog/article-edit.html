@@ -28,7 +28,7 @@
       <div class="page page-current" id="page-article-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left back" href="/blog/articles/{{ article['id'] }}">
+          <a class="button button-link button-nav pull-left" href="/blog/articles/{{ article['id'] }}">
             <span class="icon icon-left"></span>
           </a>
           <h1 class="title">博客文章编辑</h1>
@@ -55,31 +55,34 @@
                 <slot name="footer">编辑文章标题</slot>
               </a>
             </div>
+          </div> <!-- bd -->
 
-            <input id="i" type="hidden" value="{{ i=1 }}"/>
+          <div class="weui_btn_area">
+          </div>
+          
+          <div class="bd" id="paragraphs">
 {% for paragraph in paragraphs %}
-            <div class="weui_panel weui_panel_access">
-              <div class="weui_panel_hd">#{{ i }}
-{% if paragraph["type"] == "img" %}
-                图片
-{% elif paragraph["type"] == "heading" %}
-                标题
-{% else %}
-                段落
-{% end %}
+            <div id="{{ paragraph['id'] }}" class="weui_panel weui_panel_access">
+              <div class="weui_panel_hd">
+  {% if paragraph["type"] == "img" %}
+                #图片
+  {% elif paragraph["type"] == "heading" %}
+                #标题
+  {% else %}
+                #段落
+  {% end %}
               </div>
               <div class="weui_panel_bd">
                 <div class="weui_media_box weui_media_text">
-{% if paragraph["type"] == "img" %}
+  {% if paragraph["type"] == "img" %}
                   <img src="{{ paragraph['content'] }}" width="100%">
-{% else %}
+  {% else %}
                   <p class="weui_media_desc">{% raw paragraph["content"] %}</p>
-{% end %}
+  {% end %}
                 </div>
               </div>
-              <a id="showActionSheet" class="weui_panel_ft">更多操作</a>
+              <a onclick="showActionSheet('{{ paragraph['id'] }}');" class="weui_panel_ft">更多操作</a>
             </div>
-            <input id="i" type="hidden" value="{{ i=i+1 }}"/>
 {% end %}
           </div> <!-- bd -->
 
@@ -92,8 +95,8 @@
               <div class="weui_actionsheet" id="weui_actionsheet">
                   <div class="weui_actionsheet_menu">
                       <div class="weui_actionsheet_cell" id="actionsheet_edit">编辑</div>
-                      <div class="weui_actionsheet_cell">向上移动</div>
-                      <div class="weui_actionsheet_cell">向下移动</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_up">向上移动</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_down">向下移动</div>
                       <div class="weui_actionsheet_cell" id="actionsheet_delete"><span style="color:red">删除</span></div>
                   </div>
                   <div class="weui_actionsheet_action">
@@ -110,8 +113,8 @@
               <div class="weui_dialog_hd"><strong class="weui_dialog_title">弹窗标题</strong></div>
               <div class="weui_dialog_bd">自定义弹窗内容，居左对齐显示，告知需要确认的信息等</div>
               <div class="weui_dialog_ft">
-                <a href="javascript:;" class="weui_btn_dialog default">取消</a>
-                <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+                <a onclick="javascript:comfirmCancel();" class="weui_btn_dialog default">取消</a>
+                <a onclick="javascript:comfirmYes();" class="weui_btn_dialog primary">确定</a>
               </div>
             </div>
           </div>
