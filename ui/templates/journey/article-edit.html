@@ -13,10 +13,7 @@
     <title>游记编辑</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
@@ -34,9 +31,6 @@
           <a class="button button-link button-nav pull-left back" href="/journey">
             <span class="icon icon-left"></span>
           </a>
-          <a class="button button-link button-nav pull-right" href="#">
-            <span class="icon icon-edit"></span>
-          </a>
           <h1 class="title">游记编辑</h1>
         </header>
 
@@ -48,19 +42,21 @@
 
           <div class="bd">
             <div class="weui_panel weui_panel_access">
-              <div class="weui_panel_hd">游记标题</div>
               <div class="weui_panel_bd">
                 <div class="weui_media_box weui_media_text">
                   <h4 class="weui_media_title">天晴就去爬玉龙雪山</h4>
                   <p class="weui_media_desc">玉龙雪山绝逼是丽江一张名片，不管你看过多少雪山都得承认。问过很多长待丽江的朋友，几乎都没有上过玉龙雪山问其原因，无非是上去一趟的花费太高或是天天在古城就可以看到雪山，何必上去排队遭罪受说得也在理。</p>
                   <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
                     <li class="weui_media_info_meta">文字来源: Thomas</li>
-                    <li class="weui_media_info_meta">时间: 2016-5-6</li>
-                    <li class="weui_media_info_meta weui_media_info_meta_extra">其它信息</li>
+                    <li class="weui_media_info_meta">时间: 2016-5-6 19:28</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">6人编写</li>
                   </ul>
                 </div>
               </div>
-              <a href="javascript:void(0);" class="weui_panel_ft">编辑</a>
+              <a href="/journey/article/title-edit" class="weui_panel_ft">编辑游记标题</a>
             </div>
 
             <div class="weui_panel weui_panel_access" id="panel_1">
@@ -70,9 +66,39 @@
                   <img src="/static/images/img07.jpg" width="100%">
                   <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
                   <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">文字来源</li>
-                    <li class="weui_media_info_meta">时间</li>
-                    <li class="weui_media_info_meta weui_media_info_meta_extra">其它信息</li>
+                    <li class="weui_media_info_meta">最后修改:</li>
+                    <li class="weui_media_info_meta">2016-5-6 19:28</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">6人编写</li>
+                  </ul>
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                  </ul>
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">Thomas:</li>
+                    <li class="weui_media_info_meta">文字和配图不一致呀！</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">2016-5-6 19:28</li>
+                  </ul>
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">Quincy:</li>
+                    <li class="weui_media_info_meta">还未修改完毕</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">2016-5-6 20:02</li>
                   </ul>
                 </div>
               </div>
@@ -157,7 +183,7 @@
                       <div class="weui_actionsheet_cell" id="actionsheet_edit">编辑</div>
                       <div class="weui_actionsheet_cell">向上移动</div>
                       <div class="weui_actionsheet_cell">向下移动</div>
-                      <div class="weui_actionsheet_cell" id="actionsheet_delete">删除</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_delete"><span style="color:red">删除</span></div>
                   </div>
                   <div class="weui_actionsheet_action">
                       <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
@@ -190,9 +216,6 @@
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
 
     <!-- fileinput -->
   	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>

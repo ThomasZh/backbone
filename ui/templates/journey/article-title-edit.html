@@ -10,13 +10,10 @@
     <meta name="spm-id" content="a222t.7900232">
     <meta name="format-detection" content="telephone=no, address=no">
 
-    <title>游记编辑</title>
+    <title>游记标题编辑</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
@@ -31,10 +28,10 @@
       <div class="page page-current" id="page-paragraph-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left back" href="/journey/article-edit">
+          <a class="button button-link button-nav pull-left back" href="/journey/article/edit">
             <span class="icon icon-left"></span>
           </a>
-          <h1 class="title">游记段落编辑</h1>
+          <h1 class="title">游记标题编辑</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
@@ -47,10 +44,11 @@
                   <div class="weui_uploader">
                     <div class="weui_uploader_hd weui_cell">
                       <div class="weui_cell_bd weui_cell_primary">图片上传</div>
-                      <div id="file_counter" class="weui_cell_ft">0/2</div>
+                      <div id="file_counter" class="weui_cell_ft">1/1</div>
                     </div>
                     <div class="weui_uploader_bd">
                       <ul class="weui_uploader_files" id="weui_uploader_files">
+                        <li class="weui_uploader_file" style="background-image:url('/static/images/img05.jpg')"></li>
                       </ul>
                       <div class="weui_uploader_input_wrp">
                         <input id="file" class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" />
@@ -95,11 +93,26 @@
               </div>
             </div>
 
-            <div class="weui_cells_title">描述文字</div>
+            <div class="weui_cells_title">标题</div>
             <div class="weui_cells weui_cells_form">
               <div class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
-                  <textarea class="weui_textarea" placeholder="请输入描述" rows="3"></textarea>
+                  <textarea class="weui_textarea" placeholder="请输入标题" rows="1">
+                    天晴就去爬玉龙雪山
+                  </textarea>
+                  <div class="weui_textarea_counter"><span>0</span>/50</div>
+                </div>
+              </div>
+            </div>
+            <div class="weui_cells_tips">底部说明文字: 标题以50个字为宜</div>
+
+            <div class="weui_cells_title">描述</div>
+            <div class="weui_cells weui_cells_form">
+              <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                  <textarea class="weui_textarea" placeholder="请输入描述" rows="3">
+                    玉龙雪山绝逼是丽江一张名片，不管你看过多少雪山都得承认。问过很多长待丽江的朋友，几乎都没有上过玉龙雪山问其原因，无非是上去一趟的花费太高或是天天在古城就可以看到雪山，何必上去排队遭罪受说得也在理。
+                  </textarea>
                   <div class="weui_textarea_counter"><span>0</span>/200</div>
                 </div>
               </div>
@@ -108,7 +121,7 @@
 
             <div class="weui_btn_area">
               <a id="on_submit" class="weui_btn weui_btn_primary">确定</a>
-              <a class="button-link weui_btn weui_btn_warn back" href="/blog/article-edit">取消</a>
+              <a class="button-link weui_btn weui_btn_warn" href="/blog/article/edit">取消</a>
             </div>
           </div>
         </div> <!-- content -->
@@ -122,9 +135,6 @@
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
 
     <!-- fileinput -->
   	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
@@ -133,7 +143,7 @@
 
     <!-- customer js files -->
     <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("js/journey-app.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
 
   </body>
 </html>

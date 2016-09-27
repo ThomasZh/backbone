@@ -62,6 +62,7 @@ def map():
         (r'/journey/article', getattr(ui_journey, 'JourneyArticleHandler')),
         (r'/journey/article-edit', getattr(ui_journey, 'JourneyArticleEditHandler')),
         (r'/journey/paragraph-edit', getattr(ui_journey, 'JourneyParagraphEditHandler')),
+        (r'/journey/article/title-edit', getattr(ui_journey, 'JourneyArticleTitleEditHandler')),
         (r'/journey/rich-text-edit', getattr(ui_journey, 'JourneyRichTextEditHandler')),
 
         # comm
