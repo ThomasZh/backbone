@@ -113,7 +113,11 @@ class BlogParagraphEditHandler(tornado.web.RequestHandler):
         logging.info("got response %r", response.body)
         _paragraph = json_decode(response.body)
 
-        self.render('blog/paragraph-edit.html',
+        if _paragraph['type'] == 'heading' or _paragraph['type'] == 'img':
+            self.render('blog/paragraph-edit.html',
+                paragraph=_paragraph)
+        elif _paragraph['type'] == 'raw':
+            self.render('blog/rich-text-edit.html',
                 paragraph=_paragraph)
 
 

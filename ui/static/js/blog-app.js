@@ -187,7 +187,11 @@ $(function () {
       console.log('contents', contents);
 
       // var delta = quill.getContents();
-      alert(document.getElementById("editor").innerHTML);
+      var content = document.getElementById("editor").innerHTML;
+      // 过滤掉quill带来的垃圾数据
+      content = content.replace('<div class="ql-editor" contenteditable="true">', ''); //字符替换
+      content = content.replace('</div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div><div class="ql-tooltip ql-hidden"><a class="ql-preview" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div>', ''); //字符替换
+      alert(content);
     });
   });
 
@@ -226,9 +230,7 @@ $(function () {
           hideActionSheet(weuiActionsheet, mask);
         });
       });
-
     });
-
   });
 
 

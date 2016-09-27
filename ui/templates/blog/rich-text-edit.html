@@ -13,10 +13,7 @@
     <title>富文本编辑器</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
     <!-- customer css files -->
@@ -32,7 +29,7 @@
       <div class="page page-current" id="page-rich-text-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left" href="/blog/article-edit">
+          <a class="button button-link button-nav pull-left" href="/blog/articles/{{ paragraph['articleId'] }}/edit">
             <span class="icon icon-left"></span>
           </a>
           <h1 class="title">富文本编辑器</h1>
@@ -47,9 +44,7 @@
         <div class="content">
           <!-- Create the editor container -->
           <div id="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br></p>
+            {% raw paragraph['content'] %}
           </div>
         </div> <!-- content -->
       </div> <!-- page -->
@@ -62,10 +57,6 @@
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
 
     <!-- fileinput -->
   	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
