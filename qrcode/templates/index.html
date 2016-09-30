@@ -41,8 +41,8 @@
 						<section>
 							<div class="box alt">
 								<div class="row uniform 50%">
-									<div class="12u"><span class="image fit">
-										<img id="qrcodeimg" src="static/images/pic04.jpg" alt="" />
+									<div class="12u"><span class="image fit" id="qrcodeimg">
+										<img src="static/images/pic04.jpg" alt="" />
 									</span></div>
 								</div>
 							</div>
@@ -114,13 +114,35 @@
 			<script src="/static/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/static/js/main.js"></script>
+			<script src="/static/js/jquery.json.min.js"></script>
 
 			<script type="text/javascript">
 				function SubmitQrcode() {
 					var url = $("#url").val();
-					$.post("/api/qrcode", {"url":url}, function(result){
-						document.getElementById("qrcodeimg").src = result;
-						$("#qrcodeimg").src = result;
+					var data = {'url' : url};
+					console.log(data);
+					_json = $.toJSON(data);
+
+					// $.ajax({
+					//   'type': 'POST',
+					//   'url': "/api/qrcode",
+					//   'data': data,
+					//   'success': { alert("second success"); },
+					//   'dataType': "json"
+					// });
+
+					$.post("/api/qrcode", _json, function(result){
+						console.log( "success: " + result );
+					}, 'json')
+					.done(function(result) {
+						console.log( "second success: " + result );
+  				})
+  				.fail(function(result) {
+    				console.log( "error: " + result );
+  				})
+  				.always(function(result) {
+						console.log(result.responseText);
+						document.getElementById("qrcodeimg").innerHTML = '<img src="' + result.responseText + '"/>';
 					});
 				}
 
@@ -136,7 +158,7 @@
 						alert('Send message success!');
 						$("#name").val("");
 						$("#email").val("");
-						$("#message").val("");						
+						$("#message").val("");
 					});
 				}
 			</script>

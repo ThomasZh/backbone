@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>设置</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page ,第一个.page默认被展示-->
+      <div class="page page-current" id="page-settings">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left back" href="/club">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">设置</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="content-block-title"></div>
+          <div class="list-block list">
+            <ul>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-me"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Nickname</div>
+                </div>
+              </li>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-picture"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Avatar</div>
+                </div>
+              </li>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-phone"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Phone</div>
+                </div>
+              </li>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-card"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Email</div>
+                </div>
+              </li>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-settings"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Change Password</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content-block-title"></div>
+          <div class="list-block list">
+            <ul>
+              <li class="item-content">
+                <div class="item-media"><i class="icon icon-settings"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Night Theme</div>
+                  <div class="item-after">
+                    <label class="label-switch">
+                      <input type="checkbox" id="dark-switch">
+                      <div class="checkbox"></div>
+                    </label>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-link">
+                <div class="item-media"><i class="icon icon-message"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Help</div>
+                </div>
+              </li>
+              <li class="item-content item-link open-popup" data-popup=".popup-about">
+                <div class="item-media"><i class="icon icon-app"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">About</div>
+                </div>
+              </li>
+              <li class="item-content">
+                <div class="item-media"><i class="icon icon-code"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">Version</div>
+                  <div class="item-after">0.1.0</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <a href="/club" class="button button-big button-fill button-danger">Logout</a>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <!-- 如果有 popup -->
+    <div class="popup popup-about">
+      <div class="content-block">
+        <h2 class="text-center">About Light7 Mobile</h2>
+        <p>It's a demo webapp of Light7.</p>
+        <p><a href="#" class="button close-popup">OK</a></p>
+      </div>
+    </div>
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/i18n/cn.js") }}' charset='utf-8'></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("js/club-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

@@ -23,6 +23,7 @@ import sys
 import os
 import uuid
 from qrcode import *
+from tornado.escape import json_encode, json_decode
 
 
 #获取脚本文件的当前路径
@@ -63,9 +64,9 @@ class ApiQrcodeHandle(tornado.web.RequestHandler):
     def post(self):
         logging.info(self.request)
 
-        input_url = self.request.body
-        logging.info("got input_url %r", input_url)
-        data = tornado.escape.json_decode(input_url)
+        post_body = self.request.body
+        logging.info("got post body %r", post_body)
+        data = json_decode(post_body)
         _url = data['url']
         logging.info("got _url %r", _url)
 
@@ -101,6 +102,7 @@ class ApiQrcodeHandle(tornado.web.RequestHandler):
 
         img_url = self.request.protocol + "://" + self.request.host
         img_url = img_url + '/static/qrcode/' + _date + "/" + _id + '.png'
+        logging.info("got img_url %r", img_url)
         self.write(img_url)
         self.finish()
 

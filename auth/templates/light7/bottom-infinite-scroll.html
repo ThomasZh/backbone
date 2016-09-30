@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>底部无限滚动</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/icon.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swiper.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7-swipeout.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+    <style type="text/css">
+      .infinite-scroll-preloader {
+        margin-top:-20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <div class="page" id="page-infinite-scroll-bottom">
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left back" href="/light7#page-basic-component">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">底部无限滚动</h1>
+        </header>
+
+        <div class="content infinite-scroll" data-distance="100">
+          <div class="list-block">
+            <ul class="list-container">
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+              <li class="item-content"><div class="item-inner"><div class="item-title">条目</div></div></li>
+            </ul>
+          </div>
+          <div class="content-block-title">&nbsp;</div>
+          <!-- 加载提示符 -->
+          <div class="infinite-scroll-preloader">
+            <div class="preloader">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swiper.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-swipeout.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7-city-picker.min.js") }}' charset='utf-8'></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("js/light7-demo.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>游记列表</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page, 第一个.page默认被展示. 俱乐部首页 -->
+      <div class="page page-current" id="page-club" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <h1 class="title">游记列表</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content native-scroll">
+          <div class="bd">
+            <div class="weui_panel weui_panel_access">
+              <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">
+                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
+                    </li>
+                    <li class="weui_media_info_meta">作者</li>
+                    <li class="weui_media_info_meta">2016-5-6 19:28</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra">6人编写</li>
+                  </ul>
+                  <h4 class="weui_media_title">游记名称: 天晴就去爬玉龙雪山</h4>
+                  <img src="/static/images/img05.jpg" width="100%">
+                  <p class="weui_media_desc">简介: 玉龙雪山绝逼是丽江一张名片，不管你看过多少雪山都得承认。问过很多长待丽江的朋友，几乎都没有上过玉龙雪山问其原因，无非是上去一趟的花费太高或是天天在古城就可以看到雪山，何必上去排队遭罪受说得也在理。</p>
+                </div>
+              </div>
+              <a href="/journey/article" class="weui_panel_ft">阅读全文</a>
+            </div>
+
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/journey-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>
