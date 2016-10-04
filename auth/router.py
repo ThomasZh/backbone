@@ -19,13 +19,14 @@
 import tornado.web
 
 from foo import comm
-from foo.auth import auth_account
+from foo.api import api_auth
 
 
 def map():
 
     config = [
-
+        ('/api/token', getattr(api_auth, 'ApiAuthTokenXHR')),
+        ('/api/account', getattr(api_auth, 'ApiAuthAccountXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

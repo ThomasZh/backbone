@@ -23,6 +23,36 @@ import sys
 import os
 import uuid
 import smtplib
+import random
+import hashlib
+import string
+
+
+#验证码函数
+def random_x(i):
+    code = []
+    for i in range(i):
+        if i == random.randint(1,3):
+            code.append(str(random.randint(1,9)))
+        else:
+            tmp = random.randint(65,90)
+            code.append(chr(tmp))
+
+    return ''.join(code)
+
+
+def create_uuid_str():
+    return str(uuid.uuid1()).replace('-', '')
+
+
+def create_nonce_str():
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
+
+
+def hash_pwd(md5pwd, salt):
+    md5salt = hashlib.md5(salt).hexdigest()
+    ecrypted_pwd = hashlib.md5(md5pwd + md5salt).hexdigest()
+    return ecrypted_pwd
 
 
 class singleton(object):
