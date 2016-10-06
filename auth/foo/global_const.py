@@ -25,3 +25,7 @@ MONGO_USR = "7x24hs"
 MONGO_PWD = "123456"
 
 EXPIRES_IN = 7200 # 7200s
+
+SMS_USER = 'tripc2csupport'
+SMS_KEY = 'ALXKb8gBtLKT9QPyE3DQ7n3ZbOJEJctG'
+SMS_URL = "http://www.sendcloud.net/smsapi/send"

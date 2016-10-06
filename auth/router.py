@@ -27,6 +27,8 @@ def map():
     config = [
         ('/api/token', getattr(api_auth, 'ApiAuthTokenXHR')),
         ('/api/account', getattr(api_auth, 'ApiAuthAccountXHR')),
+        ('/api/vcode', getattr(api_auth, 'ApiAuthVcodeXHR')),
+        ('/api/lost-pwd', getattr(api_auth, 'ApiAuthLostPwdXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

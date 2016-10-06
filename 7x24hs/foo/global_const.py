@@ -25,4 +25,4 @@ MONGO_USR = "7x24hs"
 MONGO_PWD = "123456"
 
 EXPIRES_IN = 7200 # 7200s
-AUTH_HOST = "localhost:8009"
+AUTH_HOST = "auth.7x24hs.com"

@@ -26,10 +26,34 @@ import smtplib
 import random
 import hashlib
 import string
+from hashlib import md5
+
+
+def generate_md5(fp):
+    m = md5()
+    m.update(fp)
+    return m.hexdigest()
+
+
+# 创建发生短信的 sendcloud 签名
+def generate_sms_sign(SMS_KEY, param):
+    param_keys = list(param.keys())
+    param_keys.sort()
+
+    param_str = ""
+    for key in param_keys:
+        param_str += key + '=' + str(param[key]) + '&'
+    param_str = param_str[:-1]
+
+    sign_str = SMS_KEY + '&' + param_str + '&' + SMS_KEY
+    #sign = generate_md5(sign_str)
+    sign = hashlib.md5(sign_str).hexdigest()
+
+    return sign
 
 
 #验证码函数
-def random_x(i):
+def generate_verification_code(i):
     code = []
     for i in range(i):
         if i == random.randint(1,3):
@@ -41,11 +65,11 @@ def random_x(i):
     return ''.join(code)
 
 
-def create_uuid_str():
+def generate_uuid_str():
     return str(uuid.uuid1()).replace('-', '')
 
 
-def create_nonce_str():
+def generate_nonce_str():
     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
 
 

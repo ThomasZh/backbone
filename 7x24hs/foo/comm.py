@@ -40,6 +40,8 @@ class BaseHandler(tornado.web.RequestHandler):
         session_token = self.get_secure_cookie("session_token")
         logging.info("got session_token %r", session_token)
         expires_at = self.get_secure_cookie("expires_at")
+        if expires_at is None or expires_at == "":
+            expires_at = 0
         refresh_token = self.get_secure_cookie("refresh_token")
 
         _timestamp = int(time.time())

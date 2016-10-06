@@ -122,7 +122,48 @@ class AuthRegisterHandler(tornado.web.RequestHandler):
 class AuthLostPwdHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
-        self.render('auth/lost-pwd.html')
+        self.render('auth/lost-pwd.html', err_msg="")
+
+    def post(self):
+        logging.info(self.request)
+        phone = self.get_argument("lostPhone", "")
+        vcode = self.get_argument("lostVcode", "")
+        md5pwd = self.get_argument("lostPwd", "")
+        logging.info("phone %r", phone)
+        logging.info("vcode %r", vcode)
+
+        try:
+            url = "http://" + AUTH_HOST + "/api/lost-pwd"
+            body_data = {"phone":phone, "vcode":vcode, "password":md5pwd}
+            logging.info("post body %r", body_data)
+            _json = json_encode(body_data)
+            http_client = HTTPClient()
+            response = http_client.fetch(url, method="POST", body=_json)
+            logging.info("got response %r", response.body)
+
+            _err_msg = _("Password already updated, please login.")
+            self.render("auth/login.html", err_msg=_err_msg)
+        except:
+            err_title = str( sys.exc_info()[0] );
+            err_detail = str( sys.exc_info()[1] );
+            logging.error("error: %r info: %r", err_title, err_detail)
+            if err_detail == 'HTTP 404: Not Found':
+                _err_msg = _("This phone not exist in system, please register first.")
+                self.render('auth/lost-pwd.html', err_msg=_err_msg)
+                return
+            elif err_detail == 'HTTP 401: Unauthorized':
+                _err_msg = _("This verification code not pair for phone, please retype it.")
+                self.render('auth/lost-pwd.html', err_msg=_err_msg)
+                return
+            elif err_detail == 'HTTP 408: Request Timeout':
+                _err_msg = _("This verification code is timeout, please request new one.")
+                self.render('auth/lost-pwd.html', err_msg=_err_msg)
+                return
+            else:
+                _err_msg = _(err_detail)
+                self.render('auth/lost-pwd.html', err_msg=_err_msg)
+                return
+
 
 
 class AuthProfileHandler(BaseHandler):
@@ -185,9 +226,13 @@ class AuthProfileEditHandler(BaseHandler):
         logging.info("got session_token response %r", session_token)
 
         nickname = self.get_argument("textNickname", "")
+        logging.info("got nickname %r", nickname)
+        avatar = self.get_argument("avatar", "")
+        logging.info("got avatar %r", avatar)
 
         url = "http://" + AUTH_HOST + "/api/account"
-        body_data = {"grant_type":"write", "access_token":session_token, "nickname":nickname}
+        body_data = {"grant_type":"write", "access_token":session_token,
+                "nickname":nickname, "avatar":avatar}
         logging.info("put body %r", body_data)
         _json = json_encode(body_data)
         http_client = HTTPClient()

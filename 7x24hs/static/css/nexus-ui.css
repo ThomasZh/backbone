@@ -1,3 +1,10 @@
+#btnLostCode {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    margin-bottom: 10px;
+}
+
 /*公共*/
 .bg-color{
     background:#fff;

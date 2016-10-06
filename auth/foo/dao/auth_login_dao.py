@@ -45,6 +45,12 @@ class auth_login_dao(singleton):
         logging.info("create auth_login success......");
 
 
+    def update(self, json):
+        _id = json["_id"];
+        self.__login_collection.update({"_id":_id},{"$set":json});
+        logging.info("update auth_login success......");
+
+
     def query_not_safe(self, login):
         cursor = self.__login_collection.find({"_id":login})
         data = None

@@ -10,124 +10,18 @@
     <meta name="spm-id" content="a222t.7900232">
     <meta name="format-detection" content="telephone=no, address=no">
 
-    <title>Register</title>
+    <title>Lost Password</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
     <!-- customer css files -->
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+
   </head>
   <body>
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
-      <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current" id="page-login">
-        <!-- 标题栏 -->
-        <header class="bar bar-nav">
-          <h1 class="title">Login</h1>
-        </header>
-
-        <!-- 这里是页面内容区 -->
-        <div class="content">
-          <form id="formLogin" action="/login" method="post">
-            <div class="list-block inset text-center">
-              <h3>Login 7x24hs.com</h3>
-              <ul>
-                <!-- Text inputs -->
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-form-name"></i></div>
-                    <div class="item-inner">
-                      <div class="item-input">
-                        <input type="text" placeholder="Mobile Phone"
-                          id="loginPhone" name="loginPhone">
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-form-email"></i></div>
-                    <div class="item-inner">
-                      <div class="item-input">
-                        <input type="password" placeholder="Password"
-                          id="loginPwd" name="loginPwd">
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class='color-warning'>{{ err_msg }}</li>
-              </ul>
-            </div>
-
-            <div class="content-block">
-              <p><a class="button button-big button-fill"
-                id="btnLogin" data-transition='fade'>Login</a></p>
-              <p>&nbsp;</p>
-              <p class='text-center signup'>
-                <a href="#page-register" class='pull-left'>No Accout?</a>
-                <a href="#page-lost-pwd" class='pull-right'>Forget Password?</a>
-              </p>
-            </div>
-          </form>
-        </div> <!-- content -->
-      </div> <!-- page -->
-
-      <!-- 其他的单个page内联页（如果有） -->
-      <div class="page" id="page-register">
-        <!-- 标题栏 -->
-        <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left back" href="#page-login">
-            <span class="icon icon-left"></span>
-          </a>
-          <h1 class="title">Register</h1>
-        </header>
-
-        <!-- 这里是页面内容区 -->
-        <div class="content">
-          <form id="formRegister" action="/register" method="post">
-            <div class="list-block inset text-center">
-              <h3>Register 7x24hs.com</h3>
-              <ul>
-                <!-- Text inputs -->
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-form-name"></i></div>
-                    <div class="item-inner">
-                      <div class="item-input">
-                        <input type="text" placeholder="Mobile Phone"
-                          id="registerPhone" name="registerPhone">
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-form-email"></i></div>
-                    <div class="item-inner">
-                      <div class="item-input">
-                        <input type="password" placeholder="Password"
-                          id="registerPwd" name="registerPwd">
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div class="content-block">
-              <p><a class="button button-big button-fill"
-                id="btnRegister" data-transition='fade'>Register</a></p>
-              <p>&nbsp;</p>
-              <p class='text-center signup'>
-                <a href="#page-login" class='pull-left'>Have Accout?</a>
-              </p>
-            </div>
-          </form>
-        </div> <!-- content -->
-      </div> <!-- page -->
-
       <!-- 其他的单个page内联页（如果有） -->
       <div class="page" id="page-lost-pwd">
         <!-- 标题栏 -->
@@ -140,6 +34,7 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
+          <form id="formLostPwd" action="/lost-pwd" method="post">
           <div class="list-block inset text-center">
             <h3>Lost Password 7x24hs.com</h3>
             <ul>
@@ -149,7 +44,8 @@
                   <div class="item-media"><i class="icon icon-form-name"></i></div>
                   <div class="item-inner">
                     <div class="item-input">
-                      <input type="text" placeholder="Mobile Phone">
+                      <input type="text" placeholder="Mobile Phone"
+                        id="lostPhone" name="lostPhone">
                     </div>
                   </div>
                 </div>
@@ -159,7 +55,9 @@
                   <div class="item-media"><i class="icon icon-form-email"></i></div>
                   <div class="item-inner">
                     <div class="item-input">
-                      <input type="text" placeholder="Verification Code">
+                      <input type="text" placeholder="Verification Code"
+                        id="lostVcode" name="lostVcode">
+                      <input type="button" id="btnLostCode" value="获取验证码">
                     </div>
                   </div>
                 </div>
@@ -169,28 +67,37 @@
                   <div class="item-media"><i class="icon icon-form-email"></i></div>
                   <div class="item-inner">
                     <div class="item-input">
-                      <input type="password" placeholder="Password">
+                      <input type="password" placeholder="New Password"
+                        id="lostPwd" name="lostPwd">
                     </div>
                   </div>
                 </div>
               </li>
+              <li class='color-warning'>{{ err_msg }}</li>
             </ul>
           </div>
 
           <div class="content-block">
-            <p><a class="button button-big button-fill" href='#page-login' data-transition='fade'>Submit</a></p>
+            <p><a class="button button-big button-fill" data-transition='fade'
+              id="btnLostPwd" >Submit</a></p>
             <p>&nbsp;</p>
             <p class='text-center signup'>
-              <a href="#page-login" class='pull-left'>Remember Password?</a>
+              <a href="/login" class='pull-left'>Remember Password?</a>
             </p>
           </div>
-
+          </form>
         </div> <!-- content -->
       </div> <!-- page -->
     </div> <!-- page group -->
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+    <script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+    <script src="{{ static_url("upyun/js/async.js") }}"></script>
+    <script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
     <!-- customer js files -->
     <script type="text/javascript" src='{{ static_url("js/md5.js") }}'></script>
     <script type='text/javascript' src='{{ static_url("js/auth-app.js") }}' charset='utf-8'></script>

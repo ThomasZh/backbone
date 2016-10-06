@@ -9,6 +9,7 @@ import tornado.web
 
 from foo import comm
 from foo.auth import auth_account
+from foo.ajax import ajax_auth
 
 
 def map():
@@ -23,6 +24,7 @@ def map():
         ('/lost-pwd', getattr(auth_account, 'AuthLostPwdHandler')),
         ('/profile', getattr(auth_account, 'AuthProfileHandler')),
         ('/profile-edit', getattr(auth_account, 'AuthProfileEditHandler')),
+        ('/ajax/vcode', getattr(ajax_auth, 'AjaxAuthVcodeXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

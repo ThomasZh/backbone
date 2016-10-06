@@ -23,7 +23,7 @@
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current" id="page-paragraph-edit">
+      <div class="page page-current" id="page-profile-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
           <a class="button button-link button-nav pull-left" href="/profile">
@@ -48,13 +48,15 @@
                     <div class="weui_uploader_bd">
                       <ul class="weui_uploader_files" id="weui_uploader_files">
 {% if account['avatar'] %}
-                        <li class="weui_uploader_file" style="background-image:url({{ account['avatar'] }})"></li>
+                        <li class="weui_uploader_file" style="background-image:url({{ account['avatar'] }}!80x80)"></li>
 {% else %}
                         <li class="weui_uploader_file" style="background-image:url('/static/images/avatar.jpg')"></li>
 {% end %}
                       </ul>
                       <div class="weui_uploader_input_wrp">
-                        <input id="file" class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" />
+                        <input id="file" name="file" type="file"
+                          class="weui_uploader_input" accept="image/jpg,image/jpeg,image/png,image/gif" />
+                        <input id="avatar" name="avatar" type="hidden">
                       </div>
                     </div>
                   </div>
@@ -133,6 +135,7 @@
   	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
 
     <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/md5.js") }}'></script>
     <script type='text/javascript' src='{{ static_url("js/auth-app.js") }}' charset='utf-8'></script>
 
   </body>
