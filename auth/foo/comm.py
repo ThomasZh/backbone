@@ -52,8 +52,16 @@ def generate_sms_sign(SMS_KEY, param):
     return sign
 
 
+# 生成4位数字验证码
+def generate_verify_code():
+    chars=['0','1','2','3','4','5','6','7','8','9']
+    x = random.choice(chars),random.choice(chars),random.choice(chars),random.choice(chars)
+    verifyCode = "".join(x)
+    return verifyCode
+
+
 #验证码函数
-def generate_verification_code(i):
+def randon_x(i):
     code = []
     for i in range(i):
         if i == random.randint(1,3):

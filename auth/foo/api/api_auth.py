@@ -390,18 +390,21 @@ class ApiAuthVcodeXHR(tornado.web.RequestHandler):
             return
 
         _timestamp = int(time.time())
+        last_time = 0
         try:
-            if _timestamp > int(_login['last_apply_vcode_time']) and _timestamp < int(_login['last_apply_vcode_time']) + 300: # ttl is 5 minutes
-                self.set_status(204) # No Content
-                self.write('No Content')
-                self.finish()
-                return
+            last_time = int(_login['last_apply_vcode_time'])
         except: # Not found last_apply_vcode_time
-            logging.info("no found last_apply_vcode_time")
+            logging.warn("no found last_apply_vcode_time")
+        logging.info("got timestamp %d last_time %d", _timestamp, last_time)
+        if _timestamp > last_time and _timestamp < (last_time + 300): # ttl is 5 minutes
+            self.set_status(200) # No Content
+            self.write('OK')
+            self.finish()
+            return
 
-        # store verification code
-        vcode = generate_verification_code(6)
-        logging.info("got verification_code %r", vcode)
+        # store phone verify code
+        vcode = generate_verify_code()
+        logging.info("got verify_code %r", vcode)
         _json = {"_id":phone, "vcode":vcode, "last_update_time":_timestamp,
                 "last_apply_vcode_time":_timestamp, "counts":0}
         auth_login_dao.auth_login_dao().update(_json)
@@ -443,88 +446,91 @@ class ApiAuthVcodeXHR(tornado.web.RequestHandler):
 
 # 创建忘记密码的验证码
 # 使用sendcloud实现
-class ApiSendCloudVcodeXHR(tornado.web.RequestHandler):
-    @tornado.web.asynchronous
-    @tornado.gen.coroutine
-    def post(self):
-        logging.info(self.request)
-        logging.info(self.request.body)
-        _body = json_decode(self.request.body)
-
-        phone = _body['phone']
-        logging.info("got phone %r", phone)
-        if phone is None or phone == "":
-            self.set_status(400) # Bad Request
-            self.write('Bad Request')
-            self.finish()
-            return
-
-        _login = auth_login_dao.auth_login_dao().query_not_safe(phone)
-        if not _login:
-            self.set_status(404) # Not Found
-            self.write('Not Found')
-            self.finish()
-            return
-
-        _timestamp = int(time.time())
-        try:
-            if _timestamp > int(_login['last_apply_vcode_time']) and _timestamp < int(_login['last_apply_vcode_time']) + 300: # ttl is 5 minutes
-                self.set_status(204) # No Content
-                self.write('No Content')
-                self.finish()
-                return
-        except: # Not found last_apply_vcode_time
-            logging.info("no found last_apply_vcode_time")
-
-        # store verification code
-        vcode = generate_verification_code(6)
-        logging.info("got verification_code %r", vcode)
-        _json = {"_id":phone, "vcode":vcode, "last_update_time":_timestamp,
-                "last_apply_vcode_time":_timestamp, "counts":0}
-        auth_login_dao.auth_login_dao().update(_json)
-
-        # Logic: send sms by sendcloud
-        param = {
-            'smsUser': SMS_USER,
-            'templateId': 151,
-            'msgType': 0,
-            'phone': phone,
-            'vars': {'%ekey%': vcode},
-        }
-        sign = generate_sms_sign(SMS_KEY, param)
-        param['signature'] = sign
-
-        headers = {'content-type': 'application/json'}
-        _json = json_encode(param)
-        logging.info("post body %r", _json)
-        http_client = HTTPClient()
-        response = None
-        try:
-            response = http_client.fetch(SMS_URL,
-                    method="POST", headers=headers, body=_json)
-            logging.info("got sendcloud sms response %r", response.body)
-        except httpclient.HTTPError as e:
-            # HTTPError is raised for non-200 responses; the response
-            # can be found in e.response.
-            logging.error("sendcloud sms error: %r", str(e))
-            self.set_status(500) # Internal Server Error
-            self.write(str(e))
-            self.finish()
-        except Exception as e:
-            # Other errors are possible, such as IOError.
-            logging.error("sendcloud sms error: %r", str(e))
-            self.set_status(500) # Internal Server Error
-            self.write(str(e))
-            self.finish()
-        else:
-            # if no exception,get here
-            self.set_status(200) # OK
-            self.write(response.body)
-            self.finish()
-        finally:
-            http_client.close()
-
-        return
+# class ApiSendCloudVcodeXHR(tornado.web.RequestHandler):
+#     @tornado.web.asynchronous
+#     @tornado.gen.coroutine
+#     def post(self):
+#         logging.info(self.request)
+#         logging.info(self.request.body)
+#         _body = json_decode(self.request.body)
+#
+#         phone = _body['phone']
+#         logging.info("got phone %r", phone)
+#         if phone is None or phone == "":
+#             self.set_status(400) # Bad Request
+#             self.write('Bad Request')
+#             self.finish()
+#             return
+#
+#         _login = auth_login_dao.auth_login_dao().query_not_safe(phone)
+#         if not _login:
+#             self.set_status(404) # Not Found
+#             self.write('Not Found')
+#             self.finish()
+#             return
+#
+#         _timestamp = int(time.time())
+#         logging.info("got timestamp %d", _timestamp)
+#         try:
+#             last_time = int(_login['last_apply_vcode_time'])
+#             logging.info("got last_time %d", last_time)
+#             if (_timestamp > last_time) and (_timestamp < last_time + 300): # ttl is 5 minutes
+#                 self.set_status(204) # No Content
+#                 self.write('No Content')
+#                 self.finish()
+#                 return
+#         except: # Not found last_apply_vcode_time
+#             logging.info("no found last_time")
+#
+#         # store phone verify code
+#         vcode = generate_verify_code()
+#         logging.info("got verify_code %r", vcode)
+#         _json = {"_id":phone, "vcode":vcode, "last_update_time":_timestamp,
+#                 "last_apply_vcode_time":_timestamp, "counts":0}
+#         auth_login_dao.auth_login_dao().update(_json)
+#
+#         # Logic: send sms by sendcloud
+#         param = {
+#             'smsUser': SMS_USER,
+#             'templateId': 151,
+#             'msgType': 0,
+#             'phone': phone,
+#             'vars': {'%ekey%': vcode},
+#         }
+#         sign = generate_sms_sign(SMS_KEY, param)
+#         param['signature'] = sign
+#
+#         headers = {'content-type': 'application/json'}
+#         _json = json_encode(param)
+#         logging.info("post body %r", _json)
+#         http_client = HTTPClient()
+#         response = None
+#         try:
+#             response = http_client.fetch(SMS_URL,
+#                     method="POST", headers=headers, body=_json)
+#             logging.info("got sendcloud sms response %r", response.body)
+#         except httpclient.HTTPError as e:
+#             # HTTPError is raised for non-200 responses; the response
+#             # can be found in e.response.
+#             logging.error("sendcloud sms error: %r", str(e))
+#             self.set_status(500) # Internal Server Error
+#             self.write(str(e))
+#             self.finish()
+#         except Exception as e:
+#             # Other errors are possible, such as IOError.
+#             logging.error("sendcloud sms error: %r", str(e))
+#             self.set_status(500) # Internal Server Error
+#             self.write(str(e))
+#             self.finish()
+#         else:
+#             # if no exception,get here
+#             self.set_status(200) # OK
+#             self.write('OK')
+#             self.finish()
+#         finally:
+#             http_client.close()
+#
+#         return
 
 
 # 忘记密码后修改密码

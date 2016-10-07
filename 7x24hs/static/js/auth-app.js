@@ -69,11 +69,34 @@ $(function () {
       success: function(data, status, xhr) {
         // Do Anything After get Return data
         $.alert("验证码已经发送!");
-        //time(this);
+        var btn = document.getElementById("btnLostCode");
+        time(btn);
       },
-      error: function(xhr, error, exception) {
-        // handle the error.
-        $.alert(exception.toString());
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //alert(XMLHttpRequest.status);
+        if (XMLHttpRequest.status == 200) {
+          $.alert("验证码已经发送!");
+          var btn = document.getElementById("btnLostCode");
+          time(btn);
+        } else if (XMLHttpRequest.status == 404) {
+          $.alert("此手机未注册!");
+        }
+
+        //alert(XMLHttpRequest.readyState);
+        // XMLHttpRequest.readyState: 状态码的意思
+        // 0 － （未初始化）还没有调用send()方法
+        // 1 － （载入）已调用send()方法，正在发送请求
+        // 2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+        // 3 － （交互）正在解析响应内容
+        // 4 － （完成）响应内容解析完成，可以在客户端调用了
+
+        //alert(textStatus);
+        // 发送error可能有下面两张引起的，或者其他程序问题，需要我们认真仔细。
+        // 1、data:"{}", data为空也一定要传"{}"；不然返回的是xml格式的。并提示parsererror.
+        // 2、parsererror的异常和Header 类型也有关系。及编码header('Content-type: text/html; charset=utf8');
+      },
+      complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
       }
     });
   });
@@ -110,6 +133,7 @@ $(function () {
     }
 
     document.addEventListener('uploaded', function(e) {
+      document.getElementById('weui_uploader_files').innerHTML = '';
       inner_html = '<li class="weui_uploader_file" style="background-image:url(' + lastImgUrl + ')"></li>';
       $('#weui_uploader_files').append(inner_html);
 

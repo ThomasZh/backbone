@@ -34,7 +34,7 @@ from comm import *
 from global_const import *
 
 from tornado.escape import json_encode, json_decode
-from tornado.httpclient import HTTPClient
+from tornado.httpclient import *
 from tornado.httputil import url_concat
 from bson import json_util
 
@@ -47,6 +47,7 @@ class AjaxAuthVcodeXHR(tornado.web.RequestHandler):
         logging.info(self.request)
         logging.info(self.request.body)
         _body = json_decode(self.request.body)
+        self.set_header('Content-Type', 'application/json')
 
         phone = _body['phone']
         logging.info("got phone %r", phone)
@@ -61,10 +62,30 @@ class AjaxAuthVcodeXHR(tornado.web.RequestHandler):
         logging.info("put body %r", body_data)
         _json = json_encode(body_data)
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="POST", body=_json)
-        logging.info("got response %r", response.body)
+        response = None
+        try:
+            response = http_client.fetch(url, method="POST", body=_json)
+            logging.info("got response %r", response.body)
+        except HTTPError as e:
+            # HTTPError is raised for non-200 responses; the response
+            # can be found in e.response.
+            logging.error("send verify code error: %r", str(e))
+            self.set_status(e.code) # HTTPError
+            self.write(str(e))
+            self.finish()
+        except Exception as e:
+            # Other errors are possible, such as IOError.
+            logging.error("send verify code error: %r", str(e))
+            self.set_status(500) # Internal Server Error
+            self.write(str(e))
+            self.finish()
+        else:
+            # if no exception,get here
+            logging.info("return 200: OK")
+            self.set_status(200) # OK
+            self.write('OK')
+            self.finish()
+        finally:
+            http_client.close()
 
-        self.set_status(200) # OK
-        self.write(response.body)
-        self.finish()
         return
