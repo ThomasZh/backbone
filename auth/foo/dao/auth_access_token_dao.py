@@ -26,7 +26,8 @@ from global_const import *
 
 
 # login options
-# {'_id':'session_token', 'create_time':0, 'last_update_time':0}
+# {'_id':'session_token', 'create_time':0, 'last_update_time':0,
+# 'account_id':'uuid'}
 class auth_access_token_dao(singleton):
     __access_token_collection = None;
 

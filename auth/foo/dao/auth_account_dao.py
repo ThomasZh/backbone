@@ -26,7 +26,8 @@ from global_const import *
 
 
 # login options
-# {'_id':'uuid', 'create_time':0, 'last_update_time':0}
+# {'_id':'uuid', 'create_time':0, 'last_update_time':0,
+# 'nickname':'', 'avatar':''}
 class auth_account_dao(singleton):
     __account_collection = None;
 

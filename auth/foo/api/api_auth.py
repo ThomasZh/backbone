@@ -290,7 +290,9 @@ class ApiAuthAccountXHR(tornado.web.RequestHandler):
                 self.finish()
                 return
 
-            self.finish(JSON.dumps(account))
+            _account = {"_id":account['_id'],
+                    "nickname":account['nickname'], "avatar":account['avatar']}
+            self.finish(JSON.dumps(_account))
             return
         else: # default, could also just omit condition or 'if True'
             #raise tornado.web.HTTPError(400)
