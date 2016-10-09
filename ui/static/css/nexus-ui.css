@@ -39,8 +39,29 @@
     background:rgba(0,0,0,0.2);
     border-radius: 5px;
 }
-/*渐变*/
 
+/*蓝色改成绿色*/
+.tab-item.font-green.active{
+  color: #43d88a;
+}
+.buttons-tab .button-font-green.active {
+    z-index: 100;
+    color: #43d88a;
+    border-color: #43d88a;
+}
+.list-block .item-link.font-green{
+    color: #43d88a;
+}
+.content-block p .font-green{
+    color: #43d88a;
+}
+.modal-button{
+    color: #43d88a;
+}
+.number-dis li a{
+    color: #43d88a;
+}
+/*渐变*/
 .img-gradient{
     background-image:-webkit-linear-gradient(top,red,rgba(0,0,255,0.5));
     box-shadow: inset 0 1px 5px rgba(0,0,0,.5);
