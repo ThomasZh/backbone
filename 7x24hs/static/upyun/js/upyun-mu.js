@@ -2,7 +2,7 @@
 (function() {
     var _config = {
         api: 'http://m0.api.upyun.com/',
-        chunkSize: 1048576
+        chunkSize: 104857
     };
 
     function _extend(dst, src) {
@@ -116,6 +116,7 @@
                         end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize;
                     var blobPacket = blobSlice.call(file, start, end);
                     fileReader.readAsArrayBuffer(blobPacket);
+                    //alert(blobPacket);
                 }
                 loadNext();
             },

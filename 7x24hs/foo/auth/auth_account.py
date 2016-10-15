@@ -53,8 +53,9 @@ class AuthLoginHandler(tornado.web.RequestHandler):
         logging.info("phone %r", phone)
 
         try:
-            url = "http://" + AUTH_HOST + "/api/token"
-            body_data = {"grant_type":"password", "username":phone, "password":md5pwd}
+            url = "http://" + AUTH_HOST + "/auth/token"
+            body_data = {"appid":APPID, "app_secret":APP_SECRET,
+                    "login":phone, "pwd":md5pwd}
             logging.info("post body %r", body_data)
             _json = json_encode(body_data)
             http_client = HTTPClient()
@@ -67,6 +68,7 @@ class AuthLoginHandler(tornado.web.RequestHandler):
             self.set_secure_cookie("session_token", token['access_token'])
             self.set_secure_cookie("expires_at", str(expires_at))
             self.set_secure_cookie("refresh_token", token['refresh_token'])
+            self.set_secure_cookie("account_id", token['account_id'])
 
             self.redirect("/profile")
         except:
@@ -95,8 +97,9 @@ class AuthRegisterHandler(tornado.web.RequestHandler):
         logging.info("phone %r", phone)
 
         try:
-            url = "http://" + AUTH_HOST + "/api/account"
-            body_data = {"grant_type":"create", "username":phone, "password":md5pwd}
+            url = "http://" + AUTH_HOST + "/auth/account"
+            body_data = {"appid":APPID, "app_secret":APP_SECRET,
+                    "login":phone, "pwd":md5pwd}
             logging.info("post body %r", body_data)
             _json = json_encode(body_data)
             http_client = HTTPClient()
@@ -127,14 +130,15 @@ class AuthLostPwdHandler(tornado.web.RequestHandler):
     def post(self):
         logging.info(self.request)
         phone = self.get_argument("lostPhone", "")
-        vcode = self.get_argument("lostVcode", "")
+        verify_code = self.get_argument("lostVerifyCode", "")
         md5pwd = self.get_argument("lostPwd", "")
         logging.info("phone %r", phone)
-        logging.info("vcode %r", vcode)
+        logging.info("verify_code %r", verify_code)
 
         try:
-            url = "http://" + AUTH_HOST + "/api/lost-pwd"
-            body_data = {"phone":phone, "vcode":vcode, "password":md5pwd}
+            url = "http://" + AUTH_HOST + "/auth/pwd"
+            body_data = {"appid":APPID, "app_secret":APP_SECRET,
+                    "login":phone, "verify_code":verify_code, "pwd":md5pwd}
             logging.info("post body %r", body_data)
             _json = json_encode(body_data)
             http_client = HTTPClient()
@@ -152,11 +156,11 @@ class AuthLostPwdHandler(tornado.web.RequestHandler):
                 self.render('auth/lost-pwd.html', err_msg=_err_msg)
                 return
             elif err_detail == 'HTTP 401: Unauthorized':
-                _err_msg = _("This verification code not pair for phone, please retype it.")
+                _err_msg = _("This verify code not pair for phone, please retype it.")
                 self.render('auth/lost-pwd.html', err_msg=_err_msg)
                 return
             elif err_detail == 'HTTP 408: Request Timeout':
-                _err_msg = _("This verification code is timeout, please request new one.")
+                _err_msg = _("This verify code is timeout, please request new one.")
                 self.render('auth/lost-pwd.html', err_msg=_err_msg)
                 return
             else:
@@ -165,20 +169,20 @@ class AuthLostPwdHandler(tornado.web.RequestHandler):
                 return
 
 
-
 class AuthProfileHandler(BaseHandler):
     @tornado.web.authenticated  # if no session, redirect to login page
     def get(self):
         logging.info(self.request)
+
         session_token = self.get_secure_cookie("session_token")
-        logging.info("got session_token response %r", session_token)
+        account_id = self.get_secure_cookie("account_id")
+        logging.info("got session_token %r from cookie", session_token)
+        logging.info("got account_id %r from cookie", account_id)
 
-        params = {"grant_type":"read", "access_token":session_token}
-        url = url_concat("http://" + AUTH_HOST + "/api/account", params)
+        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET")
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
         logging.info("got account response %r", response.body)
-
         _account = json_decode(response.body)
 
         self.render('auth/profile.html', account=_account)
@@ -191,12 +195,9 @@ class AuthLogoutHandler(BaseHandler):
         session_token = self.get_secure_cookie("session_token")
         logging.info("got session_token response %r", session_token)
 
-        url = "http://" + AUTH_HOST + "/api/token"
-        body_data = {"grant_type":"delete", "access_token":session_token}
-        logging.info("put body %r", body_data)
-        _json = json_encode(body_data)
+        url = "http://" + AUTH_HOST + "/auth/token"
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="POST", body=_json)
+        response = http_client.fetch(url, method="DELETE", headers={"Authorization":"Bearer "+session_token})
         logging.info("got logout response %r", response.body)
 
         self.redirect("/login")
@@ -206,15 +207,16 @@ class AuthProfileEditHandler(BaseHandler):
     @tornado.web.authenticated  # if no session, redirect to login page
     def get(self):
         logging.info(self.request)
+
         session_token = self.get_secure_cookie("session_token")
-        logging.info("got session_token response %r", session_token)
+        account_id = self.get_secure_cookie("account_id")
+        logging.info("got session_token %r from cookie", session_token)
+        logging.info("got account_id %r from cookie", account_id)
 
-        params = {"grant_type":"read", "access_token":session_token}
-        url = url_concat("http://" + AUTH_HOST + "/api/account", params)
+        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET")
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
         logging.info("got account response %r", response.body)
-
         _account = json_decode(response.body)
 
         self.render('auth/profile-edit.html', account=_account)
@@ -222,21 +224,42 @@ class AuthProfileEditHandler(BaseHandler):
     @tornado.web.authenticated  # if no session, redirect to login page
     def post(self):
         logging.info(self.request)
+
         session_token = self.get_secure_cookie("session_token")
-        logging.info("got session_token response %r", session_token)
+        account_id = self.get_secure_cookie("account_id")
+        logging.info("got session_token %r from cookie", session_token)
+        logging.info("got account_id %r from cookie", account_id)
 
         nickname = self.get_argument("textNickname", "")
         logging.info("got nickname %r", nickname)
         avatar = self.get_argument("avatar", "")
         logging.info("got avatar %r", avatar)
 
-        url = "http://" + AUTH_HOST + "/api/account"
-        body_data = {"grant_type":"write", "access_token":session_token,
+        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
+        body_data = {"account_id":account_id,
                 "nickname":nickname, "avatar":avatar}
         logging.info("put body %r", body_data)
         _json = json_encode(body_data)
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="PUT", body=_json)
+        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
         logging.info("got account response %r", response.body)
 
         self.redirect("/profile")
+
+
+class AuthAvatarEditHandler(BaseHandler):
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def get(self):
+        logging.info(self.request)
+        session_token = self.get_secure_cookie("session_token")
+        logging.info("got session_token response %r", session_token)
+
+        params = {"grant_type":"my_baseinfo", "access_token":session_token}
+        url = url_concat("http://" + AUTH_HOST + "/auth/account", params)
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got account response %r", response.body)
+
+        _account = json_decode(response.body)
+
+        self.render('auth/avatar-edit.html', account=_account)

@@ -26,35 +26,46 @@ from global_const import *
 
 
 # login options
-# {'_id':'phone', 'md5pwd':pwd, 'salt':'salt', 'create_time':0, 'last_update_time':0,
-# 'last_apply_vcode_time':0, 'vcode':'1234'}
-class auth_login_dao(singleton):
-    __login_collection = None;
+# {'_id':'uuid', 'create_time':0, 'last_update_time':0,
+# 'nickname':'', 'avatar':''}
+class auth_account_dao(singleton):
+    __account_collection = None;
 
     def __init__(self):
-        if self.__login_collection is None:
+        if self.__account_collection is None:
             conn = pymongo.MongoClient(MONGO_HOST, MONGO_PORT);
             db = conn[MONGO_DB];
             db.authenticate(MONGO_USR, MONGO_PWD);
-            self.__login_collection = db.auth_login;
+            self.__account_collection = db.auth_account;
         else:
-            logging.info("auth_login_dao has inited......");
+            logging.info("auth_account_dao has inited......");
 
 
     def create(self, json):
-        self.__login_collection.insert(json);
-        logging.info("create auth_login success......");
+        self.__account_collection.insert(json);
+        logging.info("create auth_account success......");
 
 
     def update(self, json):
         _id = json["_id"];
-        self.__login_collection.update({"_id":_id},{"$set":json});
-        logging.info("update auth_login success......");
+        self.__account_collection.update({"_id":_id},{"$set":json});
+        logging.info("update account success......");
 
 
-    def query_not_safe(self, login):
-        cursor = self.__login_collection.find({"_id":login})
+    def query_not_safe(self, _id):
+        cursor = self.__account_collection.find({"_id":_id})
         data = None
         for i in cursor:
             data = i
+        return data
+
+
+    def query(self, _id):
+        data = self.query_not_safe(_id)
+        if data:
+            if not data.has_key('nickname'):
+                data['nickname'] = ""
+            if not data.has_key('avatar'):
+                data['avatar'] = ""
+
         return data

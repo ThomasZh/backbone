@@ -5,7 +5,7 @@
 
 $(function () {
 
-  // 点击获取验证码按钮
+  // 点击忘记密码提交按钮
   $(document).on('click','#btnLostPwd', function () {
     phone = $('#lostPhone').val();
     if (phone == null || phone == undefined || phone == '') {
@@ -13,9 +13,9 @@ $(function () {
       return false;
     }
 
-    vcode = $('#lostVcode').val();
-    if (vcode == null || vcode == undefined || vcode == '') {
-      $.alert('Please input verification code');
+    verifiy_code = $('#lostVerifyCode').val();
+    if (verifiy_code == null || verifiy_code == undefined || verifiy_code == '') {
+      $.alert('Please input verifiy code');
       return false;
     }
 
@@ -62,7 +62,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: "/ajax/vcode",
+      url: "/ajax/verify-code",
       data: '{"phone": "' + phone + '"}',
       dataType: 'json',
       contentType: 'application/json',
@@ -238,7 +238,13 @@ function uploadUpyun(file) {
 
   var instance = new Sand(config);
   var options = {
-    'notify_url' : 'http://upyun.com'
+    'notify_url' : 'http://upyun.com',
+    //"allow-file-type":"jpg,jpeg,png",
+    //"x-gmkerl-value": "150", /// 如需缩小功能,这必须输入(缩略图宽度/像素)
+    //"x-gmkerl-quality": "95", /// 可选(图片压缩质量,默认 95)
+    //"x-gmkerl-unsharp": "True", /// 可选(是否进行锐化处理,默认锐化)
+    //"x-gmkerl-rotate": "auto", /// 可选(是否进行图片旋转)
+    //"x-gmkerl-clip" : "800x800s300a300", /// 可选(是否进行图片裁剪)
   };
   instance.setOptions(options);
 

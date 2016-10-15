@@ -11,7 +11,7 @@ case "$1" in
     PID=`sed -n 1p pidfile`  #get pid from file
     if [ ! -z "$PID" ] ; then
 #        ./crntb-adm.sh uninstall
-        echo "Stopping auth.7x24hs.com service, begin killing ${PID}"
+        echo "Stopping api.7x24hs.com service, begin killing ${PID}"
         kill ${PID} >/dev/null 2>&1
         sleep 2
         echo "Stop: "`date` >> ./log/ctrl.log
@@ -20,10 +20,10 @@ case "$1" in
     # second Starting the Service
     cmd=`ps -e|grep $PID`    #get process with the given pid
     if [ "$PID" != "" ] ; then
-        echo "Starting auth.7x24hs.com service..."
-        nohup python index.py -log_file_prefix=./log/auth.log &
+        echo "Starting api.7x24hs.com service..."
+        nohup python index.py -log_file_prefix=./log/api.log &
         echo $! > pidfile    #record process id to file
-        echo 'Startup auth.7x24hs.com service success!'
+        echo 'Startup api.7x24hs.com service success!'
 #        ./crntb-adm.sh install
         echo "Start: "`date` >> ./log/ctrl.log
     fi
@@ -34,7 +34,7 @@ case "$1" in
     PID=`sed -n 1p pidfile`  #get pid from pidfile
     if [ ! -z "$PID" ] ; then
 #        ./crntb-adm.sh uninstall
-        echo "Stopping auth.7x24hs.com service, begin killing ${PID}"
+        echo "Stopping api.7x24hs.com service, begin killing ${PID}"
         kill ${PID} >/dev/null 2>&1
         echo "Stop: "`date` >> ./log/ctrl.log
     fi

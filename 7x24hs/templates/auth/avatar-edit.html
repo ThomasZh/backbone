@@ -10,7 +10,7 @@
     <meta name="spm-id" content="a222t.7900232">
     <meta name="format-detection" content="telephone=no, address=no">
 
-    <title>Profile Edit</title>
+    <title>Avatar Edit</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
@@ -18,7 +18,41 @@
     <link rel="stylesheet" href="{{ static_url('croppie/croppie.css') }}">
     <!-- customer css files -->
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
-
+<style>
+    button,
+a.btn {
+  background-color: #189094;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  text-shadow: none;
+}
+button:focus {
+  outline: 0;
+}
+.file-btn {
+  position: relative;
+}
+.file-btn input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.actions {
+  padding: 5px 0;
+}
+.actions button {
+  margin-right: 5px;
+}
+.crop{display:none}
+</style>
   </head>
 
   <body>
@@ -31,7 +65,7 @@
           <a class="button button-link button-nav pull-left" href="/profile">
             <span class="icon icon-left"></span>
           </a>
-          <h1 class="title">Profile Edit</h1>
+          <h1 class="title">Avatar Edit</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
@@ -100,20 +134,6 @@
               </div>
             </div>
 
-            <div class="weui_cells_title">昵称</div>
-            <div class="weui_cells weui_cells_form">
-              <div class="weui_cell">
-                <div class="weui_cell_bd weui_cell_primary">
-                  <textarea class="weui_textarea" id="textNickname" name="textNickname"
-                    placeholder="请输入昵称" rows="1">
-                    {{ account['nickname'] }}
-                  </textarea>
-                  <div class="weui_textarea_counter"><span>0</span>/20</div>
-                </div>
-              </div>
-            </div>
-            <div class="weui_cells_tips">底部说明文字: 昵称以20个字为宜</div>
-
             <div class="weui_btn_area">
               <a id="btnProfileEdit" class="weui_btn weui_btn_primary">确定</a>
             </div>
@@ -122,7 +142,7 @@
 
           <div class="actions">
             <button class="file-btn">
-              <span>上传</span>
+              <span>选择文件</span>
               <input type="file" id="upload" value="选择图片文件" />
             </button>
             <div class="crop">
@@ -153,6 +173,65 @@
     <!-- customer js files -->
     <script type="text/javascript" src='{{ static_url("js/md5.js") }}'></script>
     <script type='text/javascript' src='{{ static_url("js/auth-app.js") }}' charset='utf-8'></script>
+
+
+    <script>
+    $(function(){
+      var $uploadCrop;
+
+      function readFile(input) {
+ 			  if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            $uploadCrop.croppie('bind', {
+              url: e.target.result
+            });
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          alert("Sorry - you're browser doesn't support the FileReader API");
+        }
+      }
+
+      $uploadCrop = $('#upload-demo').croppie({
+        viewport: {
+          width: 200,
+          height: 200,
+          type: 'circle'
+        },
+        boundary: {
+          width: 200,
+          height: 200
+        }
+      });
+
+      $('#upload').on('change', function () {
+        $(".crop").show();
+        readFile(this);
+      });
+      $('.upload-result').on('click', function (ev) {
+        $uploadCrop.croppie('result', 'canvas').then(function (resp) {
+          popupResult({
+            src: resp
+          });
+        });
+      });
+
+      function popupResult(result) {
+        var html;
+        if (result.html) {
+          html = result.html;
+        }
+        if (result.src) {
+          alert(result.src);
+          html = '<img src="' + result.src + '" />';
+        }
+        $("#result").html(html);
+      }
+    });
+    </script>
 
   </body>
 </html>

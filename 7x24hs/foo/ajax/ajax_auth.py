@@ -40,7 +40,7 @@ from bson import json_util
 
 
 # 创建验证码
-class AjaxAuthVcodeXHR(tornado.web.RequestHandler):
+class AjaxAuthVerifyCodeXHR(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
@@ -57,9 +57,9 @@ class AjaxAuthVcodeXHR(tornado.web.RequestHandler):
             self.finish()
             return
 
-        url = "http://auth.7x24hs.com/api/vcode"
-        body_data = {"phone":phone}
-        logging.info("put body %r", body_data)
+        url = "http://api.7x24hs.com/auth/pwd/verify-code"
+        body_data = {"appid":APPID, "app_secret":APP_SECRET, "login":phone}
+        logging.info("post body %r", body_data)
         _json = json_encode(body_data)
         http_client = HTTPClient()
         response = None

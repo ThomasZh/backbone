@@ -25,10 +25,21 @@ from foo.api import api_auth
 def map():
 
     config = [
-        ('/api/token', getattr(api_auth, 'ApiAuthTokenXHR')),
-        ('/api/account', getattr(api_auth, 'ApiAuthAccountXHR')),
-        ('/api/vcode', getattr(api_auth, 'ApiAuthVcodeXHR')),
-        ('/api/lost-pwd', getattr(api_auth, 'ApiAuthLostPwdXHR')),
+        # 登录
+        # 删除（登出）
+        # 检验授权凭证（access_token）是否有效
+        ('/auth/token', getattr(api_auth, 'AuthTokenXHR')),
+        # 刷新（代替重新登录）
+        ('/auth/refresh-token', getattr(api_auth, 'AuthRefreshTokenXHR')),
+        # 注册
+        ('/auth/account', getattr(api_auth, 'AuthAccountXHR')),
+        # 查询个人基本信息
+        # 修改个人基本信息
+        ('/auth/account/([a-z0-9]*)', getattr(api_auth, 'AuthAccountXHR')),
+        # 获取验证码
+        ('/auth/pwd/verify-code', getattr(api_auth, 'AuthPwdVerifyCodeXHR')),
+        # 修改密码
+        ('/auth/pwd', getattr(api_auth, 'AuthPwdXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

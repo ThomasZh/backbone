@@ -48,13 +48,10 @@ class BaseHandler(tornado.web.RequestHandler):
         if _timestamp > int(expires_at):
             return session_token
         else:
-            url = "http://" + AUTH_HOST + "/api/token"
-            body_data = {"grant_type":"refresh", "refresh_token":refresh_token}
-            logging.info("post body %r", body_data)
-            _json = json_encode(body_data)
+            url = "http://" + AUTH_HOST + "/auth/refresh-token"
             http_client = HTTPClient()
-            response = http_client.fetch(url, method="POST", body=_json)
-            logging.info("got token response %r", response.body)
+            response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+refresh_token})
+            logging.info("got refresh-token response %r", response.body)
 
             token = json_decode(response.body)
             expires_at = _timestamp + token['expires_in']
@@ -62,6 +59,7 @@ class BaseHandler(tornado.web.RequestHandler):
             self.set_secure_cookie("session_token", session_token)
             self.set_secure_cookie("expires_at", str(expires_at))
             self.set_secure_cookie("refresh_token", token['refresh_token'])
+            self.set_secure_cookie("account_id", token['account_id'])
 
             return session_token
 
