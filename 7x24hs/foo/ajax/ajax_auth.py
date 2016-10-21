@@ -66,6 +66,7 @@ class AjaxAuthVerifyCodeXHR(tornado.web.RequestHandler):
         try:
             response = http_client.fetch(url, method="POST", body=_json)
             logging.info("got response %r", response.body)
+            logging.info("got response.headers %r", response.headers)
         except HTTPError as e:
             # HTTPError is raised for non-200 responses; the response
             # can be found in e.response.

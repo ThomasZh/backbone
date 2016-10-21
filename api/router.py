@@ -20,6 +20,7 @@ import tornado.web
 
 from foo import comm
 from foo.api import api_auth
+from foo.api import blog_article
 
 
 def map():
@@ -40,6 +41,16 @@ def map():
         ('/auth/pwd/verify-code', getattr(api_auth, 'AuthPwdVerifyCodeXHR')),
         # 修改密码
         ('/auth/pwd', getattr(api_auth, 'AuthPwdXHR')),
+
+        # 查询博客文章列表
+        ('/blog/articles', getattr(blog_article, 'BlogAritcleIndexXHR')),
+        # 查询某人博客文章列表
+        ('/blog/accounts/([a-z0-9]*)/articles', getattr(blog_article, 'BlogAccountAritclesXHR')),
+        # 创建文章
+        # 查询文章详情
+        # 删除文章
+        # 修改文章
+        ('/blog/articles/([a-z0-9]*)', getattr(blog_article, 'BlogAritcleXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

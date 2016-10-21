@@ -62,7 +62,12 @@ $(function () {
 
     $.ajax({
       type: "POST",
+      // url: "http://7x24hs.com/auth/verify-code",
       url: "/ajax/verify-code",
+      // headers : {'Authorization':'Base bmVvd2F5Om4lb3dheQ=='},
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Base bmVvd2F5Om4lb3dheQ==");
+      },
       data: '{"phone": "' + phone + '"}',
       dataType: 'json',
       contentType: 'application/json',

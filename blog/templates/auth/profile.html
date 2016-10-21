@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+  </head>
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page ,第一个.page默认被展示-->
+      <div class="page page-current" id="page-login">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <h1 class="title">Profile</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item no-transition font-green replace" href="/">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">Blog</span>
+          </a>
+          <a class="tab-item no-transition font-green replace" href="/blog/articles/create">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">Add</span>
+          </a>
+          <a class="tab-item no-transition font-green active" href="#">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="page-settings">
+            <div class="list-block media-list person-card">
+              <ul>
+                <li>
+                  <a href="/profile-edit" class="item-content">
+{% if account['avatar'] %}
+                    <div class="item-media"><img src="{{ account['avatar'] }}!80x80" width="80"></div>
+{% else %}
+                    <div class="item-media"><img src="/static/images/avatar.jpg" width="80"></div>
+{% end %}
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">{{ account['nickname'] }}</div>
+                      </div>
+                      <!--
+                      <div class="item-subtitle">Time is money</div>
+                      <div class="item-text"><strong>528</strong> Follow</div>
+                    -->
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="list-block list">
+              <ul>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-settings"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Account</div>
+                  </div>
+                </li>
+                <li>
+                  <a href="/avatar-edit" class="item-link item-content">
+                    <div class="item-media"><i class="icon icon-me"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">Avatar</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/blog/articles/mine" class="item-link item-content">
+                    <div class="item-media"><i class="icon icon-picture"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">Article</div>
+                      <div class="item-after"><span class="badge">0</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-message"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Noti</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-star"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Fav</div>
+                  </div>
+                </li>
+                <li class="item-content item-link">
+                  <div class="item-media"><i class="icon icon-friends"></i></div>
+                  <div class="item-inner">
+                    <div class="item-title">Help</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <form id="formLogout" action="logout" method="post">
+              <div class="content-block">
+                <a id="btnLogout" class="button button-big button-fill button-danger">Logout</a>
+              </div>
+            </form>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+    <script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+    <script src="{{ static_url("upyun/js/async.js") }}"></script>
+    <script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

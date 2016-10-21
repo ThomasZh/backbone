@@ -46,12 +46,26 @@ from bson import json_util
 
 # /auth/token
 class AuthTokenXHR(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        # self.set_header('Content-type', 'application/json')
+
     # 登录
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
         logging.info(self.request)
         logging.info(self.request.body)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         _body = json_decode(self.request.body)
         appid = None
@@ -120,10 +134,17 @@ class AuthTokenXHR(tornado.web.RequestHandler):
         return
 
     # 删除（登出）
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def delete(self):
         logging.info(self.request)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         access_token = None
         try:
@@ -144,10 +165,17 @@ class AuthTokenXHR(tornado.web.RequestHandler):
         return
 
     # 检验授权凭证（access_token）是否有效
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self):
         logging.info(self.request)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         access_token = None
         try:
@@ -175,11 +203,25 @@ class AuthTokenXHR(tornado.web.RequestHandler):
 
 # /auth/refresh-token
 class AuthRefreshTokenXHR(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        # self.set_header('Content-type', 'application/json')
+
     # 刷新（代替重新登录）
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self):
         logging.info(self.request)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         refresh_token = None
         try:
@@ -229,14 +271,27 @@ class AuthRefreshTokenXHR(tornado.web.RequestHandler):
 # /auth/account
 # /auth/account/([a-z0-9]*)
 class AuthAccountXHR(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        # self.set_header('Content-type', 'application/json')
+
     # 注册
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
         logging.info(self.request)
-        logging.info(self.request.body)
-        _body = json_decode(self.request.body)
 
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+
+        _body = json_decode(self.request.body)
         appid = None
         app_secret = None
         login = None
@@ -292,11 +347,18 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         return
 
     # 查询个人基本信息
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, account_id):
         logging.info(self.request)
         logging.info("got account_id %r from uri", account_id)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         access_token = None
         try:
@@ -330,11 +392,18 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         return
 
     # 修改个人基本信息
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def put(self, account_id):
         logging.info(self.request)
         logging.info("got account_id %r from uri", account_id)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         access_token = None
         try:
@@ -402,13 +471,27 @@ class AuthAccountXHR(tornado.web.RequestHandler):
 
 # /auth/pwd/verify-code
 class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        # self.set_header('Content-type', 'application/json')
+
     # 获取验证码
     # 使用 sup-http proxy 实现, sup-http仍调用sendcloud
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
         logging.info(self.request)
         logging.info(self.request.body)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         _body = json_decode(self.request.body)
         appid = None
@@ -457,7 +540,7 @@ class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
         verify_code = generate_verify_code()
         logging.info("got verify_code %r", verify_code)
         _json = {"_id":login, "verify_code":verify_code, "last_update_time":_timestamp,
-                "last_apply_verify_code_time":_timestamp, "counts":0}
+                "last_apply_verify_code_time":_timestamp}
         auth_login_dao.auth_login_dao().update(_json)
 
         # Logic: send sms by sup-http
@@ -586,12 +669,26 @@ class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
 
 # /auth/pwd
 class AuthPwdXHR(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
+        # self.set_header('Content-type', 'application/json')
+
     # 修改密码
+    # @allow_cross_domain
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
         logging.info(self.request)
         logging.info(self.request.body)
+
+        # 允许跨域访问
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
+        self.set_header('Access-Control-Max-Age', 1000)
+        self.set_header('Access-Control-Allow-Headers', '*')
 
         _body = json_decode(self.request.body)
         appid = None

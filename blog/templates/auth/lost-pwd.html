@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>Lost Password</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+
+  </head>
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 其他的单个page内联页（如果有） -->
+      <div class="page" id="page-lost-pwd">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left back" href="#page-login">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">Lost Password</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <form id="formLostPwd" action="/lost-pwd" method="post">
+          <div class="list-block inset text-center">
+            <h3>Lost Password 7x24hs.com</h3>
+            <ul>
+              <!-- Text inputs -->
+              <li>
+                <div class="item-content">
+                  <div class="item-media"><i class="icon icon-form-name"></i></div>
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input type="text" placeholder="Mobile Phone"
+                        id="lostPhone" name="lostPhone">
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-media"><i class="icon icon-form-email"></i></div>
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input type="text" placeholder="Verify Code"
+                        id="lostVerifyCode" name="lostVerifyCode">
+                      <input type="button" id="btnLostCode" value="获取验证码">
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-media"><i class="icon icon-form-email"></i></div>
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input type="password" placeholder="New Password"
+                        id="lostPwd" name="lostPwd">
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class='color-warning'>{{ err_msg }}</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <p><a class="button button-big button-fill" data-transition='fade'
+              id="btnLostPwd" >Submit</a></p>
+            <p>&nbsp;</p>
+            <p class='text-center signup'>
+              <a href="/login" class='pull-left'>Remember Password?</a>
+            </p>
+          </div>
+          </form>
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+    <script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+    <script src="{{ static_url("upyun/js/async.js") }}"></script>
+    <script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>
