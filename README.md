@@ -6,7 +6,8 @@
 * 7x24hs 是主站，单页网站，个人信息展示，[Demo](http://www.7x24hs.com)
 * qrcode 输入URL，获取二维码，[Demo](http://qrcode.7x24hs.com)
 * kit (keep in touch)，各站点下面联系我的发送消息，通过发送email提醒站长, [Demo](http://kit.7x24hs.com)
-
+* api，account服务: 登录／注册／忘记密码／修改个人昵称、头像；session服务, [Demo](http://7x24hs.com/login)
+* ui: 移动端UI, [Demo](http://ui.7x24hs.com)
 
 ## 部署系统环境：
 Linux CentOS 7.0 x86-64
