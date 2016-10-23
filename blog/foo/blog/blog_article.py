@@ -92,6 +92,9 @@ class BlogArticleMineHandler(BaseHandler):
 
         account_id = self.get_secure_cookie("account_id")
         logging.info("got account_id %r from cookie", account_id)
+        session_token = self.get_secure_cookie("session_token")
+        logging.info("got session_token %r from cookie", session_token)
 
         self.render('blog/my-articles.html',
-                account_id=account_id)
+                account_id=account_id,
+                session_token=session_token)

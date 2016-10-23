@@ -19,6 +19,7 @@
 import tornado.web
 import logging
 import time
+import datetime
 
 from global_const import *
 from tornado.escape import json_encode, json_decode
@@ -162,7 +163,7 @@ def datetime_timestamp(dt):
 
 
 def time_span(ts):
-    delta = datetime.now() - ts
+    delta = datetime.datetime.now() - datetime.datetime.fromtimestamp(ts)
     if delta.days >= 365:
         return '%d年前' % (delta.days / 365)
     elif delta.days >= 30:

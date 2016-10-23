@@ -33,6 +33,7 @@
 
         <div class="content infinite-scroll" data-distance="100">
           <input type="hidden" id="account_id" value="{{ account_id }}">
+          <input type="hidden" id="session_token" value="{{ session_token }}">
 
           <div class="bd">
             <div class="weui_cells_tips"></div>
@@ -43,6 +44,36 @@
             <div class="preloader">
             </div>
           </div>
+
+          <!--BEGIN actionSheet-->
+          <div id="actionSheet_wrap">
+              <div class="weui_mask_transition" id="mask"></div>
+              <div class="weui_actionsheet" id="weui_actionsheet">
+                  <div class="weui_actionsheet_menu">
+                      <div class="weui_actionsheet_cell" id="actionsheet_edit">编辑</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_pub">发布</div>
+                      <div class="weui_actionsheet_cell" id="actionsheet_delete"><span style="color:red">删除</span></div>
+                  </div>
+                  <div class="weui_actionsheet_action">
+                      <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+                  </div>
+              </div>
+          </div>
+          <!--END actionSheet-->
+
+          <!--BEGIN dialog1-->
+          <div class="weui_dialog_confirm" id="dialog1" style="display: none;">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+              <div class="weui_dialog_hd"><strong class="weui_dialog_title">提醒</strong></div>
+              <div class="weui_dialog_bd">您确定要此操作吗？</br>一经操作，无法恢复！</div>
+              <div class="weui_dialog_ft">
+                <a onclick="javascript:comfirmCancel();" class="weui_btn_dialog default">取消</a>
+                <a onclick="javascript:comfirmYes();" class="weui_btn_dialog primary">确定</a>
+              </div>
+            </div>
+          </div>
+          <!--END dialog1-->
 
         </div> <!-- content -->
       </div> <!-- page -->
@@ -55,8 +86,9 @@
   	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
   	<script src="{{ static_url("upyun/js/async.js") }}"></script>
   	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
-    
+
     <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
     <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
 
   </body>

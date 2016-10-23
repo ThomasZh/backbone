@@ -5,8 +5,8 @@
 
 $(function () {
 
-  //我的博客文章列表, 底部无限滚动
-  $(document).on("pageInit", "#page-my-articles", function(e, id, page) {
+  //博客文章列表(首页), 底部无限滚动
+  $(document).on("pageInit", "#page-articles", function(e, id, page) {
     var loading = false;
     var lastTimestamp = 0;
 
@@ -14,18 +14,16 @@ $(function () {
       for (var i in ajaxobj) {
         // 生成新条目的HTML
         var html = '';
-        html += '<div class="weui_panel weui_panel_access">';
+        html += '<div class="weui_panel weui_panel_access" id="'+ajaxobj[i]._id+'">';
+        html += '  <div class="weui_panel_hd">' + ajaxobj[i].publish_time + '</div>';
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
-        html += '      <ul class="weui_media_info">';
-        html += '        <li class="weui_media_info_meta">' + ajaxobj[i].publish_time + '</li>';
-        html += '      </ul>';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <img src="' + ajaxobj[i].image + '!397x226" width="100%">';
+        html += '      <img src="' + ajaxobj[i].image + '!794x452" width="100%">';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
-        html += '  <a href="/blog/articles/' + ajaxobj[i].id + '" class="weui_panel_ft">阅读全文</a>';
+        html += '  <a value="'+ajaxobj[i]._id+'" onclick="javascript:showActionSheet(this);" class="weui_panel_ft">更多操作</a>';
         html += '</div>';
 
         // 添加新条目
@@ -37,12 +35,24 @@ $(function () {
     }
 
     // 页面初始化时，首先加载20条记录
-    var account_id = $("#account_id").val();
-    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp,function(data,status){
+    $.get("/ajax/blog/articles?last="+lastTimestamp,function(data,status){
+      if (data == null || data == undefined || data == '') {
+        // 加载完毕，则注销无限加载事件，以防不必要的加载
+        $.detachInfiniteScroll($('.infinite-scroll'));
+        // 删除加载提示符
+        $('.infinite-scroll-preloader').remove();
+
+        // 添加没有更多了显示
+        var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+        $('.infinite-scroll .bd').append(html);
+
+        return false;
+      }
+
       var ajaxobj = eval("("+data+")");
       console.log("page init get " + ajaxobj.length);
       addItems(ajaxobj);
-      if (ajaxobj.length < 20) {
+      if (ajaxobj.length < 2) {
         // 删除加载提示符
         $('.infinite-scroll-preloader').remove();
 
@@ -58,7 +68,126 @@ $(function () {
       // 设置flag
       loading = true;
 
-      $.get("/ajax/blog/accounts/"+account_id+"?last="+lastTimestamp,function(data,status){
+      $.get("/ajax/blog/articles?last="+lastTimestamp,function(data,status){
+        if (data == null || data == undefined || data == '') {
+          // 加载完毕，则注销无限加载事件，以防不必要的加载
+          $.detachInfiniteScroll($('.infinite-scroll'));
+          // 删除加载提示符
+          $('.infinite-scroll-preloader').remove();
+
+          // 添加没有更多了显示
+          var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+          $('.infinite-scroll .bd').append(html);
+
+          return false;
+        }
+
+        ajaxobj = eval("("+data+")");
+        console.log("底部滚动 get " + ajaxobj.length);
+        if (ajaxobj.length > 0) {
+          addItems(ajaxobj);
+        } else {
+          // 加载完毕，则注销无限加载事件，以防不必要的加载
+          $.detachInfiniteScroll($('.infinite-scroll'));
+          // 删除加载提示符
+          $('.infinite-scroll-preloader').remove();
+
+          // 添加没有更多了显示
+          var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+          $('.infinite-scroll .bd').append(html);
+        }
+
+        // 恢复flag
+        loading = false;
+      });
+    });
+  });
+
+
+  //我的博客文章列表, 底部无限滚动
+  $(document).on("pageInit", "#page-my-articles", function(e, id, page) {
+    var loading = false;
+    var lastTimestamp = 0;
+
+    function addItems(ajaxobj) {
+      for (var i in ajaxobj) {
+        // 生成新条目的HTML
+        var html = '';
+        html += '<div class="weui_panel weui_panel_access" id="'+ajaxobj[i]._id+'">';
+        html += '  <div class="weui_panel_hd">';
+        if (ajaxobj[i].status == 'pub') {
+            html += '发布: ';
+        } else {
+            html += '草稿: ';
+        }
+        html += ajaxobj[i].publish_time + '</div>';
+        html += '  <div class="weui_panel_bd">';
+        html += '    <div class="weui_media_box weui_media_text">';
+        html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
+        html += '      <img src="' + ajaxobj[i].image + '!794x452" width="100%">';
+        html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '  <a value="'+ajaxobj[i]._id+'" onclick="javascript:showActionSheet(this);" class="weui_panel_ft">更多操作</a>';
+        html += '</div>';
+
+        // 添加新条目
+        $('.infinite-scroll .bd').append(html);
+
+        // 更新最后加载的序号
+        lastTimestamp = ajaxobj[i].timestamp;
+      }
+    }
+
+    // 页面初始化时，首先加载20条记录
+    var account_id = $("#account_id").val();
+    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp,function(data,status){
+      if (data == null || data == undefined || data == '') {
+        // 加载完毕，则注销无限加载事件，以防不必要的加载
+        $.detachInfiniteScroll($('.infinite-scroll'));
+        // 删除加载提示符
+        $('.infinite-scroll-preloader').remove();
+
+        // 添加没有更多了显示
+        var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+        $('.infinite-scroll .bd').append(html);
+
+        return false;
+      }
+
+      var ajaxobj = eval("("+data+")");
+      console.log("page init get " + ajaxobj.length);
+      addItems(ajaxobj);
+      if (ajaxobj.length < 2) {
+        // 删除加载提示符
+        $('.infinite-scroll-preloader').remove();
+
+        // 添加没有更多了显示
+        var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+        $('.infinite-scroll .bd').append(html);
+      }
+    });
+
+    $(page).on('infinite', function() {
+      // 如果正在加载，则退出
+      if (loading) return;
+      // 设置flag
+      loading = true;
+
+      $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp,function(data,status){
+        if (data == null || data == undefined || data == '') {
+          // 加载完毕，则注销无限加载事件，以防不必要的加载
+          $.detachInfiniteScroll($('.infinite-scroll'));
+          // 删除加载提示符
+          $('.infinite-scroll-preloader').remove();
+
+          // 添加没有更多了显示
+          var html = '<div class="weui_cells_tips text-center">没有更多了...</div>';
+          $('.infinite-scroll .bd').append(html);
+
+          return false;
+        }
+
         ajaxobj = eval("("+data+")");
         console.log("底部滚动 get " + ajaxobj.length);
         if (ajaxobj.length > 0)
@@ -90,7 +219,7 @@ $(function () {
     $("input[type=file]").each(function() {
       var _this = $(this);
       _this.localResizeIMG({
-        width : 397,
+        width : 800,
         quality : 0.9,
         success : function(result) {
           if (fileCounter == 1) {
@@ -364,51 +493,6 @@ $(function () {
 });
 
 
-function uuid() {
-  var s = [];
-  var hexDigits = "0123456789abcdef";
-  for (var i = 0; i < 36; i++) {
-    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-  }
-  s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-  s[8] = s[13] = s[18] = s[23] = "-";
-
-  var uuid = s.join("");
-  return uuid;
-}
-
-
-function uploadBlogImgToUpyun(blob) {
-  var config = {
-    // 空间名称
-    bucket : 'tripc2c-club-title',
-    // 上传请求过期时间
-    expiration : parseInt((new Date().getTime() + 3600000) / 1000),
-    // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
-    form_api_secret : 'CRKAOsKHGbbCnU+yztBxUT0bYR0='
-  };
-
-  var instance = new Sand(config);
-  var options = {
-    'notify_url' : 'http://upyun.com',
-    //"allow-file-type":"jpg,jpeg,png",
-    //"x-gmkerl-value": "150", /// 如需缩小功能,这必须输入(缩略图宽度/像素)
-    //"x-gmkerl-quality": "95", /// 可选(图片压缩质量,默认 95)
-    //"x-gmkerl-unsharp": "True", /// 可选(是否进行锐化处理,默认锐化)
-    //"x-gmkerl-rotate": "auto", /// 可选(是否进行图片旋转)
-    //"x-gmkerl-clip" : "800x800s300a300", /// 可选(是否进行图片裁剪)
-  };
-  instance.setOptions(options);
-
-  var d = new Date();
-  var month = d.getMonth() + 1;
-  var filename = '/blog/' + d.getFullYear() + '/' + month + '/' + d.getDate() + '/' + uuid();
-  console.log(filename);
-  instance.upload_blob(filename, blob);
-
-  return 'http://tripc2c-club-title.b0.upaiyun.com' + filename;
-}
 
 
 function uploadUpyun(file) {
@@ -443,6 +527,166 @@ function uploadUpyun(file) {
 
   return 'http://tripc2c-person-face.b0.upaiyun.com' + filename;
 }
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+// 文章列表页面显示弹出菜单
+
+var session_token = $("#session_token").val();
+var action_article_id; // 正在操作的文章ID
+var action; // 正在操作的动作 delete|pub|edit
+function showActionSheet(e) {
+  article_id = $(e).attr('value');
+  console.log(article_id);
+
+  // 正在操作的文章ID
+  action_article_id = article_id;
+
+  var mask = $('#mask');
+  var weuiActionsheet = $('#weui_actionsheet');
+  weuiActionsheet.addClass('weui_actionsheet_toggle');
+  mask.show()
+    .focus()//加focus是为了触发一次页面的重排(reflow or layout thrashing),使mask的transition动画得以正常触发
+    .addClass('weui_fade_toggle').one('click', function () {
+    hideActionSheet(weuiActionsheet, mask);
+  });
+  $('#actionsheet_cancel').one('click', function () {
+    hideActionSheet(weuiActionsheet, mask);
+  });
+  mask.unbind('transitionend').unbind('webkitTransitionEnd');
+
+  function hideActionSheet(weuiActionsheet, mask) {
+    weuiActionsheet.removeClass('weui_actionsheet_toggle');
+    mask.removeClass('weui_fade_toggle');
+    mask.on('transitionend', function () {
+      mask.hide();
+    }).on('webkitTransitionEnd', function () {
+      mask.hide();
+    })
+  }
+
+  $('#actionsheet_pub').one('click', function () {
+    action = "pub"
+    hideActionSheet(weuiActionsheet, mask);
+    $('#dialog1').show().on('click', '.weui_btn_dialog', function () {
+      //$('#dialog1').off('click').hide();
+    });
+  });
+
+  $('#actionsheet_edit').one('click', function () {
+    location.href = "/blog/articles/" + article_id + "/edit";
+  });
+
+  $('#actionsheet_delete').one('click', function () {
+    action = "delete"
+    hideActionSheet(weuiActionsheet, mask);
+    $('#dialog1').show().on('click', '.weui_btn_dialog', function () {
+      //$('#dialog1').off('click').hide();
+    });
+  });
+}
+
+function hideActionSheet(weuiActionsheet, mask) {
+  weuiActionsheet.removeClass('weui_actionsheet_toggle');
+  mask.removeClass('weui_fade_toggle');
+  mask.on('transitionend', function () {
+    mask.hide();
+  }).on('webkitTransitionEnd', function () {
+    mask.hide();
+  })
+}
+
+function comfirmCancel() {
+  var mask = $('#mask');
+  var weuiActionsheet = $('#weui_actionsheet');
+  $('#dialog1').off('click').hide();
+  //hideActionSheet(weuiActionsheet, mask);
+}
+
+function comfirmYes() {
+  if (action == "delete") {
+    $.ajax({
+      type: "DELETE",
+      url: "/ajax/blog/articles/"+action_article_id,
+      headers : {'Authorization':'Bearer '+session_token},
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(data, status, xhr) {
+        // Do Anything After get Return data
+        var p = $("#"+action_article_id).children();
+        p.remove();
+
+        var mask = $('#mask');
+        var weuiActionsheet = $('#weui_actionsheet');
+        $('#dialog1').off('click').hide();
+        //hideActionSheet(weuiActionsheet, mask);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.status == 200){
+          var p = $("#"+action_article_id).children();
+          p.remove();
+
+          var mask = $('#mask');
+          var weuiActionsheet = $('#weui_actionsheet');
+          $('#dialog1').off('click').hide();
+          //hideActionSheet(weuiActionsheet, mask);
+        } else {
+          var mask = $('#mask');
+          var weuiActionsheet = $('#weui_actionsheet');
+          $('#dialog1').off('click').hide();
+          //hideActionSheet(weuiActionsheet, mask);
+
+          $.alert(XMLHttpRequest.status);
+        }
+      },
+      complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
+      }
+    });
+  } else if (action == "pub") {
+    $.ajax({
+      type: "PUT",
+      url: "/ajax/blog/articles/"+action_article_id+"/pub",
+      headers : {'Authorization':'Bearer '+session_token},
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(data, status, xhr) {
+        // Do Anything After get Return data
+        var mask = $('#mask');
+        var weuiActionsheet = $('#weui_actionsheet');
+        $('#dialog1').off('click').hide();
+        //hideActionSheet(weuiActionsheet, mask);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.status == 200){
+          var mask = $('#mask');
+          var weuiActionsheet = $('#weui_actionsheet');
+          $('#dialog1').off('click').hide();
+          //hideActionSheet(weuiActionsheet, mask);
+        } else {
+          var mask = $('#mask');
+          var weuiActionsheet = $('#weui_actionsheet');
+          $('#dialog1').off('click').hide();
+          //hideActionSheet(weuiActionsheet, mask);
+
+          $.alert(XMLHttpRequest.status);
+        }
+      },
+      complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
+      }
+    });
+  }
+}
+
+// 文章列表页面显示弹出菜单
+////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -539,6 +783,7 @@ $.fn.localResizeIMG = function(obj) {
 };
 
 
+// image:data 转成 blob格式
 function dataURLtoBlob(dataUrl) {
   var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
     bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -548,6 +793,53 @@ function dataURLtoBlob(dataUrl) {
   return new Blob([u8arr], {type:mime});
 }
 
+
+// 上传blob到upyun
+function uploadBlogImgToUpyun(blob) {
+  var config = {
+    // 空间名称
+    bucket : 'tripc2c-club-title',
+    // 上传请求过期时间
+    expiration : parseInt((new Date().getTime() + 3600000) / 1000),
+    // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+    form_api_secret : 'CRKAOsKHGbbCnU+yztBxUT0bYR0='
+  };
+
+  var instance = new Sand(config);
+  var options = {
+    'notify_url' : 'http://upyun.com',
+    //"allow-file-type":"jpg,jpeg,png",
+    //"x-gmkerl-value": "150", /// 如需缩小功能,这必须输入(缩略图宽度/像素)
+    //"x-gmkerl-quality": "95", /// 可选(图片压缩质量,默认 95)
+    //"x-gmkerl-unsharp": "True", /// 可选(是否进行锐化处理,默认锐化)
+    //"x-gmkerl-rotate": "auto", /// 可选(是否进行图片旋转)
+    //"x-gmkerl-clip" : "800x800s300a300", /// 可选(是否进行图片裁剪)
+  };
+  instance.setOptions(options);
+
+  var d = new Date();
+  var month = d.getMonth() + 1;
+  var filename = '/blog/' + d.getFullYear() + '/' + month + '/' + d.getDate() + '/' + uuid();
+  console.log(filename);
+  instance.upload_blob(filename, blob);
+
+  return 'http://tripc2c-club-title.b0.upaiyun.com' + filename;
+}
+
+
+function uuid() {
+  var s = [];
+  var hexDigits = "0123456789abcdef";
+  for (var i = 0; i < 36; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+  s[8] = s[13] = s[18] = s[23] = "-";
+
+  var uuid = s.join("");
+  return uuid;
+}
 
 // 图片压缩上传,
 // 引用LocalResizeIMG.js（插件主体）及mobileBUGFix.mini.js（移动端的补丁）

@@ -48,7 +48,7 @@ class blog_article_dao(singleton):
 
 
     def update(self, data):
-        _id = json["_id"];
+        _id = data["_id"];
         self.__blog_article_collection.update({"_id":_id},{"$set":data});
         logging.info("update blog_article success......");
 
