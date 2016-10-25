@@ -183,9 +183,9 @@ class AuthProfileHandler(BaseHandler):
         http_client = HTTPClient()
         response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
         logging.info("got account response %r", response.body)
-        _account = json_decode(response.body)
+        account = json_decode(response.body)
 
-        self.render('auth/profile.html', account=_account)
+        self.render('auth/profile.html', account=account)
 
 
 class AuthLogoutHandler(BaseHandler):

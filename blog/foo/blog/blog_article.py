@@ -26,6 +26,9 @@ import uuid
 import smtplib
 import json as JSON # 启用别名，不会跟方法里的局部变量混淆
 from bson import json_util
+import urllib
+import html2text
+import markdown
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
@@ -79,10 +82,23 @@ class BlogArticleCreateHandler(BaseHandler):
 
 
 class BlogArticleHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, article_id):
         logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
 
-        self.render('blog/article.html')
+        url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got article response %r", response.body)
+        article = json_decode(response.body)
+
+        if article.has_key('paragraphs'):
+            html = markdown.markdown(article['paragraphs'])
+            logging.info("got article paragraphs %r", html)
+            article['paragraphs'] = html
+
+        self.render('blog/article.html',
+                article=article)
 
 
 class BlogArticleMineHandler(BaseHandler):
@@ -98,3 +114,82 @@ class BlogArticleMineHandler(BaseHandler):
         self.render('blog/my-articles.html',
                 account_id=account_id,
                 session_token=session_token)
+
+
+class BlogArticleParagraphImportHandler(BaseHandler):
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def get(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
+
+        self.render('blog/paragraphs-import.html',
+                article_id=article_id)
+
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def post(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
+        url = self.get_argument("article_url", "")
+        logging.info("got article_url %r", url)
+
+        session_token = self.get_secure_cookie("session_token")
+        logging.info("got session_token %r from cookie", session_token)
+
+        # 读取网页内容
+        html = urllib.urlopen(url).read()
+        logging.info("got html %r", html)
+        html = html.decode('utf8')
+        # 使用 html2text 将网页内容转换为 Markdown 格式
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        paragraphs = h.handle(html)
+        logging.info("got paragraphs %r", paragraphs)
+
+        # 修改文章段落内容
+        url = "http://" + AUTH_HOST + "/blog/articles/" + article_id + "/paragraphs"
+        body_data = {'paragraphs':paragraphs}
+        logging.info("put body %r", body_data)
+        _json = json_encode(body_data)
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
+        logging.info("got token response %r", response.body)
+
+        self.redirect('/blog/articles/' + article_id + '/paragraphs/edit')
+
+
+class BlogArticleParagraphEditHandler(BaseHandler):
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def get(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
+
+        url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got response %r", response.body)
+        article = json_decode(response.body)
+
+        self.render('blog/paragraphs-edit.html',
+                article=article)
+
+
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def post(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
+        paragraphs = self.get_argument("paragraphs", "")
+        logging.info("got paragraphs %r", paragraphs)
+
+        session_token = self.get_secure_cookie("session_token")
+        logging.info("got session_token %r from cookie", session_token)
+
+        # 修改文章段落内容
+        url = "http://" + AUTH_HOST + "/blog/articles/" + article_id + "/paragraphs"
+        body_data = {'paragraphs':paragraphs}
+        logging.info("put body %r", body_data)
+        _json = json_encode(body_data)
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
+        logging.info("got token response %r", response.body)
+
+        self.redirect('/blog/articles/mine')

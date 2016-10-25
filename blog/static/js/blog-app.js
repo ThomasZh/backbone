@@ -5,6 +5,34 @@
 
 $(function () {
 
+  //编辑段落页面初始化
+  $(document).on("pageInit", "#page-article-edit", function(e, id, page) {
+    $(document).on('click','#OnEditSubmit', function () {
+      var paragraphs = $("#paragraphs").val();
+      if (paragraphs == null || paragraphs == undefined || paragraphs == '') {
+        $.alert('请输入段落');
+        return false;
+      }
+
+      $('#formArticleEdit').submit();
+    });
+  });
+
+
+  //导入段落页面初始化
+  $(document).on("pageInit", "#page-article-import", function(e, id, page) {
+    $(document).on('click','#OnImportSubmit', function () {
+      var article_url = $("#article_url").val();
+      if (article_url == null || article_url == undefined || article_url == '') {
+        $.alert('请输入URL');
+        return false;
+      }
+
+      $('#formArticleImport').submit();
+    });
+  });
+
+
   //博客文章列表(首页), 底部无限滚动
   $(document).on("pageInit", "#page-articles", function(e, id, page) {
     var loading = false;
@@ -19,7 +47,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <img src="' + ajaxobj[i].image + '!794x452" width="100%">';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -289,6 +317,7 @@ $(function () {
     });
   });
 
+
   // 点击忘记密码提交按钮
   $(document).on('click','#btnLostPwd', function () {
     phone = $('#lostPhone').val();
@@ -488,6 +517,7 @@ $(function () {
     $('#formLogin').submit();
   });
 
+
   // 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行
   $.init();
 });
@@ -576,8 +606,12 @@ function showActionSheet(e) {
     });
   });
 
-  $('#actionsheet_edit').one('click', function () {
-    location.href = "/blog/articles/" + article_id + "/edit";
+  $('#actionsheet_paragraphs_import').one('click', function () {
+    location.href = "/blog/articles/" + article_id + "/paragraphs/import";
+  });
+
+  $('#actionsheet_paragraphs_edit').one('click', function () {
+    location.href = "/blog/articles/" + article_id + "/paragraphs/edit";
   });
 
   $('#actionsheet_delete').one('click', function () {

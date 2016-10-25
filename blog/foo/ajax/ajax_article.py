@@ -53,14 +53,23 @@ class AjaxArticleIndexXHR(tornado.web.RequestHandler):
             http_client = HTTPClient()
             response = http_client.fetch(url, method="GET")
             logging.info("got response %r", response.body)
-            _articles = json_decode(response.body)
+            articles = json_decode(response.body)
 
-            for _article in _articles:
+            for article in articles:
                 # publish_time 转换成友好阅读方式(例如：10分钟前)，保留此值为分页使用
-                _article["timestamp"] = _article["publish_time"]
-                _article["publish_time"] = time_span(_article["publish_time"])
+                article["timestamp"] = article["publish_time"]
+                article["publish_time"] = time_span(article["publish_time"])
 
-            self.finish(JSON.dumps(_articles))
+                url = "http://" + AUTH_HOST + "/auth/account/" + article['account_id']
+                http_client = HTTPClient()
+                response = http_client.fetch(url, method="GET")
+                logging.info("got account response %r", response.body)
+                account = json_decode(response.body)
+
+                article["account_nickname"] = account["nickname"]
+                article["account_avatar"] = account["avatar"]
+
+            self.finish(JSON.dumps(articles))
         except:
             err_title = str( sys.exc_info()[0] );
             err_detail = str( sys.exc_info()[1] );

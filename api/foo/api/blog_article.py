@@ -318,3 +318,60 @@ class BlogAritclePubXHR(tornado.web.RequestHandler):
         self.set_status(200) # OK
         self.finish(JSON.dumps("OK"))
         return
+
+
+# /blog/articles/([a-z0-9]*)/paragraphs
+class BlogAritcleGaragraphXHR(tornado.web.RequestHandler):
+    # 修改文章段落内容
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def put(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r in uri", article_id)
+
+        data = json_decode(self.request.body)
+        paragraphs = None
+        try:
+            paragraphs = data['paragraphs']
+            logging.info("got paragraphs %r", paragraphs)
+        except:
+            self.set_status(400) # Bad Request
+            self.write('Bad Request')
+            self.finish()
+            return
+
+        if paragraphs is None:
+            self.set_status(400) # Bad Request
+            self.write('Bad Request')
+            self.finish()
+            return
+
+        access_token = None
+        try:
+            access_token = self.request.headers['Authorization']
+            access_token = access_token.replace('Bearer ','')
+        except:
+            logging.info("got access_token null")
+            self.set_status(401) # Unauthorized
+            self.write('Unauthorized')
+            self.finish()
+            return
+        logging.info("got access_token %r", access_token)
+
+        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        if token is None:
+            self.set_status(403) # Forbidden
+            self.write('Forbidden')
+            self.finish()
+            return
+
+        # TODO 检查文章是否account_id创建
+
+        timestamp = int(time.time());
+        data['_id'] = article_id
+        data['last_update_time'] = timestamp
+        blog_article_dao.blog_article_dao().update(data)
+
+        self.set_status(200) # OK
+        self.finish(JSON.dumps("OK"))
+        return

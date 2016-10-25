@@ -53,6 +53,8 @@ def map():
         ('/blog/articles/([a-z0-9]*)', getattr(blog_article, 'BlogAritcleXHR')),
         # 发布文章
         ('/blog/articles/([a-z0-9]*)/pub', getattr(blog_article, 'BlogAritclePubXHR')),
+        # 修改文章段落内容
+        ('/blog/articles/([a-z0-9]*)/paragraphs', getattr(blog_article, 'BlogAritcleGaragraphXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

@@ -360,24 +360,24 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         self.set_header('Access-Control-Max-Age', 1000)
         self.set_header('Access-Control-Allow-Headers', '*')
 
-        access_token = None
-        try:
-            access_token = self.request.headers['Authorization']
-            access_token = access_token.replace('Bearer ','')
-        except:
-            logging.info("got access_token null")
-            self.set_status(400) # Bad Request
-            self.write('Bad Request')
-            self.finish()
-            return
-        logging.info("got access_token %r", access_token)
-
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
-        if token is None:
-            self.set_status(403) # Forbidden
-            self.write('Forbidden')
-            self.finish()
-            return
+        # access_token = None
+        # try:
+        #     access_token = self.request.headers['Authorization']
+        #     access_token = access_token.replace('Bearer ','')
+        # except:
+        #     logging.info("got access_token null")
+        #     self.set_status(400) # Bad Request
+        #     self.write('Bad Request')
+        #     self.finish()
+        #     return
+        # logging.info("got access_token %r", access_token)
+        #
+        # token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        # if token is None:
+        #     self.set_status(403) # Forbidden
+        #     self.write('Forbidden')
+        #     self.finish()
+        #     return
 
         account = auth_account_dao.auth_account_dao().query(account_id)
         if account is None:
