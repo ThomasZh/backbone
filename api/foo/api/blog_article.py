@@ -65,6 +65,12 @@ class BlogAritcleIndexXHR(tornado.web.RequestHandler):
             self.finish()
             return
 
+        # 删除 paragraphs 字段，减少数据加载量
+        for article in articles:
+            article.pop('paragraphs')
+            article.pop('last_update_time')
+            article.pop('create_time')
+
         self.set_status(200) # OK
         self.finish(JSON.dumps(articles))
         return

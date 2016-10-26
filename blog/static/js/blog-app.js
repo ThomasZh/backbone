@@ -51,7 +51,6 @@ $(function () {
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
-        html += '  <a value="'+ajaxobj[i]._id+'" onclick="javascript:showActionSheet(this);" class="weui_panel_ft">更多操作</a>';
         html += '</div>';
 
         // 添加新条目
@@ -134,6 +133,7 @@ $(function () {
 
   //我的博客文章列表, 底部无限滚动
   $(document).on("pageInit", "#page-my-articles", function(e, id, page) {
+    session_token = $("#session_token").val();
     var loading = false;
     var lastTimestamp = 0;
 
@@ -152,7 +152,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <img src="' + ajaxobj[i].image + '!794x452" width="100%">';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -314,6 +314,86 @@ $(function () {
       }
 
       $('#formArticleCreate').submit();
+    });
+  });
+
+
+  //编辑博客文章页面初始化
+  $(document).on("pageInit", "#page-article-edit", function(e, id, page) {
+    var lastImgUrl;
+    var fileCounter = 0;
+    var arrayObj = new Array();
+
+    $("input[type=file]").each(function() {
+      var _this = $(this);
+      _this.localResizeIMG({
+        width : 800,
+        quality : 0.9,
+        success : function(result) {
+          if (fileCounter == 1) {
+            $('#dialog2').show().on('click', '.weui_btn_dialog', function () {
+              $('#dialog2').off('click').hide();
+            });
+            return false;
+          }
+          $('#loadingToast').show();
+
+          //获取后缀名
+          var att = pre.substr(pre.lastIndexOf("."));
+          //压缩后图片的base64字符串
+          var base64_string = result.clearBase64;
+          console.log(base64_string);
+          //图片预览
+          var imgObj = $("#img");
+          imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
+          //拼接data字符串，传递会后台
+          var fileData = $("#fileData");
+          fileData.val(att + "," + imgObj.attr("src"));
+          console.log(fileData);
+
+          blob = dataURLtoBlob(result.base64);
+          console.log(blob);
+
+          lastImgUrl = uploadBlogImgToUpyun(blob);
+          console.log(lastImgUrl);
+
+          $("#filename").val(lastImgUrl);
+          arrayObj.push(lastImgUrl);
+        }
+      });
+    });
+
+    document.addEventListener('uploaded', function(e) {
+      $('#weui_uploader_files').html('');
+      inner_html = '<li class="weui_uploader_file" style="background-image:url(' + lastImgUrl + ')"></li>';
+      $('#weui_uploader_files').append(inner_html);
+
+      fileCounter++;
+      $('#file_counter').html(""+fileCounter+"/1");
+
+      $('#loadingToast').hide();
+    });
+
+    $(document).on('click','#OnArticleEditSubmit', function () {
+      if (fileCounter == 0) {
+        // $.alert("上传 " + fileCounter + " 个文件: " + arrayObj);
+        $.alert('请上传图片');
+        return false;
+      }
+
+      article_title = $("#article_title").val();
+      if (article_title == null || article_title == undefined || article_title == '') {
+        $.alert('请输入标题');
+        return false;
+      }
+
+      article_desc = $("#article_desc").val();
+      if (article_desc == null || article_desc == undefined || article_desc == '') {
+        $.alert('请输入描述');
+        return false;
+      }
+
+      $('#formArticleEdit').submit();
     });
   });
 
@@ -608,6 +688,10 @@ function showActionSheet(e) {
 
   $('#actionsheet_paragraphs_import').one('click', function () {
     location.href = "/blog/articles/" + article_id + "/paragraphs/import";
+  });
+
+  $('#actionsheet_edit').one('click', function () {
+    location.href = "/blog/articles/" + article_id + "/edit";
   });
 
   $('#actionsheet_paragraphs_edit').one('click', function () {

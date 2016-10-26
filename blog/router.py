@@ -37,6 +37,7 @@ def map():
         ('/blog/articles/create', getattr(blog_article, 'BlogArticleCreateHandler')),
         ('/blog/articles/mine', getattr(blog_article, 'BlogArticleMineHandler')),
         ('/blog/articles/([a-z0-9]*)', getattr(blog_article, 'BlogArticleHandler')),
+        ('/blog/articles/([a-z0-9]*)/edit', getattr(blog_article, 'BlogArticleEditHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/import', getattr(blog_article, 'BlogArticleParagraphImportHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/edit', getattr(blog_article, 'BlogArticleParagraphEditHandler')),
 

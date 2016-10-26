@@ -28,7 +28,8 @@ from global_const import *
 # login options
 # {'_id':'uuid', 'create_time':0, 'last_update_time':0,
 # 'type':'blog|recruit|itinerary|trip|course', 'publish_time':0, 'status':'pub|draft',
-# 'title':'', 'image':'url', 'desc':'content'}
+# 'title':'', 'image':'url', 'desc':'content',
+# 'paragraphs':''}
 class blog_article_dao(singleton):
     __blog_article_collection = None;
 
