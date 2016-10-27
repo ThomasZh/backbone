@@ -46,7 +46,11 @@ class BlogArticleIndexHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
 
-        self.render('blog/index.html')
+        random = random_x(8)
+        logging.info("got random %r", random)
+
+        self.render('blog/index.html',
+                random=random)
 
 
 class BlogArticleCreateHandler(BaseHandler):
@@ -54,11 +58,18 @@ class BlogArticleCreateHandler(BaseHandler):
     def get(self):
         logging.info(self.request)
 
-        self.render('blog/article-create.html')
+        random = random_x(8)
+        logging.info("got random %r", random)
+
+        self.render('blog/article-create.html',
+                random=random)
 
     @tornado.web.authenticated  # if no session, redirect to login page
     def post(self):
         logging.info(self.request)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
 
         image = self.get_argument("filename", "")
         logging.info("got image %r", image)
@@ -78,13 +89,16 @@ class BlogArticleCreateHandler(BaseHandler):
         response = http_client.fetch(url, method="POST", body=_json, headers={"Authorization":"Bearer "+session_token})
         logging.info("got token response %r", response.body)
 
-        self.redirect('/blog/articles/mine')
+        self.redirect('/blog/articles/mine?random=' + random)
 
 
 class BlogArticleHandler(tornado.web.RequestHandler):
     def get(self, article_id):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
 
         url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
         http_client = HTTPClient()
@@ -99,6 +113,7 @@ class BlogArticleHandler(tornado.web.RequestHandler):
             article["publish_time"] = time_span(article["publish_time"])
 
         self.render('blog/article.html',
+                random=random,
                 article=article)
 
 
@@ -108,6 +123,9 @@ class BlogArticleEditHandler(BaseHandler):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
 
+        random = random_x(8)
+        logging.info("got random %r", random)
+
         url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
         http_client = HTTPClient()
         response = http_client.fetch(url, method="GET")
@@ -115,12 +133,16 @@ class BlogArticleEditHandler(BaseHandler):
         article = json_decode(response.body)
 
         self.render('blog/article-edit.html',
+                random=random,
                 article=article)
 
     @tornado.web.authenticated  # if no session, redirect to login page
     def post(self, article_id):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
 
         image = self.get_argument("filename", "")
         logging.info("got image %r", image)
@@ -140,7 +162,7 @@ class BlogArticleEditHandler(BaseHandler):
         response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
         logging.info("got token response %r", response.body)
 
-        self.redirect('/blog/articles/mine')
+        self.redirect('/blog/articles/mine?random=' + random)
 
 
 class BlogArticleMineHandler(BaseHandler):
@@ -148,12 +170,16 @@ class BlogArticleMineHandler(BaseHandler):
     def get(self):
         logging.info(self.request)
 
+        random = random_x(8)
+        logging.info("got random %r", random)
+
         account_id = self.get_secure_cookie("account_id")
         logging.info("got account_id %r from cookie", account_id)
         session_token = self.get_secure_cookie("session_token")
         logging.info("got session_token %r from cookie", session_token)
 
         self.render('blog/my-articles.html',
+                random=random,
                 account_id=account_id,
                 session_token=session_token)
 
@@ -164,7 +190,11 @@ class BlogArticleParagraphImportHandler(BaseHandler):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
 
+        random = random_x(8)
+        logging.info("got random %r", random)
+
         self.render('blog/paragraphs-import.html',
+                random=random,
                 article_id=article_id)
 
     @tornado.web.authenticated  # if no session, redirect to login page
@@ -173,6 +203,9 @@ class BlogArticleParagraphImportHandler(BaseHandler):
         logging.info("got article_id %r from uri", article_id)
         url = self.get_argument("article_url", "")
         logging.info("got article_url %r", url)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
 
         session_token = self.get_secure_cookie("session_token")
         logging.info("got session_token %r from cookie", session_token)
@@ -183,7 +216,7 @@ class BlogArticleParagraphImportHandler(BaseHandler):
         html = html.decode('utf8')
         # 使用 html2text 将网页内容转换为 Markdown 格式
         h = html2text.HTML2Text()
-        # h.ignore_links = True
+        h.ignore_links = False
         paragraphs = h.handle(html)
         logging.info("got paragraphs %r", paragraphs)
 
@@ -196,7 +229,7 @@ class BlogArticleParagraphImportHandler(BaseHandler):
         response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
         logging.info("got token response %r", response.body)
 
-        self.redirect('/blog/articles/' + article_id + '/paragraphs/edit')
+        self.redirect('/blog/articles/' + article_id + '/paragraphs/edit?random=' + random)
 
 
 class BlogArticleParagraphEditHandler(BaseHandler):
@@ -205,6 +238,9 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
 
+        random = random_x(8)
+        logging.info("got random %r", random)
+
         url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
         http_client = HTTPClient()
         response = http_client.fetch(url, method="GET")
@@ -212,6 +248,7 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         article = json_decode(response.body)
 
         self.render('blog/paragraphs-edit.html',
+                random=random,
                 article=article)
 
 
@@ -221,6 +258,9 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         logging.info("got article_id %r from uri", article_id)
         paragraphs = self.get_argument("paragraphs", "")
         logging.info("got paragraphs %r", paragraphs)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
 
         session_token = self.get_secure_cookie("session_token")
         logging.info("got session_token %r from cookie", session_token)
@@ -234,4 +274,4 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
         logging.info("got token response %r", response.body)
 
-        self.redirect('/blog/articles/mine')
+        self.redirect('/blog/articles/mine?random=' + random)

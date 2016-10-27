@@ -20,6 +20,7 @@ import tornado.web
 import logging
 import time
 import datetime
+import random
 
 from global_const import *
 from tornado.escape import json_encode, json_decode
@@ -176,3 +177,16 @@ def time_span(ts):
         return "%d分钟前" % (delta.seconds / 60)
     else:
         return "%d小时前" % (delta.seconds / 60 / 60)
+
+
+#验证码函数
+def random_x(i):
+    code = []
+    for i in range(i):
+        if i == random.randint(1,3):
+            code.append(str(random.randint(1,9)))
+        else:
+            tmp = random.randint(65,90)
+            code.append(chr(tmp))
+
+    return ''.join(code)

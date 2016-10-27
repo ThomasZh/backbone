@@ -28,7 +28,7 @@
       <div class="page page-current" id="page-article-edit">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left" href="/">
+          <a class="button button-link button-nav pull-left" href="/blog/articles/{{ article['_id'] }}">
             <span class="icon icon-left"></span>
           </a>
           <h1 class="title">文章段落编辑</h1>
@@ -66,7 +66,9 @@
                 <div class="weui_cell_bd weui_cell_primary">
                   <textarea id="paragraphs" name="paragraphs"
                     class="weui_textarea" placeholder="段落内容" rows="16">
+{% if article.has_key('paragraphs') %}
                     {{ article['paragraphs'] }}
+{% end %}
                   </textarea>
                   <div class="weui_textarea_counter"><span>0</span>/2000</div>
                 </div>

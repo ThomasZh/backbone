@@ -47,7 +47,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random={{ random }}"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -62,7 +62,7 @@ $(function () {
     }
 
     // 页面初始化时，首先加载20条记录
-    $.get("/ajax/blog/articles?last="+lastTimestamp,function(data,status){
+    $.get("/ajax/blog/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
       if (data == null || data == undefined || data == '') {
         // 加载完毕，则注销无限加载事件，以防不必要的加载
         $.detachInfiniteScroll($('.infinite-scroll'));
@@ -95,7 +95,7 @@ $(function () {
       // 设置flag
       loading = true;
 
-      $.get("/ajax/blog/articles?last="+lastTimestamp,function(data,status){
+      $.get("/ajax/blog/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
         if (data == null || data == undefined || data == '') {
           // 加载完毕，则注销无限加载事件，以防不必要的加载
           $.detachInfiniteScroll($('.infinite-scroll'));
@@ -152,7 +152,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random={{ random }}"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -169,7 +169,7 @@ $(function () {
 
     // 页面初始化时，首先加载20条记录
     var account_id = $("#account_id").val();
-    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp,function(data,status){
+    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
       if (data == null || data == undefined || data == '') {
         // 加载完毕，则注销无限加载事件，以防不必要的加载
         $.detachInfiniteScroll($('.infinite-scroll'));
@@ -202,7 +202,7 @@ $(function () {
       // 设置flag
       loading = true;
 
-      $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp,function(data,status){
+      $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
         if (data == null || data == undefined || data == '') {
           // 加载完毕，则注销无限加载事件，以防不必要的加载
           $.detachInfiniteScroll($('.infinite-scroll'));
@@ -687,15 +687,15 @@ function showActionSheet(e) {
   });
 
   $('#actionsheet_paragraphs_import').one('click', function () {
-    location.href = "/blog/articles/" + article_id + "/paragraphs/import";
+    location.href = "/blog/articles/" + article_id + "/paragraphs/import?random={{ random }}";
   });
 
   $('#actionsheet_edit').one('click', function () {
-    location.href = "/blog/articles/" + article_id + "/edit";
+    location.href = "/blog/articles/" + article_id + "/edit?random={{ random }}";
   });
 
   $('#actionsheet_paragraphs_edit').one('click', function () {
-    location.href = "/blog/articles/" + article_id + "/paragraphs/edit";
+    location.href = "/blog/articles/" + article_id + "/paragraphs/edit?random={{ random }}";
   });
 
   $('#actionsheet_delete').one('click', function () {
@@ -728,7 +728,7 @@ function comfirmYes() {
   if (action == "delete") {
     $.ajax({
       type: "DELETE",
-      url: "/ajax/blog/articles/"+action_article_id,
+      url: "/ajax/blog/articles/"+action_article_id+"?random={{ random }}",
       headers : {'Authorization':'Bearer '+session_token},
       dataType: 'json',
       contentType: 'application/json',
@@ -767,7 +767,7 @@ function comfirmYes() {
   } else if (action == "pub") {
     $.ajax({
       type: "PUT",
-      url: "/ajax/blog/articles/"+action_article_id+"/pub",
+      url: "/ajax/blog/articles/"+action_article_id+"/pub?random={{ random }}",
       headers : {'Authorization':'Bearer '+session_token},
       dataType: 'json',
       contentType: 'application/json',

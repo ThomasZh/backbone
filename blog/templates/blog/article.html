@@ -31,7 +31,7 @@
           <a class="button button-link button-nav pull-left" href="/blog/articles">
             <span class="icon icon-left"></span>
           </a>
-          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/edit">
+          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/edit">
             <span class="icon icon-edit"></span>
           </a>
           <h1 class="title">博客文章</h1>
@@ -46,20 +46,19 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-          <div class="bd">
-            <div class="weui_panel">
-              <div class="weui_panel_bd">
-                <img src="{{ article['image'] }}!794x452" class="banner-img" />
+          <div class="banner-head">
+            <!--
+            <div class="article-banner-left"><i class="icon icon-left"></i></div>
+            <div class="article-banner-right"><i class="icon icon-edit"></i></div>
+          -->
+            <img class="banner-img" src="{{ article['image'] }}!794x452" />
 
-                <div class="weui_media_box weui_media_text">
-                  <h4 class="weui_media_title">{{ article["title"] }}</h4>
-                  <p class="weui_media_desc">{{ article["desc"] }}</p>
-                  <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">{{ article["publish_time"] }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <!-- 文章基本信息 -->
+            <ul class="list_msg">
+              <li><h4><strong>{{ article["title"] }}</strong></h4></li>
+              <li style="color:gray;font-size:0.6rem;">{{ article["desc"] }}</li>
+              <li style="color:gray;font-size:0.6rem;ffont-weight:bold;">{{ article["publish_time"] }}</li>
+            </ul>
           </div>
 
           <div class="bd">
