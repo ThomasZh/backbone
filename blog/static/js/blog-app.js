@@ -8,15 +8,21 @@ $(function () {
 
 
   //编辑段落页面初始化
-  $(document).on("pageInit", "#page-article-edit", function(e, id, page) {
+  $(document).on("pageInit", "#page-paragraph-edit", function(e, id, page) {
+    Mokki.editor('.damnEditor', {
+      // Costumize with custom color
+      // 'colorGlobal' : '#c00'
+    });
+    
     $(document).on('click','#OnEditSubmit', function () {
-      var paragraphs = $("#paragraphs").val();
+      var paragraphs = $("#mokkiTextEmbed").val();
       if (paragraphs == null || paragraphs == undefined || paragraphs == '') {
         $.alert('请输入段落');
         return false;
       }
 
-      $('#formArticleEdit').submit();
+      alert(paragraphs);
+      $('#formParagraphEdit').submit();
     });
   });
 

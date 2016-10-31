@@ -258,6 +258,10 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         logging.info("got response %r", response.body)
         article = json_decode(response.body)
 
+        # 使用 markdown 将网页内容转换为 html 格式
+        html = markdown.markdown(article['paragraphs'])
+        article['paragraphs'] = html
+
         self.render('blog/paragraphs-edit.html',
                 random=random,
                 article=article)
@@ -268,6 +272,12 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
         paragraphs = self.get_argument("paragraphs", "")
+        logging.info("got paragraphs %r", paragraphs)
+
+        # 使用 html2text 将网页内容转换为 Markdown 格式
+        h = html2text.HTML2Text()
+        h.ignore_links = False
+        paragraphs = h.handle(paragraphs)
         logging.info("got paragraphs %r", paragraphs)
 
         random = random_x(8)

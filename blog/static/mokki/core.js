@@ -32,7 +32,7 @@ Mokki = {
       +'<a class="mokki-btn mokki-cmd" href="#" data-command="undo"><i class="fa fa-rotate-left"></i></a>'
 //      +'<a class="mokki-btn mokki-cmd" href="#" data-command="redo"><i class="fa fa-rotate-right"></i></a>'
 //      +'<span class="sparator"></span>'
-//      +'<a class="mokki-btn mokki-cmd" href="#" data-command="viewsource"><i class="fa fa-code"></i></a>'
+      +'<a class="mokki-btn mokki-cmd" href="#" data-command="viewsource"><i class="fa fa-code"></i></a>'
     );
     MokkiObject.previewArea.on('input',function() {
       if (MokkiObject.previewArea.html() !== MokkiObject.embedArea.html()) {
@@ -40,7 +40,7 @@ Mokki = {
       };
     });
     MokkiObject.buttonBar.html(buttonList);
-    MokkiObject.buttonBar.button= MokkiObject.buttonBar.find('.mokki-cmd');
+    MokkiObject.buttonBar.button = MokkiObject.buttonBar.find('.mokki-cmd');
     var embedHtml = $('#mokki-embed-input');
     embedHtml.on('mousedown', function(e){
       MokkiSavedSelection = MokkiSaveSelection( document.getElementById("mokkiTextPreview") );
@@ -59,10 +59,10 @@ Mokki = {
           break;
 
           case 'insertImage':
-            // var image = prompt("Enter a image location:", "http://");
-            // if ((image !== null) && (image !== "")) {
-            //    Mokki.events.createStyle('InsertImage', image);
-            // }
+            var image = prompt("Enter a image location:", "http://");
+            if ((image !== null) && (image !== "")) {
+               Mokki.events.createStyle('InsertImage', image);
+            }
             MokkiObject.media = $(mokkiElement+' .mokkiMedia');
             MokkiObject.media.area =  MokkiObject.media.find('.mokkiMediaArea');
             Mokki.events.openMedia();
