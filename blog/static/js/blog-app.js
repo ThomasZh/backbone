@@ -4,6 +4,8 @@
 // 在demo中我们每个页面都引用了相同的脚本，是为了在子页面刷新的时候也可以用。
 
 $(function () {
+  var random = random_x(6);
+
 
   //编辑段落页面初始化
   $(document).on("pageInit", "#page-article-edit", function(e, id, page) {
@@ -35,11 +37,13 @@ $(function () {
 
   //博客文章列表(首页), 底部无限滚动
   $(document).on("pageInit", "#page-articles", function(e, id, page) {
+    var random = random_x(6);
     var loading = false;
     var lastTimestamp = 0;
 
     function addItems(ajaxobj) {
       for (var i in ajaxobj) {
+        var random = random_x(6);
         // 生成新条目的HTML
         var html = '';
         html += '<div class="weui_panel weui_panel_access" id="'+ajaxobj[i]._id+'">';
@@ -47,7 +51,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random={{ random }}"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random='+random+'"><img src="' + ajaxobj[i].image + '!750x445" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -62,7 +66,7 @@ $(function () {
     }
 
     // 页面初始化时，首先加载20条记录
-    $.get("/ajax/blog/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
+    $.get("/ajax/blog/articles?last="+lastTimestamp+"&random="+random,function(data,status){
       if (data == null || data == undefined || data == '') {
         // 加载完毕，则注销无限加载事件，以防不必要的加载
         $.detachInfiniteScroll($('.infinite-scroll'));
@@ -90,12 +94,13 @@ $(function () {
     });
 
     $(page).on('infinite', function() {
+      var random = random_x(6);
       // 如果正在加载，则退出
       if (loading) return;
       // 设置flag
       loading = true;
 
-      $.get("/ajax/blog/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
+      $.get("/ajax/blog/articles?last="+lastTimestamp+"&random="+random,function(data,status){
         if (data == null || data == undefined || data == '') {
           // 加载完毕，则注销无限加载事件，以防不必要的加载
           $.detachInfiniteScroll($('.infinite-scroll'));
@@ -133,12 +138,14 @@ $(function () {
 
   //我的博客文章列表, 底部无限滚动
   $(document).on("pageInit", "#page-my-articles", function(e, id, page) {
+    var random = random_x(6);
     session_token = $("#session_token").val();
     var loading = false;
     var lastTimestamp = 0;
 
     function addItems(ajaxobj) {
       for (var i in ajaxobj) {
+        var random = random_x(6);
         // 生成新条目的HTML
         var html = '';
         html += '<div class="weui_panel weui_panel_access" id="'+ajaxobj[i]._id+'">';
@@ -152,7 +159,7 @@ $(function () {
         html += '  <div class="weui_panel_bd">';
         html += '    <div class="weui_media_box weui_media_text">';
         html += '      <h4 class="weui_media_title">' + ajaxobj[i].title + '</h4>';
-        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random={{ random }}"><img src="' + ajaxobj[i].image + '!794x452" width="100%"></a>';
+        html += '      <a href="/blog/articles/'+ajaxobj[i]._id+'?random='+random+'"><img src="' + ajaxobj[i].image + '!750x445" width="100%"></a>';
         html += '      <p class="weui_media_desc">' + ajaxobj[i].desc + '</p>';
         html += '    </div>';
         html += '  </div>';
@@ -169,7 +176,7 @@ $(function () {
 
     // 页面初始化时，首先加载20条记录
     var account_id = $("#account_id").val();
-    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
+    $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random="+random,function(data,status){
       if (data == null || data == undefined || data == '') {
         // 加载完毕，则注销无限加载事件，以防不必要的加载
         $.detachInfiniteScroll($('.infinite-scroll'));
@@ -197,12 +204,13 @@ $(function () {
     });
 
     $(page).on('infinite', function() {
+      var random = random_x(6);
       // 如果正在加载，则退出
       if (loading) return;
       // 设置flag
       loading = true;
 
-      $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random={{ random }}",function(data,status){
+      $.get("/ajax/blog/accounts/"+account_id+"/articles?last="+lastTimestamp+"&random="+random,function(data,status){
         if (data == null || data == undefined || data == '') {
           // 加载完毕，则注销无限加载事件，以防不必要的加载
           $.detachInfiniteScroll($('.infinite-scroll'));
@@ -285,7 +293,7 @@ $(function () {
 
     document.addEventListener('uploaded', function(e) {
       $('#weui_uploader_files').html('');
-      inner_html = '<li class="weui_uploader_file" style="background-image:url(' + lastImgUrl + ')"></li>';
+      inner_html = '<li class="weui_uploader_file" style="background-image:url(' + lastImgUrl + '!200x200)"></li>';
       $('#weui_uploader_files').append(inner_html);
 
       fileCounter++;
@@ -813,6 +821,7 @@ function comfirmYes() {
 // 引用LocalResizeIMG.js（插件主体）及mobileBUGFix.mini.js（移动端的补丁）
 
 var pre;//源图片名称
+var Orientation = null;//图片方向角
 
 /**
  * 获得base64
@@ -830,6 +839,15 @@ $.fn.localResizeIMG = function(obj) {
     var URL = window.URL || window.webkitURL;
     var blob = URL.createObjectURL(file);
 
+    //获取照片方向角属性，用户旋转控制
+    EXIF.getData(file, function() {
+      //alert(EXIF.pretty(file));
+      EXIF.getAllTags(file);
+      Orientation = EXIF.getTag(file, 'Orientation');
+      //alert(Orientation);
+      //return;
+    });
+
     // 执行前函数
     if ($.isFunction(obj.before)) {
       obj.before(this, blob, file);
@@ -843,7 +861,7 @@ $.fn.localResizeIMG = function(obj) {
    * 生成base64
    * @param blob 通过file获得的二进制
    */
-  function _create(blob) {
+  function _create(blob, file) {
     var img = new Image();
     img.src = blob;
 
@@ -872,12 +890,36 @@ $.fn.localResizeIMG = function(obj) {
 
       // 修复IOS
       if (navigator.userAgent.match(/iphone/i)) {
-        var mpImg = new MegaPixImage(img);
-        mpImg.render(canvas, {
-          maxWidth : w,
-          maxHeight : h,
-          quality : obj.quality || 0.8
-        });
+        console.log('iphone');
+        //alert(w + ',' + h);
+        //如果方向角不为1，都需要进行旋转
+        if (Orientation != "" && Orientation != 1){
+          switch(Orientation){
+            case 6://需要顺时针（向左）90度旋转
+                //alert('需要顺时针（向左）90度旋转');
+                rotateImg(this,'left',canvas);
+                break;
+            case 8://需要逆时针（向右）90度旋转
+                //alert('需要顺时针（向右）90度旋转');
+                rotateImg(this,'right',canvas);
+                break;
+            case 3://需要180度旋转
+                //alert('需要180度旋转');
+                rotateImg(this,'right',canvas);//转两次
+                rotateImg(this,'right',canvas);
+                break;
+            default:
+              //alert('未旋转处理');
+              break;
+          }
+        }
+
+        // var mpImg = new MegaPixImage(img);
+        // mpImg.render(canvas, {
+        //   maxWidth : w,
+        //   maxHeight : h,
+        //   quality : obj.quality || 0.8
+        // });
         base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.8);
       }
 
@@ -901,6 +943,68 @@ $.fn.localResizeIMG = function(obj) {
 };
 
 
+//对图片旋转处理 added by lzk
+function rotateImg(img, direction,canvas) {
+  //alert(img);
+  //最小与最大旋转方向，图片旋转4次后回到原方向
+  var min_step = 0;
+  var max_step = 3;
+  //var img = document.getElementById(pid);
+  if (img == null)return;
+  //img的高度和宽度不能在img元素隐藏后获取，否则会出错
+  var height = img.height;
+  var width = img.width;
+  //var step = img.getAttribute('step');
+  var step = 2;
+  if (step == null) {
+      step = min_step;
+  }
+  if (direction == 'right') {
+      step++;
+      //旋转到原位置，即超过最大值
+      step > max_step && (step = min_step);
+  } else {
+      step--;
+      step < min_step && (step = max_step);
+  }
+  //img.setAttribute('step', step);
+  /*var canvas = document.getElementById('pic_' + pid);
+  if (canvas == null) {
+      img.style.display = 'none';
+      canvas = document.createElement('canvas');
+      canvas.setAttribute('id', 'pic_' + pid);
+      img.parentNode.appendChild(canvas);
+  }  */
+  //旋转角度以弧度值为参数
+  var degree = step * 90 * Math.PI / 180;
+  var ctx = canvas.getContext('2d');
+  switch (step) {
+      case 0:
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0);
+          break;
+      case 1:
+          canvas.width = height;
+          canvas.height = width;
+          ctx.rotate(degree);
+          ctx.drawImage(img, 0, -height);
+          break;
+      case 2:
+          canvas.width = width;
+          canvas.height = height;
+          ctx.rotate(degree);
+          ctx.drawImage(img, -width, -height);
+          break;
+      case 3:
+          canvas.width = height;
+          canvas.height = width;
+          ctx.rotate(degree);
+          ctx.drawImage(img, -width, 0);
+          break;
+  }
+}
+
 // image:data 转成 blob格式
 function dataURLtoBlob(dataUrl) {
   var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
@@ -916,11 +1020,11 @@ function dataURLtoBlob(dataUrl) {
 function uploadBlogImgToUpyun(blob) {
   var config = {
     // 空间名称
-    bucket : 'tripc2c-club-title',
+    bucket : 'bighorn',
     // 上传请求过期时间
     expiration : parseInt((new Date().getTime() + 3600000) / 1000),
     // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
-    form_api_secret : 'CRKAOsKHGbbCnU+yztBxUT0bYR0='
+    form_api_secret : 'minNcL/cabhEznMeFpYhEQFsH+k='
   };
 
   var instance = new Sand(config);
@@ -941,7 +1045,7 @@ function uploadBlogImgToUpyun(blob) {
   console.log(filename);
   instance.upload_blob(filename, blob);
 
-  return 'http://tripc2c-club-title.b0.upaiyun.com' + filename;
+  return 'http://bighorn.b0.upaiyun.com' + filename;
 }
 
 
@@ -962,3 +1066,15 @@ function uuid() {
 // 图片压缩上传,
 // 引用LocalResizeIMG.js（插件主体）及mobileBUGFix.mini.js（移动端的补丁）
 ////////////////////////////////////////////////////////////////////
+
+
+// 生成随机数
+var random = random_x(6);
+function random_x(n) {
+  var num="";
+  for(var i=0;i<n;i++)
+  {
+    num += Math.floor(Math.random()*10);
+  }
+  return num;
+}

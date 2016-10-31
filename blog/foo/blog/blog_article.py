@@ -42,6 +42,17 @@ from tornado.httputil import url_concat
 from bson import json_util
 
 
+class BlogWritingHandler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+
+        random = random_x(8)
+        logging.info("got random %r", random)
+
+        self.render('writing.html',
+                random=random)
+
+
 class BlogArticleIndexHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)

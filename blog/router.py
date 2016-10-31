@@ -20,6 +20,7 @@ def map():
 
         # GET: 根据 HTTP header 收集客户端相关信息：是否手机、操作系统、浏览器等信息。
         (r'/', getattr(blog_article, 'BlogArticleIndexHandler')),
+        ('/writing', getattr(blog_article, 'BlogWritingHandler')),
 
         # auth
         ('/login', getattr(auth_account, 'AuthLoginHandler')),
