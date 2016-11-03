@@ -124,7 +124,7 @@ Mokki.events = {
     Mokki.events.cleanPlaceholder();
     MokkiObject.previewArea.focus();
     // if ('InsertImage' == command) {
-    //     document.execCommand(enableObjectResizing, false, commandValue);
+    //   document.execCommand(enableObjectResizing, false, commandValue);
     // };
     document.execCommand(command, false, commandValue);
   },

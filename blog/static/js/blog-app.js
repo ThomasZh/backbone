@@ -7,13 +7,98 @@ $(function () {
   var random = random_x(6);
 
 
+  //创建博客文章页面初始化
+  $(document).on("pageInit", "#page-paragraph-append", function(e, id, page) {
+    var lastImgUrl;
+    var fileCounter = 0;
+    var arrayObj = new Array();
+
+    $("input[type=file]").each(function() {
+      var _this = $(this);
+      _this.localResizeIMG({
+        width : 800,
+        quality : 0.6,
+        success : function(result) {
+          if (fileCounter == 9) {
+            $('#dialog2').show().on('click', '.weui_btn_dialog', function () {
+              $('#dialog2').off('click').hide();
+            });
+            return false;
+          }
+          $('#loadingToast').show();
+
+          //获取后缀名
+          var att = pre.substr(pre.lastIndexOf("."));
+          //压缩后图片的base64字符串
+          var base64_string = result.clearBase64;
+          //console.log(base64_string);
+          //图片预览
+          var imgObj = $("#img");
+          imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
+          //拼接data字符串，传递会后台
+          var fileData = $("#fileData");
+          fileData.val(att + "," + imgObj.attr("src"));
+          //console.log(fileData);
+
+          blob = dataURLtoBlob(result.base64);
+          //console.log(blob);
+
+          lastImgUrl = uploadBlogImgToUpyun(blob);
+          console.log(lastImgUrl);
+
+          arrayObj.push(lastImgUrl);
+          $("#filenames").val(arrayObj);
+        }
+      });
+    });
+
+    document.addEventListener('uploaded', function(e) {
+      //$('#weui_uploader_files').html('');
+      inner_html = '<li class="weui_uploader_file" style="background-image:url(' + lastImgUrl + '!200x200)"></li>';
+      $('#weui_uploader_files').append(inner_html);
+
+      fileCounter++;
+      $('#file_counter').html(""+fileCounter+"/9");
+
+      $('#loadingToast').hide();
+    });
+
+    $(document).on('click','#OnParagraphAppendSubmit', function () {
+
+      paragraphs = $("#paragraphs").val();
+      if (paragraphs == null || paragraphs == undefined || paragraphs == '') {
+        if (fileCounter == 0) {
+          $.alert('请上传图片或输入描述');
+          return false;
+        }
+      }
+
+      $('#formParagraphAppend').submit();
+    });
+  });
+
+
+  //编辑段落页面(Markdown)初始化
+  $(document).on("pageInit", "#page-paragraph-markdown", function(e, id, page) {
+    $(document).on('click','#OnParagraphMarkdownSubmit', function () {
+      var paragraphs = $("#paragraphs").val();
+      if (paragraphs == null || paragraphs == undefined || paragraphs == '') {
+        $.alert('请输入段落');
+        return false;
+      }
+
+      $('#formParagraphMarkdown').submit();
+    });
+  });
+
+
   //编辑段落页面初始化
   $(document).on("pageInit", "#page-paragraph-edit", function(e, id, page) {
     Mokki.editor('.damnEditor', {
       // Costumize with custom color
       // 'colorGlobal' : '#c00'
     });
-    
+
     $(document).on('click','#OnEditSubmit', function () {
       var paragraphs = $("#mokkiTextEmbed").val();
       if (paragraphs == null || paragraphs == undefined || paragraphs == '') {
@@ -21,7 +106,6 @@ $(function () {
         return false;
       }
 
-      alert(paragraphs);
       $('#formParagraphEdit').submit();
     });
   });
@@ -276,17 +360,17 @@ $(function () {
           var att = pre.substr(pre.lastIndexOf("."));
           //压缩后图片的base64字符串
           var base64_string = result.clearBase64;
-          console.log(base64_string);
+          //console.log(base64_string);
           //图片预览
           var imgObj = $("#img");
           imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
           //拼接data字符串，传递会后台
           var fileData = $("#fileData");
           fileData.val(att + "," + imgObj.attr("src"));
-          console.log(fileData);
+          //console.log(fileData);
 
           blob = dataURLtoBlob(result.base64);
-          console.log(blob);
+          //console.log(blob);
 
           lastImgUrl = uploadBlogImgToUpyun(blob);
           console.log(lastImgUrl);
@@ -342,7 +426,7 @@ $(function () {
       var _this = $(this);
       _this.localResizeIMG({
         width : 800,
-        quality : 0.9,
+        quality : 0.6,
         success : function(result) {
           if (fileCounter == 1) {
             $('#dialog2').show().on('click', '.weui_btn_dialog', function () {
@@ -356,17 +440,17 @@ $(function () {
           var att = pre.substr(pre.lastIndexOf("."));
           //压缩后图片的base64字符串
           var base64_string = result.clearBase64;
-          console.log(base64_string);
+          //console.log(base64_string);
           //图片预览
           var imgObj = $("#img");
           imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
           //拼接data字符串，传递会后台
           var fileData = $("#fileData");
           fileData.val(att + "," + imgObj.attr("src"));
-          console.log(fileData);
+          //console.log(fileData);
 
           blob = dataURLtoBlob(result.base64);
-          console.log(blob);
+          //console.log(blob);
 
           lastImgUrl = uploadBlogImgToUpyun(blob);
           console.log(lastImgUrl);
@@ -892,7 +976,7 @@ $.fn.localResizeIMG = function(obj) {
        * 生成base64
        * 兼容修复移动设备需要引入mobileBUGFix.js
        */
-      var base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.8);
+      var base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
 
       // 修复IOS
       if (navigator.userAgent.match(/iphone/i)) {
@@ -926,14 +1010,41 @@ $.fn.localResizeIMG = function(obj) {
         //   maxHeight : h,
         //   quality : obj.quality || 0.8
         // });
-        base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.8);
-      }
-
-      // 修复android
-      if (navigator.userAgent.match(/Android/i)) {
+        base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
+      } else if (navigator.userAgent.match(/Android/i)) { // 修复android
         var encoder = new JPEGEncoder();
         base64 = encoder.encode(ctx.getImageData(0, 0, w, h),
               obj.quality * 100 || 80);
+      } else {
+        //如果方向角不为1，都需要进行旋转
+        if (Orientation != "" && Orientation != 1){
+          switch(Orientation){
+            case 6://需要顺时针（向左）90度旋转
+                //alert('需要顺时针（向左）90度旋转');
+                rotateImg(this,'left',canvas);
+                break;
+            case 8://需要逆时针（向右）90度旋转
+                //alert('需要顺时针（向右）90度旋转');
+                rotateImg(this,'right',canvas);
+                break;
+            case 3://需要180度旋转
+                //alert('需要180度旋转');
+                rotateImg(this,'right',canvas);//转两次
+                rotateImg(this,'right',canvas);
+                break;
+            default:
+              //alert('未旋转处理');
+              break;
+          }
+        }
+
+        // var mpImg = new MegaPixImage(img);
+        // mpImg.render(canvas, {
+        //   maxWidth : w,
+        //   maxHeight : h,
+        //   quality : obj.quality || 0.8
+        // });
+        base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
       }
 
       // 生成结果

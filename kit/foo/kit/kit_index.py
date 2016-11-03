@@ -62,19 +62,22 @@ class ApiKitHandle(tornado.web.RequestHandler):
     def post(self):
         logging.info(self.request)
 
+        app = self.get_argument("app", "")
         name = self.get_argument("name", "")
         email = self.get_argument("email", "")
         message = self.get_argument("message", "")
+        app = app.encode("utf-8")
         name = name.encode("utf-8")
         email = email.encode("utf-8")
         message = message.encode("utf-8")
+        logging.info("got app %r", app)
         logging.info("got name %r", name)
         logging.info("got email %r", email)
         logging.info("got message %r", message)
 
         # save message into mongodb
         timestamp = time.time()
-        _json = {'name':name, 'email':email, 'message':message,
+        _json = {'app':app, 'name':name, 'email':email, 'message':message,
                 'create_time':timestamp}
         kit_dao.kit_dao().create(_json)
 

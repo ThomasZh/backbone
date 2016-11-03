@@ -41,6 +41,8 @@ def map():
         ('/blog/articles/([a-z0-9]*)/edit', getattr(blog_article, 'BlogArticleEditHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/import', getattr(blog_article, 'BlogArticleParagraphImportHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/edit', getattr(blog_article, 'BlogArticleParagraphEditHandler')),
+        ('/blog/articles/([a-z0-9]*)/paragraphs/markdown', getattr(blog_article, 'BlogArticleParagraphMarkdownHandler')),
+        ('/blog/articles/([a-z0-9]*)/paragraphs/append', getattr(blog_article, 'BlogArticleParagraphAppendHandler')),
 
         # ajax
         ('/ajax/blog/accounts/([a-z0-9]*)/articles', getattr(ajax_article, 'AjaxAccountArticleXHR')),

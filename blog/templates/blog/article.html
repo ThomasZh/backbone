@@ -29,10 +29,16 @@
       <div class="page page-current" id="page-activity-info">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left" href="/blog/articles">
+          <a class="button button-link button-nav pull-left" href="/blog/articles?random={{ random }}">
             <span class="icon icon-left"></span>
           </a>
-          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/edit">
+          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/append?random={{ random }}">
+            <span class="fa fa-paragraph fa-2x"></span>
+          </a>
+          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/markdown?random={{ random }}">
+            <span class="fa fa-code fa-2x"></span>
+          </a>
+          <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/edit?random={{ random }}">
             <span class="icon icon-edit"></span>
           </a>
           <h1 class="title">博客文章</h1>
@@ -62,6 +68,7 @@
             </ul>
 
             <!-- JiaThis Button BEGIN -->
+<!--
             <div id="ckepop">
               <span class="jiathis_txt">分享到：</span> <a
                 class="jiathis_button_weixin">微信</a> <a
@@ -71,6 +78,7 @@
             </div>
             <script type="text/javascript"
               src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>
+-->
             <!-- JiaThis Button END -->
           </div>
 
@@ -84,11 +92,6 @@
 
         </div> <!-- content -->
       </div> <!-- page -->
-
-      <!-- 其他的单个page内联页（如果有） -->
-      <!--
-      <div class="page">...</div>
-      -->
     </div> <!-- page group -->
 
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Get in touch</title>
+		<title>Keep in touch</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -15,7 +15,7 @@
 			<div class="container">
 				<div class="content">
 					<header class="major">
-						<h2>Get in touch</h2>
+						<h2>Keep in touch</h2>
 					</header>
 
 					<div class="table-wrapper">
@@ -23,6 +23,7 @@
 							<thead>
 								<tr>
 									<th>time</th>
+									<th>app</th>
 									<th>name</th>
 									<th>email</th>
 								</tr>
@@ -51,7 +52,7 @@
 					<blockquote>
 						<p>http://kit.7x24hs.com/api/kits</p>
 						<p>mothed: post</p>
-						<p>body: {"name":"your_name", "email":"your_email", "message": "your_message"}</p>
+						<p>body: {"app":"your_app_id", "name":"your_name", "email":"your_email", "message": "your_message"}</p>
 						<p>response: SUCCESS</p>
 					</blockquote>
 				</div>
@@ -64,7 +65,7 @@
 		<section id="footer">
 			<div class="container">
 				<header class="major">
-					<h2>Get in touch</h2>
+					<h2>Keep in touch</h2>
 				</header>
 				<form>
 					<div class="row uniform">
@@ -107,7 +108,7 @@
 				var name = $("#name").val();
 				var email = $("#email").val();
 				var message = $("#message").val();
-				$.post("/api/kits", {"name":name, "email":email, "message":message}, function(result){
+				$.post("/api/kits", {"app":"kit", "name":name, "email":email, "message":message}, function(result){
 					alert('Send message success!');
 				});
 			}
@@ -143,6 +144,10 @@
 							inner_html += '<td>';
 							inner_html += fmt(ajaxobj[i].create_time);
 							inner_html += '</td>';
+
+							inner_html += '<td>';
+	            inner_html += ajaxobj[i].app;
+	            inner_html += '</td>';
 
 	            inner_html += '<td>';
 	            inner_html += ajaxobj[i].name;

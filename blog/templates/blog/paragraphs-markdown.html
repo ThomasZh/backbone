@@ -10,7 +10,7 @@
     <meta name="spm-id" content="a222t.7900232">
     <meta name="format-detection" content="telephone=no, address=no">
 
-    <title>文章段落编辑</title>
+    <title>段落编辑-Markdown</title>
 
     <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
@@ -20,40 +20,42 @@
     <!-- customer css files -->
     <link rel="stylesheet" href="{{ static_url('mokki/core.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
-
   </head>
 
   <body>
     <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
     <div class="page-group">
       <!-- 单个page ,第一个.page默认被展示-->
-      <div class="page page-current" id="page-paragraph-edit">
+      <div class="page page-current" id="page-paragraph-markdown">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-          <a class="button button-link button-nav pull-left" href="/blog/articles/{{ article['_id'] }}">
+          <a class="button button-link button-nav pull-left" href="/blog/articles/mine">
             <span class="icon icon-left"></span>
           </a>
-          <h1 class="title">文章段落编辑</h1>
+          <h1 class="title">段落编辑</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-          <form id="formParagraphEdit" action="/blog/articles/{{ article['_id'] }}/paragraphs/edit" method="POST">
+          <form id="formParagraphMarkdown" action="/blog/articles/{{ article['_id'] }}/paragraphs/markdown" method="POST">
 
-            <div class="latihanGUe">
-          		<div class="mokkiEditor damnEditor">
-          			<textarea class="article" id="mokkiTextEmbed" name="paragraphs" placeholder="Insert text here">
-{% if article.has_key('paragraphs') %}
-                  {{ article['paragraphs'] }}
-{% end %}
-          			</textarea>
-          		</div>
-          	</div>
+            <div class="weui_cells weui_cells_form">
+              <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                  <textarea id="paragraphs" name="paragraphs"
+                    class="weui_textarea" placeholder="请输入描述" rows="15">
+                    {{ article['paragraphs'] }}
+                  </textarea>
+                  <div class="weui_textarea_counter"><span>0</span>/2000</div>
+                </div>
+              </div>
+            </div>
+            <div class="weui_cells_tips">底部说明文字: 段落内容以2000个字为宜</div>
 
             <div class="weui_btn_area">
-              <a id="OnEditSubmit" class="weui_btn weui_btn_primary">确定</a>
+              <a id="OnParagraphMarkdownSubmit" class="weui_btn weui_btn_primary">确定</a>
             </div>
-
+          </div>
           </form>
         </div> <!-- content -->
       </div> <!-- page -->
