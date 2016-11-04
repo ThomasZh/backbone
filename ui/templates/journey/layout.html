@@ -19,6 +19,31 @@
     <!-- customer css files -->
     <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+    <style type="text/css">
+      img{
+        width: 100%;
+        display: block;
+        margin-top: 2%;
+      }
+      .row{
+        margin-left: 0;
+      }
+      .row .col-100 {
+        width: 99%;
+        margin-left: 1%;
+      }
+      .row .col-50{
+        width: 49%;
+        margin-left: 1%;
+      }
+      .row .col-33 {
+        width: 32.333333%;
+        margin-left: 1%;
+      }
+      .grid-demo-two{
+        margin:0.5rem 0.2rem;
+      }
+    </style>
   </head>
 
   <body>
@@ -41,182 +66,111 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-          <div class="banner-head">
-            <img src="/static/images/img05.jpg" class="banner-img" />
-	        </div>
-
-          <div class="bd">
-            <div class="weui_panel">
-              <div class="weui_panel_bd">
-                <div class="weui_media_box weui_media_text">
-                  <h4 class="weui_media_title">天晴就去爬玉龙雪山</h4>
-                  <p class="weui_media_desc">玉龙雪山绝逼是丽江一张名片，不管你看过多少雪山都得承认。问过很多长待丽江的朋友，几乎都没有上过玉龙雪山问其原因，无非是上去一趟的花费太高或是天天在古城就可以看到雪山，何必上去排队遭罪受说得也在理。</p>
-                  <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">文字来源: Thomas</li>
-                    <li class="weui_media_info_meta">时间: 2016-5-6 19:28</li>
-                    <li class="weui_media_info_meta weui_media_info_meta_extra">6人编写</li>
-                  </ul>
-                  <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                    <li class="weui_media_info_meta">
-                      <img class="cycle" src="/static/images/avatar.jpg" width="25" height="25">
-                    </li>
-                  </ul>
+                   <div class="grid-demo-two">
+              <h4>一张图片布局</h4>
+              
+                <div class="row">
+                    <div class="col-100"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/b8fb1152-ddd3-48ec-80dd-470cb66f56fb!600x600"/></div>
                 </div>
-              </div>
+                <h2>二张图片布局</h2>
+               
+                <div class="row">
+                    
+                        <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!300x600"/>
+                        </div>
+                        <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!300x600"/></div>
+                    
+                </div>
+                
+                <h4>三张图片布局</h4>
+                <div class="row">
+                    <div class="col-33"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!200x600"/></div>
+                    <div class="col-33">
+                        <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!200x600"/></div>
+                    <div class="col-33">
+                        <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!200x600"/></div>
+                </div>
+                <h2>四张图片布局</h2>
+                <div class="row">
+                    <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/639371cd-c3a7-4fdd-acd3-beffdbd7d2aa!300x600"/></div>
+                    <div class="col-50">
+                        <div class="row">
+                            <div class="col-100"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/a0514bf9-6da5-466e-865b-39967e1495c9!300x300"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!150x300"/>
+                            </div>
+                            <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!150x300"/></div>
+                        </div>
+                    </div>
+                </div>
+                <h2>四张图片布局（二）</h2>
+                 <div class="row">
+                <div class="col-100">
+                    <div class="row">
+                        <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x300"/></div>
+                        <div class="col-50"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x300"/></div>
+                    </div>
+                    </div>
+                    <div class="col-100">
+                        <div class="row">
+                            <div class="col-50">
+                                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c2569e9f-8507-4913-8b11-b9b20734abdd!200x300"/>
+                            </div>
+                            <div class="col-50"> <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979!200x300"/></div>
+                        </div>
+                    </div>
+                
             </div>
-          </div>
+                <h2>五张图片布局</h2>
+                <div class="row">
+                    <div class="col-50">
+                        <div class="row">
+                            
+                            <div class="col-100">
+                                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/6ee29f7b-4f23-457d-8647-f962427ecac9!300x300"/>
+              
+                            </div>
+                           
+                            <div class="col-100">
+                                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!300x300"/>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-50">
+                        <div class="row">
+                            <div class="col-100"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!300x200"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-100"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!300x200"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-100"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!300x200"/></div>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="content-padded grid-demo">
+           <h2>六张图片布局</h2>
             <div class="row">
-              <div class="col-33">
-                <img src="/static/images/img06.jpg!600x200" alt="">
-              </div>
-              <div class="col-66">
-                <div class="row">
-                  <div class="col-100">
-                    <img src="/static/images/img07.jpg" width="100%" alt="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-50">
-                    <img src="/static/images/img06.jpg" width="100%" alt="">
-                  </div>
-                  <div class="col-50">
-                    <img src="/static/images/img07.jpg" width="100%" alt="">
-                  </div>
-                </div>
-              </div>
+                <div class="col-100">
+                    <div class="row">
+                        <div class="col-33"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x300"/></div>
+                        <div class="col-33"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x300"/></div>
+                        <div class="col-33"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!200x300"/></div>
+                    </div>
+                    </div>
+                    <div class="col-100">
+                        <div class="row">
+                            <div class="col-33">
+                                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c2569e9f-8507-4913-8b11-b9b20734abdd!200x300"/>
+                            </div>
+                            <div class="col-33"> <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979!200x300"/></div>
+                            <div class="col-33"><img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!200x300"/></div>
+                        </div>
+                    </div>
+                
             </div>
-          </div>
-
-          <div class="bd">
-            <article class="weui_article">
-              <h1>标题一</h1>
-              <h2>标题二</h2>
-              <h3>标题三</h3>
-              <h4>标题四</h4>
-              <h5>标题五</h5>
-              <h6>标题六</h6>
-
-              <section>
-                <section>
-                  <h3>1.1 节标题</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute</p>
-                  <p>
-                    <img src="/static/images/img06.jpg" alt="">
-                    <img src="/static/images/img07.jpg" alt="">
-                  </p>
-                </section>
-                <section>
-                  <h3>1.2 节标题</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </section>
-
-                <section>
-                  <h3>1.3 节标题</h3>
-                  <p>我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白,我的左右两边有留白</p>
-                </section>
-
-                <section>
-                  <h3>1.4 节标题</h3>
-                  <ul>
-                    <li><a href="#router1">链接1</a></li>
-                    <li><a href="#router2">链接2</a></li>
-                    <li><a href="#router3">链接3</a></li>
-                    <li><a href="#router4">链接4</a></li>
-                    <li><a href="#router5">链接5</a></li>
-                    <li><a href="#router6">链接6</a></li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h3>1.5 节标题</h3>
-                  <ol>
-                    <li>当时的绅士俱乐部源于</li>
-                    <li>除古香古色的房间</li>
-                    <li>和美轮美奂的装饰</li>
-                    <li>书房餐厅</li>
-                    <li>图书馆</li>
-                    <li>茶室</li>
-                  </ol>
-                </section>
-
-                <section>
-                  <h3>1.6 节标题</h3>
-                  <blockquote class="blockquote">俱乐部是个很特殊的商业交际平台，因为如果在普通氛围里不可能办到的事，在俱乐部里就可以做成，这是因为俱乐部的平等传统。只要是会员，大家就是平等的，即使是全球500强企业的CEO，也不可能在俱乐部里拒绝其他会员喝一杯、坐下来聊聊的邀请。有人觉得这些俱乐部的会员大都是身居高位的企业领导者，对于习惯了“单位”文化背景下的人来说，会在比较之下觉得心理不平衡，其实是根本没必要的。一个社会只有中产阶级的数量越多，社会才越稳定。</blockquote>
-                </section>
-
-                <section>
-                  <h3>1.7 节标题</h3>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>名称</th>
-                        <th>详情</th>
-                        <th>价格</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>张三</td>
-                        <td>年龄24 性别男</td>
-                        <td>29.99</td>
-                      </tr>
-                      <tr>
-                        <td>丽丽</td>
-                        <td>年龄24 性别女</td>
-                        <td>19.99</td>
-                      </tr>
-                      <tr>
-                        <td>小童</td>
-                        <td>年龄24 性别男</td>
-                        <td>29.99</td>
-                      </tr>
-                      <tr>
-                        <td>兰兰</td>
-                        <td>年龄24 性别女</td>
-                        <td>19.99</td>
-                      </tr>
-                      <tr>
-                        <td>王聪</td>
-                        <td>年龄24 性别男</td>
-                        <td>29.99</td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td colspan="2"></td>
-                        <td>总计：100.00元</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </section>
-              </section>
-            </article>
           </div>
 
         </div> <!-- content -->
