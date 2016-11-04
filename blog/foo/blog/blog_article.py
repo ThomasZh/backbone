@@ -135,8 +135,8 @@ class BlogArticleHandler(tornado.web.RequestHandler):
                 urls = url_ptn.findall(html)
                 url = urls[0]
                 logging.info("got url %r", url)
-                html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" src=\"/static/images/weui.png\" width=\"100%\" />")
-                #html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" />")
+                #html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" src=\"/static/images/weui.png\" width=\"100%\" height=\"480\" />")
+                html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" />")
             logging.info("got html %r", html)
 
             article['paragraphs'] = html
