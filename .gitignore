@@ -12,3 +12,19 @@
 *.log
 
 kit/pidfile
+
+7x24hs/foo/comm.pyc
+
+7x24hs/foo/comm.pyc
+
+7x24hs/log/7x24hs.com.log
+
+7x24hs/log/ctrl.log
+
+7x24hs/pidfile
+
+7x24hs/router.pyc
+
+blog/pidfile
+
+ui/pidfile

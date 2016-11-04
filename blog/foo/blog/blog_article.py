@@ -29,6 +29,7 @@ from bson import json_util
 import urllib
 import html2text
 import markdown
+import re
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
@@ -120,6 +121,24 @@ class BlogArticleHandler(tornado.web.RequestHandler):
         if article.has_key('paragraphs'):
             html = markdown.markdown(article['paragraphs'])
             logging.info("got article paragraphs %r", html)
+
+            # 为图片延迟加载准备数据
+            # <img alt="" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979" />
+            # <img data-original="真实图片" src="占位符图片">
+            ptn="(<img alt=\"\" src=\"http[s]*://[\w\.\/\-]+\" />)"
+            img_ptn = re.compile(ptn)
+            imgs = img_ptn.findall(html)
+            for img in imgs:
+                logging.info("got img %r", img)
+                ptn="<img alt=\"\" src=\"(http[s]*://[\w\.\/\-]+)\" />"
+                url_ptn = re.compile(ptn)
+                urls = url_ptn.findall(html)
+                url = urls[0]
+                logging.info("got url %r", url)
+                html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" src=\"/static/images/weui.png\" width=\"100%\" />")
+                #html = html.replace(img, "<img class=\"lazy\" data-original=\""+url+"\" />")
+            logging.info("got html %r", html)
+
             article['paragraphs'] = html
             article["publish_time"] = time_span(article["publish_time"])
 
