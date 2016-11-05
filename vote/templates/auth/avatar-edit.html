@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>Avatar Edit</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page ,第一个.page默认被展示-->
+      <div class="page page-current" id="page-profile-edit">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left" href="/profile">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">Avatar Edit</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+
+          <p>上传前js压缩图片（ajax、form提交）（pc、mobile测试ok）（Java）</p>
+             选择文件：
+             <input id="file" class="form-control" type="file" accept="image/*" name="file">
+             <img id="img" name="img" width="200" style="display: none;" />
+             <input type="text" id="fileData" name="fileData" />
+
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
+    <script type='text/javascript' src='{{ static_url("js/auth-app.js") }}' charset='utf-8'></script>
+
+    <script>
+      var pre;//源图片名称
+
+      /**
+       * 获得base64
+       * @param {Object} obj
+       * @param {Number} [obj.width] 图片需要压缩的宽度，高度会跟随调整
+       * @param {Number} [obj.quality=0.8] 压缩质量，不压缩为1
+       * @param {Function} [obj.before(this, blob, file)] 处理前函数,this指向的是input:file
+       * @param {Function} obj.success(obj) 处理后函数
+       *
+       */
+      $.fn.localResizeIMG = function(obj) {
+        this.on('change', function() {
+          var file = this.files[0];
+          pre = file.name;
+          var URL = window.URL || window.webkitURL;
+          var blob = URL.createObjectURL(file);
+
+          // 执行前函数
+          if ($.isFunction(obj.before)) {
+            obj.before(this, blob, file);
+          }
+
+          _create(blob, file);
+          this.value = ''; // 清空临时数据
+        });
+
+        /**
+         * 生成base64
+         * @param blob 通过file获得的二进制
+         */
+        function _create(blob) {
+          var img = new Image();
+          img.src = blob;
+
+          img.onload = function() {
+            var that = this;
+
+            //生成比例
+            var w = that.width, h = that.height, scale = w / h;
+            w = obj.width || w;
+            h = w / scale;
+
+            //生成canvas
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            $(canvas).attr({
+              width : w,
+              height : h
+            });
+            ctx.drawImage(that, 0, 0, w, h);
+
+            /**
+             * 生成base64
+             * 兼容修复移动设备需要引入mobileBUGFix.js
+             */
+            var base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.8);
+
+            // 修复IOS
+            if (navigator.userAgent.match(/iphone/i)) {
+              var mpImg = new MegaPixImage(img);
+              mpImg.render(canvas, {
+                maxWidth : w,
+                maxHeight : h,
+                quality : obj.quality || 0.8
+              });
+              base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.8);
+            }
+
+            // 修复android
+            if (navigator.userAgent.match(/Android/i)) {
+              var encoder = new JPEGEncoder();
+              base64 = encoder.encode(ctx.getImageData(0, 0, w, h),
+                    obj.quality * 100 || 80);
+            }
+
+            // 生成结果
+            var result = {
+              base64 : base64,
+              clearBase64 : base64.substr(base64.indexOf(',') + 1)
+            };
+
+            // 执行后函数
+            obj.success(result);
+          };
+        }
+      };
+
+      function dataURLtoBlob(dataUrl) {
+        var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+      }
+
+      $(function() {
+        $("input[type=file]").each(function() {
+          var _this = $(this);
+          _this.localResizeIMG({
+            width : 397,
+            quality : 0.9,
+            success : function(result) {
+              //获取后缀名
+              var att = pre.substr(pre.lastIndexOf("."));
+              //压缩后图片的base64字符串
+              var base64_string = result.clearBase64;
+              console.log(base64_string);
+              //图片预览
+              var imgObj = $("#img");
+              imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
+              //拼接data字符串，传递会后台
+              var fileData = $("#fileData");
+              fileData.val(att + "," + imgObj.attr("src"));
+              console.log(fileData);
+
+              blob = dataURLtoBlob(result.base64);
+              console.log(blob);
+
+              //此处可直接使用ajax上传，也可存于form，表单提交上传
+              //此处例子使用ajax提交
+              // $.ajax({
+              //   type : "POST",
+              //   url : "/doUploadImg",
+              //   data :{
+              //     imgData : fileData.val()
+              //   },
+              //   dataType : "json",
+              //   success : function(msg){
+              //     alert(msg);
+              //   }
+              // });
+
+
+              // upload to upyun
+              var ext = '.' + file.name.split('.').pop();
+
+              var config = {
+                // 空间名称
+                bucket : 'tripc2c-person-face',
+                // 上传请求过期时间
+                expiration : parseInt((new Date().getTime() + 3600000) / 1000),
+                // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+                form_api_secret : 'Co1+B4OXTJakqhZzeWm3x8KMRis='
+              };
+
+              var instance = new Sand(config);
+              var options = {
+                'notify_url' : 'http://upyun.com',
+                //"allow-file-type":"jpg,jpeg,png",
+                //"x-gmkerl-value": "150", /// 如需缩小功能,这必须输入(缩略图宽度/像素)
+                //"x-gmkerl-quality": "95", /// 可选(图片压缩质量,默认 95)
+                //"x-gmkerl-unsharp": "True", /// 可选(是否进行锐化处理,默认锐化)
+                //"x-gmkerl-rotate": "auto", /// 可选(是否进行图片旋转)
+                //"x-gmkerl-clip" : "800x800s300a300", /// 可选(是否进行图片裁剪)
+              };
+              instance.setOptions(options);
+
+              var d = new Date();
+              var month = d.getMonth() + 1;
+              var filename = '/blog/' + d.getFullYear() + '/' + month + '/' + d.getDate() + '/' + uuid() + ext;
+              console.log(filename);
+              instance.upload_blob(filename, blob);
+
+              return 'http://tripc2c-person-face.b0.upaiyun.com' + filename;
+            }
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>游记</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('quill/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+    <style type="text/css">
+      img{
+        width: 100%;
+        display: block;
+        margin-top: 2%;
+      }
+      .row{
+        margin-left: 0;
+      }
+      .row .col-100 {
+        width: 99%;
+        margin-left: 1%;
+      }
+      .row .col-50{
+        width: 49%;
+        margin-left: 1%;
+      }
+      .row .col-33 {
+        width: 32.333333%;
+        margin-left: 1%;
+      }
+      .grid-demo-two{
+        margin:0.5rem 0.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page ,第一个.page默认被展示-->
+      <div class="page page-current" id="page-activity-info">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left back" href="/journey">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">游记</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <div class="bar bar-standard bar-footer">
+          <a class="icon icon-edit pull-left" href="/journey/article-edit"></a>
+        </div>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <div class="grid-demo-two">
+
+            <h4>一张图片布局</h4>
+            <div class="row">
+              <div class="col-100">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/b8fb1152-ddd3-48ec-80dd-470cb66f56fb!600x600"/>
+              </div>
+            </div>
+
+            <h4>二张图片布局</h4>
+            <div class="row">
+              <div class="col-50">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!300x600"/>
+              </div>
+              <div class="col-50">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!300x600"/>
+              </div>
+            </div>
+
+            <h4>三张图片布局</h4>
+            <div class="row">
+              <div class="col-33">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!200x600"/>
+              </div>
+              <div class="col-33">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!200x600"/>
+              </div>
+              <div class="col-33">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!200x600"/>
+              </div>
+            </div>
+
+            <h4>四张图片布局</h4>
+            <div class="row">
+              <div class="col-50">
+                <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/639371cd-c3a7-4fdd-acd3-beffdbd7d2aa!300x600"/>
+              </div>
+              <div class="col-50">
+                <div class="row">
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/a0514bf9-6da5-466e-865b-39967e1495c9!300x300"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!150x300"/>
+                  </div>
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!150x300"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4>四张图片布局（二）</h4>
+            <div class="row">
+              <div class="col-100">
+                <div class="row">
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x300"/>
+                  </div>
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x300"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-100">
+                <div class="row">
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c2569e9f-8507-4913-8b11-b9b20734abdd!200x300"/>
+                  </div>
+                  <div class="col-50">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979!200x300"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4>五张图片布局</h4>
+            <div class="row">
+              <div class="col-50">
+                <div class="row">
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/6ee29f7b-4f23-457d-8647-f962427ecac9!300x300"/>
+                  </div>
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!300x300"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-50">
+                <div class="row">
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!300x200"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!300x200"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-100">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!300x200"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4>六张图片布局</h4>
+            <div class="row">
+              <div class="col-100">
+                <div class="row">
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x300"/>
+                  </div>
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x300"/>
+                  </div>
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!200x300"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-100">
+                <div class="row">
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c2569e9f-8507-4913-8b11-b9b20734abdd!200x300"/>
+                  </div>
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979!200x300"/>
+                  </div>
+                  <div class="col-33">
+                    <img src="http://bighorn.b0.upaiyun.com/blog/2016/11/3/27a3e2d4-79b3-4096-8774-7591f823918b!200x300"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page -->
+
+      <!-- 其他的单个page内联页（如果有） -->
+      <!--
+      <div class="page">...</div>
+      -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type='text/javascript' src='{{ static_url("quill/quill.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/journey-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

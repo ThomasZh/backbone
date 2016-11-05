@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>博客</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/typo.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('mokki/core.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page, 第一个.page默认被展示. 博客文章列表首页 -->
+      <div class="page page-current" id="page-articles" >
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <h1 class="title">博客文章列表</h1>
+        </header>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+          <a class="tab-item no-transition font-green active" href="#page-articles">
+            <span class="icon icon-picture"></span>
+            <span class="tab-label">Blog</span>
+          </a>
+          <a class="tab-item no-transition font-green replace" href="/blog/articles/create">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">Add</span>
+          </a>
+          <a class="tab-item no-transition font-green replace" href="/profile">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">Me</span>
+          </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content infinite-scroll" data-distance="100">
+          <div class="bd">
+            <div class="weui_cells_tips"></div>
+          </div>
+
+          <!-- 加载提示符 -->
+          <div class="infinite-scroll-preloader">
+            <div class="preloader">
+            </div>
+          </div>
+
+        </div> <!-- content -->
+      </div> <!-- page articles -->
+
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type="text/javascript" src='{{ static_url("js/jquery.lazyload.js") }}'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <script type="text/javascript" src="{{ static_url("mokki/core.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/exif.js") }}'></script>
+    <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
+    <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

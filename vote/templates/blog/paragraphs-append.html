@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>添加段落</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('light7/css/light7.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/typo.css') }}">
+
+    <!-- customer css files -->
+    <link rel="stylesheet" href="{{ static_url('mokki/core.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
+  </head>
+
+  <body>
+    <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+    <div class="page-group">
+      <!-- 单个page ,第一个.page默认被展示-->
+      <div class="page page-current" id="page-paragraph-append">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+          <a class="button button-link button-nav pull-left" href="/blog/articles/{{ article['_id'] }}">
+            <span class="icon icon-left"></span>
+          </a>
+          <h1 class="title">添加段落</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+          <form id="formParagraphAppend" action="/blog/articles/{{ article['_id'] }}/paragraphs/append?random={{ random }}" method="POST">
+          <div class="bd">
+            <div class="weui_cells weui_cells_form">
+              <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                  <div class="weui_uploader">
+                    <div class="weui_uploader_hd weui_cell">
+                      <div class="weui_cell_bd weui_cell_primary">图片上传</div>
+                      <div id="file_counter" class="weui_cell_ft">0/9</div>
+                    </div>
+                    <div class="weui_uploader_bd">
+                      <ul class="weui_uploader_files" id="weui_uploader_files">
+                      </ul>
+                      <div class="weui_uploader_input_wrp">
+                        <input id="file" name="file" class="weui_uploader_input"
+                          type="file" accept="image/jpg,image/jpeg,image/png,image/gif" />
+                        <input type="hidden" id="filenames" name="filenames">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- uploading toast -->
+            <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <div class="weui_loading">
+                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+                    </div>
+                    <p class="weui_toast_content">图片上传中...</p>
+                </div>
+            </div>
+
+            <!--BEGIN dialog2-->
+            <div class="weui_dialog_alert" id="dialog2" style="display: none;">
+              <div class="weui_mask"></div>
+              <div class="weui_dialog">
+                <div class="weui_dialog_hd"><strong class="weui_dialog_title">提示</strong></div>
+                <div class="weui_dialog_bd">最多只能上传9个文件</div>
+                <div class="weui_dialog_ft">
+                  <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="weui_cells weui_cells_form">
+              <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                  <textarea id="paragraphs" name="paragraphs"
+                    class="weui_textarea" placeholder="请输入描述" rows="6">
+                  </textarea>
+                  <div class="weui_textarea_counter"><span>0</span>/2000</div>
+                </div>
+              </div>
+            </div>
+            <div class="weui_cells_tips">底部说明文字: 描述以2000个字为宜</div>
+
+            <div class="weui_btn_area">
+              <a id="OnParagraphAppendSubmit" class="weui_btn weui_btn_primary">确定</a>
+            </div>
+          </div>
+          </form>
+        </div> <!-- content -->
+      </div> <!-- page -->
+    </div> <!-- page group -->
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type="text/javascript" src='{{ static_url("js/jquery.lazyload.js") }}'></script>
+    <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <script type="text/javascript" src="{{ static_url("mokki/core.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/exif.js") }}'></script>
+    <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
+    <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

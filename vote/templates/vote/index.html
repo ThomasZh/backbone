@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="vote" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>scripts</title>
+    <link rel="stylesheet" href="/static/vux/dist/vux.css">
+    <script src="/static/vux/vue.js"></script>
+  </head>
+  <body>
+    <div id="demo">
+      <group>
+        <cell title="vue" value="cool"></cell>
+      </group>
+    </div>
+
+
+    <!--include the components you need-->
+    <script src="/static/vux/dist/components/actionsheet/index.js"></script>
+    <script src="/static/vux/dist/components/address/index.js"></script>
+    <!-- 地址库数据 export addressData-->
+    <script src="js/addressData.js"></script>
+    <script src="/static/vux/dist/components/alert/index.js"></script>
+    <script src="/static/vux/dist/components/badge/index.js"></script>
+    <script src="/static/vux/dist/components/blur/index.js"></script>
+    <script src="/static/vux/dist/components/box/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/calendar/index.js"></script>
+    <script src="/static/vux/dist/components/card/index.js"></script>
+    <script src="/static/vux/dist/components/cell/index.js"></script>
+    <script src="/static/vux/dist/components/checker/index.js"></script>
+    <script src="/static/vux/dist/components/checker-item/index.js"></script>
+    <script src="/static/vux/dist/components/checklist/index.js"></script>
+    <script src="/static/vux/dist/components/circle/index.js"></script>
+    <script src="/static/vux/dist/components/clocker/index.js"></script>
+    <script src="/static/vux/dist/components/color-picker/index.js"></script>
+    <script src="/static/vux/dist/components/confirm/index.js"></script>
+    <script src="/static/vux/dist/components/countdown/index.js"></script>
+    <script src="/static/vux/dist/components/countup/index.js"></script>
+    <script src="/static/vux/dist/components/date-formatter/index.js"></script>
+    <script src="/static/vux/dist/components/datetime/index.js"></script>
+    <script src="/static/vux/dist/components/dev-tip/index.js"></script>
+    <script src="/static/vux/dist/components/dialog/index.js"></script>
+    <script src="/static/vux/dist/components/divider/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox-item/index.js"></script>
+    <script src="/static/vux/dist/components/friendly-time/index.js"></script>
+    <script src="/static/vux/dist/components/group/index.js"></script>
+    <script src="/static/vux/dist/components/group-title/index.js"></script>
+    <script src="/static/vux/dist/components/icon/index.js"></script>
+    <script src="/static/vux/dist/components/inline-calendar/index.js"></script>
+    <script src="/static/vux/dist/components/inline-desc/index.js"></script>
+    <script src="/static/vux/dist/components/inview/index.js"></script>
+    <script src="/static/vux/dist/components/loading/index.js"></script>
+    <script src="/static/vux/dist/components/masker/index.js"></script>
+    <script src="/static/vux/dist/components/number-roller/index.js"></script>
+    <script src="/static/vux/dist/components/offcanvas/index.js"></script>
+    <script src="/static/vux/dist/components/orientation/index.js"></script>
+    <script src="/static/vux/dist/components/panel/index.js"></script>
+    <script src="/static/vux/dist/components/picker/index.js"></script>
+    <script src="/static/vux/dist/components/popup/index.js"></script>
+    <script src="/static/vux/dist/components/popup-picker/index.js"></script>
+    <script src="/static/vux/dist/components/previewer/index.js"></script>
+    <script src="/static/vux/dist/components/progress/index.js"></script>
+    <script src="/static/vux/dist/components/qrcode/index.js"></script>
+    <script src="/static/vux/dist/components/radio/index.js"></script>
+    <script src="/static/vux/dist/components/range/index.js"></script>
+    <script src="/static/vux/dist/components/rater/index.js"></script>
+    <script src="/static/vux/dist/components/scroller/index.js"></script>
+    <script src="/static/vux/dist/components/search/index.js"></script>
+    <script src="/static/vux/dist/components/selector/index.js"></script>
+    <script src="/static/vux/dist/components/shake/index.js"></script>
+    <script src="/static/vux/dist/components/spinner/index.js"></script>
+    <script src="/static/vux/dist/components/steps/index.js"></script>
+    <script src="/static/vux/dist/components/sticky/index.js"></script>
+    <script src="/static/vux/dist/components/swiper/index.js"></script>
+    <script src="/static/vux/dist/components/swiper-item/index.js"></script>
+    <script src="/static/vux/dist/components/switch/index.js"></script>
+    <script src="/static/vux/dist/components/tab/index.js"></script>
+    <script src="/static/vux/dist/components/tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar-item/index.js"></script>
+    <script src="/static/vux/dist/components/timeline/index.js"></script>
+    <script src="/static/vux/dist/components/timeline-item/index.js"></script>
+    <script src="/static/vux/dist/components/tip/index.js"></script>
+    <script src="/static/vux/dist/components/toast/index.js"></script>
+    <script src="/static/vux/dist/components/wechat-emotion/index.js"></script>
+    <script src="/static/vux/dist/components/x-button/index.js"></script>
+    <script src="/static/vux/dist/components/x-header/index.js"></script>
+    <script src="/static/vux/dist/components/x-img/index.js"></script>
+    <script src="/static/vux/dist/components/x-input/index.js"></script>
+    <script src="/static/vux/dist/components/x-number/index.js"></script>
+    <script src="/static/vux/dist/components/x-textarea/index.js"></script>
+    <script>
+    // register components
+    Vue.component("actionsheet", vuxActionsheet);
+    Vue.component("address", vuxAddress);
+    Vue.component("alert", vuxAlert);
+    Vue.component("badge", vuxBadge);
+    Vue.component("blur", vuxBlur);
+    Vue.component("box", vuxBox);
+    Vue.component("button-tab", vuxButtonTab);
+    Vue.component("button-tab-item", vuxButtonTabItem);
+    Vue.component("calendar", vuxCalendar);
+    Vue.component("card", vuxCard);
+    Vue.component("cell", vuxCell);
+    Vue.component("checker", vuxChecker);
+    Vue.component("checker-item", vuxCheckerItem);
+    Vue.component("checklist", vuxChecklist);
+    Vue.component("circle", vuxCircle);
+    Vue.component("clocker", vuxClocker);
+    Vue.component("color-picker", vuxColorPicker);
+    Vue.component("confirm", vuxConfirm);
+    Vue.component("countdown", vuxCountdown);
+    Vue.component("countup", vuxCountup);
+    Vue.component("date-formatter", vuxDateFormatter);
+    Vue.component("datetime", vuxDatetime);
+    Vue.component("dev-tip", vuxDevTip);
+    Vue.component("dialog", vuxDialog);
+    Vue.component("divider", vuxDivider);
+    Vue.component("flexbox", vuxFlexbox);
+    Vue.component("flexbox-item", vuxFlexboxItem);
+    Vue.component("friendly-time", vuxFriendlyTime);
+    Vue.component("group", vuxGroup);
+    Vue.component("group-title", vuxGroupTitle);
+    Vue.component("icon", vuxIcon);
+    Vue.component("inline-calendar", vuxInlineCalendar);
+    Vue.component("inline-desc", vuxInlineDesc);
+    Vue.component("inview", vuxInview);
+    Vue.component("loading", vuxLoading);
+    Vue.component("masker", vuxMasker);
+    Vue.component("number-roller", vuxNumberRoller);
+    Vue.component("offcanvas", vuxOffcanvas);
+    Vue.component("orientation", vuxOrientation);
+    Vue.component("panel", vuxPanel);
+    Vue.component("picker", vuxPicker);
+    Vue.component("popup", vuxPopup);
+    Vue.component("popup-picker", vuxPopupPicker);
+    Vue.component("previewer", vuxPreviewer);
+    Vue.component("progress", vuxProgress);
+    Vue.component("qrcode", vuxQrcode);
+    Vue.component("radio", vuxRadio);
+    Vue.component("range", vuxRange);
+    Vue.component("rater", vuxRater);
+    Vue.component("scroller", vuxScroller);
+    Vue.component("search", vuxSearch);
+    Vue.component("selector", vuxSelector);
+    Vue.component("shake", vuxShake);
+    Vue.component("spinner", vuxSpinner);
+    Vue.component("steps", vuxSteps);
+    Vue.component("sticky", vuxSticky);
+    Vue.component("swiper", vuxSwiper);
+    Vue.component("swiper-item", vuxSwiperItem);
+    Vue.component("switch", vuxSwitch);
+    Vue.component("tab", vuxTab);
+    Vue.component("tab-item", vuxTabItem);
+    Vue.component("tabbar", vuxTabbar);
+    Vue.component("tabbar-item", vuxTabbarItem);
+    Vue.component("timeline", vuxTimeline);
+    Vue.component("timeline-item", vuxTimelineItem);
+    Vue.component("tip", vuxTip);
+    Vue.component("toast", vuxToast);
+    Vue.component("wechat-emotion", vuxWechatEmotion);
+    Vue.component("x-button", vuxXButton);
+    Vue.component("x-header", vuxXHeader);
+    Vue.component("x-img", vuxXImg);
+    Vue.component("x-input", vuxXInput);
+    Vue.component("x-number", vuxXNumber);
+    Vue.component("x-textarea", vuxXTextarea);
+    </script>
+
+    <script>
+    new Vue({
+      el: '#demo'
+    })
+    </script>
+
+
+  </body>
+</html>
