@@ -23,25 +23,33 @@
       img{
         width: 100%;
         display: block;
-        margin-top: 2%;
+        border:1px solid #ebebeb;
       }
       .row{
         margin-left: 0;
       }
       .row .col-100 {
-        width: 99%;
-        margin-left: 1%;
+        width: 100%;
+        margin-left: 0%;
+       
+      }
+      .row .col-66{
+        width: 66.6666666%;
+        margin-left: 0%;
+       
       }
       .row .col-50{
-        width: 49%;
-        margin-left: 1%;
+        width: 50%;
+        margin-left: 0%;
+       
       }
       .row .col-33 {
-        width: 32.333333%;
-        margin-left: 1%;
+        width: 33.333333333333332%;
+        margin-left: 0%;
+        
       }
       .grid-demo-two{
-        margin:0.5rem 0.2rem;
+        margin:0.3rem 0.1rem;
       }
     </style>
   </head>
@@ -100,23 +108,20 @@
 
             <h4>四张图片布局</h4>
             <div class="row">
-              <div class="col-33 no-gutter">
-                <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/639371cd-c3a7-4fdd-acd3-beffdbd7d2aa!200x400"/>
+              <div class="col-100">               
+                  <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!600x200"/>
               </div>
-              <div class="col-66 no-gutter">
-                <div class="row">
-                  <div class="col-100 no-gutter">
-                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/3/a0514bf9-6da5-466e-865b-39967e1495c9!400x200"/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-50 no-gutter">
+            </div>
+            <div class="row">
+                <div class="col-33">                
+                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/3/a0514bf9-6da5-466e-865b-39967e1495c9!200x200"/>
+                </div>                
+                <div class="col-33">
                     <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x200"/>
-                  </div>
-                  <div class="col-50 no-gutter">
-                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!200x200"/>
-                  </div>
                 </div>
+                <div class="col-33">
+                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/c40732be-381b-4257-9656-028d078e8fd5!200x200"/>
+                </div>                
               </div>
             </div>
 
@@ -151,10 +156,14 @@
               </div>
               <div class="col-33">
                 <div class="row">
-                  <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x200"/>
+                  <div class="col-100">
+                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/2/fce54eb0-95d9-4cd4-848f-fe27dd8b7765!200x200"/>
+                  </div>
                 </div>
                 <div class="row">
-                  <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x200"/>
+                  <div class="col-100">
+                    <img class="lazy" data-original="http://bighorn.b0.upaiyun.com/blog/2016/11/3/90e606cd-ad70-4b0e-8fe1-3737eac01cd2!200x200"/>
+                  </div>
                 </div>
               </div>
             </div>
