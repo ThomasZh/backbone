@@ -26,6 +26,11 @@ label.label-checkbox input[type=checkbox]:checked+.item-media i.icon-form-checkb
 .vote-item-media{
       padding-left: 0.25rem;
      }
+     .list-block .vote-item-text{
+      height: auto;
+    text-overflow: initial;
+    -webkit-line-clamp: inherit;
+     }
 
 /*五个步骤*/
 
