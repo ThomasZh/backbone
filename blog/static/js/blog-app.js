@@ -83,9 +83,9 @@ $(function () {
 
     $('img.lazy').lazyload( {
       container: $(".content"),
-//      threshold: 100,                    //当图片顶部距离显示区域还有100像素时，就开始加载
+      threshold: 100,                    //当图片顶部距离显示区域还有100像素时，就开始加载
       placeholder: "/static/images/grey!300x200.jpeg",      // 图片未加载时，占位
-      effect_speed: 1000,                // 效果出现的时间
+//      effect_speed: 100,                // 效果出现的时间
       effect: "fadeIn",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
 //      event: 'touchstart',                   // 滚动滚轮时触发，可以是：click、mouseover等
 //      data_attribute: 'data-original',   // img标签中保存url的自定义属性，默认：data-original
