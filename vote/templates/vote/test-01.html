@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="vote" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>scripts</title>
+    <link rel="stylesheet" href="/static/vux/dist/vux.css">
+    <script src="/static/vux/vue.js"></script>
+  </head>
+  <body>
+
+    <!--include the components you need-->
+    <script src="/static/vux/dist/components/actionsheet/index.js"></script>
+    <script src="/static/vux/dist/components/address/index.js"></script>
+    <!-- 地址库数据 export addressData-->
+    <script src="js/addressData.js"></script>
+    <script src="/static/vux/dist/components/alert/index.js"></script>
+    <script src="/static/vux/dist/components/badge/index.js"></script>
+    <script src="/static/vux/dist/components/blur/index.js"></script>
+    <script src="/static/vux/dist/components/box/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/calendar/index.js"></script>
+    <script src="/static/vux/dist/components/card/index.js"></script>
+    <script src="/static/vux/dist/components/cell/index.js"></script>
+    <script src="/static/vux/dist/components/checker/index.js"></script>
+    <script src="/static/vux/dist/components/checker-item/index.js"></script>
+    <script src="/static/vux/dist/components/checklist/index.js"></script>
+    <script src="/static/vux/dist/components/circle/index.js"></script>
+    <script src="/static/vux/dist/components/clocker/index.js"></script>
+    <script src="/static/vux/dist/components/color-picker/index.js"></script>
+    <script src="/static/vux/dist/components/confirm/index.js"></script>
+    <script src="/static/vux/dist/components/countdown/index.js"></script>
+    <script src="/static/vux/dist/components/countup/index.js"></script>
+    <script src="/static/vux/dist/components/date-formatter/index.js"></script>
+    <script src="/static/vux/dist/components/datetime/index.js"></script>
+    <script src="/static/vux/dist/components/dev-tip/index.js"></script>
+    <script src="/static/vux/dist/components/dialog/index.js"></script>
+    <script src="/static/vux/dist/components/divider/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox-item/index.js"></script>
+    <script src="/static/vux/dist/components/friendly-time/index.js"></script>
+    <script src="/static/vux/dist/components/group/index.js"></script>
+    <script src="/static/vux/dist/components/group-title/index.js"></script>
+    <script src="/static/vux/dist/components/icon/index.js"></script>
+    <script src="/static/vux/dist/components/inline-calendar/index.js"></script>
+    <script src="/static/vux/dist/components/inline-desc/index.js"></script>
+    <script src="/static/vux/dist/components/inview/index.js"></script>
+    <script src="/static/vux/dist/components/loading/index.js"></script>
+    <script src="/static/vux/dist/components/masker/index.js"></script>
+    <script src="/static/vux/dist/components/number-roller/index.js"></script>
+    <script src="/static/vux/dist/components/offcanvas/index.js"></script>
+    <script src="/static/vux/dist/components/orientation/index.js"></script>
+    <script src="/static/vux/dist/components/panel/index.js"></script>
+    <script src="/static/vux/dist/components/picker/index.js"></script>
+    <script src="/static/vux/dist/components/popup/index.js"></script>
+    <script src="/static/vux/dist/components/popup-picker/index.js"></script>
+    <script src="/static/vux/dist/components/previewer/index.js"></script>
+    <script src="/static/vux/dist/components/progress/index.js"></script>
+    <script src="/static/vux/dist/components/qrcode/index.js"></script>
+    <script src="/static/vux/dist/components/radio/index.js"></script>
+    <script src="/static/vux/dist/components/range/index.js"></script>
+    <script src="/static/vux/dist/components/rater/index.js"></script>
+    <script src="/static/vux/dist/components/scroller/index.js"></script>
+    <script src="/static/vux/dist/components/search/index.js"></script>
+    <script src="/static/vux/dist/components/selector/index.js"></script>
+    <script src="/static/vux/dist/components/shake/index.js"></script>
+    <script src="/static/vux/dist/components/spinner/index.js"></script>
+    <script src="/static/vux/dist/components/steps/index.js"></script>
+    <script src="/static/vux/dist/components/sticky/index.js"></script>
+    <script src="/static/vux/dist/components/swiper/index.js"></script>
+    <script src="/static/vux/dist/components/swiper-item/index.js"></script>
+    <script src="/static/vux/dist/components/switch/index.js"></script>
+    <script src="/static/vux/dist/components/tab/index.js"></script>
+    <script src="/static/vux/dist/components/tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar-item/index.js"></script>
+    <script src="/static/vux/dist/components/timeline/index.js"></script>
+    <script src="/static/vux/dist/components/timeline-item/index.js"></script>
+    <script src="/static/vux/dist/components/tip/index.js"></script>
+    <script src="/static/vux/dist/components/toast/index.js"></script>
+    <script src="/static/vux/dist/components/wechat-emotion/index.js"></script>
+    <script src="/static/vux/dist/components/x-button/index.js"></script>
+    <script src="/static/vux/dist/components/x-header/index.js"></script>
+    <script src="/static/vux/dist/components/x-img/index.js"></script>
+    <script src="/static/vux/dist/components/x-input/index.js"></script>
+    <script src="/static/vux/dist/components/x-number/index.js"></script>
+    <script src="/static/vux/dist/components/x-textarea/index.js"></script>
+    <script>
+    // register components
+    Vue.component("actionsheet", vuxActionsheet);
+    Vue.component("address", vuxAddress);
+    Vue.component("alert", vuxAlert);
+    Vue.component("badge", vuxBadge);
+    Vue.component("blur", vuxBlur);
+    Vue.component("box", vuxBox);
+    Vue.component("button-tab", vuxButtonTab);
+    Vue.component("button-tab-item", vuxButtonTabItem);
+    Vue.component("calendar", vuxCalendar);
+    Vue.component("card", vuxCard);
+    Vue.component("cell", vuxCell);
+    Vue.component("checker", vuxChecker);
+    Vue.component("checker-item", vuxCheckerItem);
+    Vue.component("checklist", vuxChecklist);
+    Vue.component("circle", vuxCircle);
+    Vue.component("clocker", vuxClocker);
+    Vue.component("color-picker", vuxColorPicker);
+    Vue.component("confirm", vuxConfirm);
+    Vue.component("countdown", vuxCountdown);
+    Vue.component("countup", vuxCountup);
+    Vue.component("date-formatter", vuxDateFormatter);
+    Vue.component("datetime", vuxDatetime);
+    Vue.component("dev-tip", vuxDevTip);
+    Vue.component("dialog", vuxDialog);
+    Vue.component("divider", vuxDivider);
+    Vue.component("flexbox", vuxFlexbox);
+    Vue.component("flexbox-item", vuxFlexboxItem);
+    Vue.component("friendly-time", vuxFriendlyTime);
+    Vue.component("group", vuxGroup);
+    Vue.component("group-title", vuxGroupTitle);
+    Vue.component("icon", vuxIcon);
+    Vue.component("inline-calendar", vuxInlineCalendar);
+    Vue.component("inline-desc", vuxInlineDesc);
+    Vue.component("inview", vuxInview);
+    Vue.component("loading", vuxLoading);
+    Vue.component("masker", vuxMasker);
+    Vue.component("number-roller", vuxNumberRoller);
+    Vue.component("offcanvas", vuxOffcanvas);
+    Vue.component("orientation", vuxOrientation);
+    Vue.component("panel", vuxPanel);
+    Vue.component("picker", vuxPicker);
+    Vue.component("popup", vuxPopup);
+    Vue.component("popup-picker", vuxPopupPicker);
+    Vue.component("previewer", vuxPreviewer);
+    Vue.component("progress", vuxProgress);
+    Vue.component("qrcode", vuxQrcode);
+    Vue.component("radio", vuxRadio);
+    Vue.component("range", vuxRange);
+    Vue.component("rater", vuxRater);
+    Vue.component("scroller", vuxScroller);
+    Vue.component("search", vuxSearch);
+    Vue.component("selector", vuxSelector);
+    Vue.component("shake", vuxShake);
+    Vue.component("spinner", vuxSpinner);
+    Vue.component("steps", vuxSteps);
+    Vue.component("sticky", vuxSticky);
+    Vue.component("swiper", vuxSwiper);
+    Vue.component("swiper-item", vuxSwiperItem);
+    Vue.component("switch", vuxSwitch);
+    Vue.component("tab", vuxTab);
+    Vue.component("tab-item", vuxTabItem);
+    Vue.component("tabbar", vuxTabbar);
+    Vue.component("tabbar-item", vuxTabbarItem);
+    Vue.component("timeline", vuxTimeline);
+    Vue.component("timeline-item", vuxTimelineItem);
+    Vue.component("tip", vuxTip);
+    Vue.component("toast", vuxToast);
+    Vue.component("wechat-emotion", vuxWechatEmotion);
+    Vue.component("x-button", vuxXButton);
+    Vue.component("x-header", vuxXHeader);
+    Vue.component("x-img", vuxXImg);
+    Vue.component("x-input", vuxXInput);
+    Vue.component("x-number", vuxXNumber);
+    Vue.component("x-textarea", vuxXTextarea);
+    </script>
+
+    <div id="app">
+      {{! message }}
+    </div>
+
+    <div id="app-2">
+      <span v-bind:title="message">
+        Hover your mouse over me for a few seconds to see my dynamically bound title!
+      </span>
+    </div>
+
+    <div id="app-3">
+      <p v-if="seen">Now you see me</p>
+    </div>
+
+    <div id="app-4">
+      <ol>
+        <li v-for="todo in todos">
+          {{! todo.text }}
+        </li>
+      </ol>
+    </div>
+
+    <div id="app-5">
+      <p>{{! message }}</p>
+      <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <div id="app-6">
+      <p>{{! message }}</p>
+      <input v-model="message">
+    </div>
+
+    <div id="app-7">
+      <ol>
+        <!--
+        Now we provide each todo-item with the todo object
+        it's representing, so that its content can be dynamic
+        -->
+        <todo-item v-for="todo in todos" v-bind:todo="todo"></todo-item>
+      </ol>
+    </div>
+
+    <div id="example">
+      <p>Original message: "{{! message }}"</p>
+      <p>Computed reversed message: "{{! reversedMessage }}"</p>
+    </div>
+
+    <ul id="example-1">
+      <li v-for="item in items">
+        {{! item.message }}
+      </li>
+    </ul>
+
+    <div id="todo-list-example">
+      <input
+        v-model="newTodoText"
+        v-on:keyup.enter="addNewTodo"
+        placeholder="Add a todo"
+      >
+      <ul>
+        <li
+          is="todo-item"
+          v-for="(todo, index) in todos"
+          v-bind:title="todo"
+          v-on:remove="todos.splice(index, 1)"
+        ></li>
+      </ul>
+    </div>
+
+    <div id="example-2">
+      <button v-on:click="counter += 1">增加 1</button>
+      <p>这个按钮被点击了 {{! counter }} 次。</p>
+    </div>
+
+    <div id="example-3">
+      <!-- `greet` 是在下面定义的方法名 -->
+      <button v-on:click="greet">Greet</button>
+    </div>
+
+    <div id="example-4">
+      <button v-on:click="say('hi')">Say hi</button>
+      <button v-on:click="say('what')">Say what</button>
+    </div>
+
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{! message }}</p>
+
+    <div id="example-5">{{! message }}</div>
+
+<script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+
+    var app2 = new Vue({
+      el: '#app-2',
+      data: {
+        message: 'You loaded this page on ' + new Date()
+      }
+    })
+
+    var app3 = new Vue({
+      el: '#app-3',
+      data: {
+        seen: true
+      }
+    })
+
+    var app4 = new Vue({
+      el: '#app-4',
+      data: {
+        todos: [
+          { text: 'Learn JavaScript' },
+          { text: 'Learn Vue' },
+          { text: 'Build something awesome' }
+        ]
+      }
+    })
+
+    var app5 = new Vue({
+      el: '#app-5',
+      data: {
+        message: 'Hello Vue.js!'
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
+
+    var app6 = new Vue({
+      el: '#app-6',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{! todo.text }}</li>'
+    })
+    var app7 = new Vue({
+      el: '#app-7',
+      data: {
+        todos: [
+          { text: 'Learn JavaScript' },
+          { text: 'Learn Vue' },
+          { text: 'Build something awesome' }
+        ]
+      }
+    })
+
+    var vm = new Vue({
+      el: '#example',
+      data: {
+        message: 'Hello'
+      },
+      computed: {
+        // a computed getter
+        reversedMessage: function () {
+          // `this` points to the vm instance
+          return this.message.split('').reverse().join('')
+        }
+      }
+    })
+
+    var example1 = new Vue({
+      el: '#example-1',
+      data: {
+        items: [
+          {message: 'foo' },
+          {message: 'Bar' }
+        ]
+      }
+    })
+
+    Vue.component('todo-item', {
+      template: '\
+        <li>\
+          {{! title }}\
+          <button v-on:click="$emit(\'remove\')">X</button>\
+        </li>\
+      ',
+      props: ['title']
+    })
+    new Vue({
+      el: '#todo-list-example',
+      data: {
+        newTodoText: '',
+        todos: [
+          'Do the dishes',
+          'Take out the trash',
+          'Mow the lawn'
+        ]
+      },
+      methods: {
+        addNewTodo: function () {
+          this.todos.push(this.newTodoText)
+          this.newTodoText = ''
+        }
+      }
+    })
+
+    var example2 = new Vue({
+      el: '#example-2',
+      data: {
+        counter: 0
+      }
+    })
+
+    var example3 = new Vue({
+      el: '#example-3',
+      data: {
+        name: 'Vue.js'
+      },
+      // 在 `methods` 对象中定义方法
+      methods: {
+        greet: function (event) {
+          // `this` 在方法里指当前 Vue 实例
+          alert('Hello ' + this.name + '!')
+          // `event` 是原生 DOM 事件
+          alert(event.target.tagName)
+        }
+      }
+    })
+    // 也可以用 JavaScript 直接调用方法
+    example3.greet() // -> 'Hello Vue.js!'
+
+    new Vue({
+      el: '#example-4',
+      methods: {
+        say: function (message) {
+          alert(message)
+        }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#example-5',
+      data: {
+        message: '123'
+      }
+    })
+    vm.message = 'new message' // 更改数据
+    vm.$el.textContent === 'new message' // false
+    Vue.nextTick(function () {
+      vm.$el.textContent === 'new message' // true
+    })
+
+    Vue.component('example-5', {
+      template: '<span>{{! message }}</span>',
+      data: function () {
+        return {
+          message: 'not updated'
+        }
+      },
+      methods: {
+        updateMessage: function () {
+          this.message = 'updated'
+          console.log(this.$el.textContent) // => 'not updated'
+          this.$nextTick(function () {
+            console.log(this.$el.textContent) // => 'updated'
+          })
+        }
+      }
+    })
+</script>
+
+  </body>
+</html>

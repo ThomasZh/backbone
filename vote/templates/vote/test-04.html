@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="vote" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>Vue example</title>
+    <script src="/static/vux/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="todo-list-example">
+      <input
+        v-model="newTodoText"
+        v-on:keyup.enter="addNewTodo"
+        placeholder="Add a todo"
+      >
+      <ul>
+        <li
+          is="todo-item"
+          v-for="(index, todo) in todos"
+          v-bind:type="todo.type"
+          v-bind:content="todo.content"
+          v-bind:idx="index"
+          v-on:remove="todos.splice(index, 1)"
+        ></li>
+      </ul>
+    </div>
+
+    <script>
+      Vue.component('todo-item', {
+        template: '\
+          <li>\
+            <div v-if="type == \'txt\'">{{! idx }}\: {{! content }}</div>\
+            <div v-if="type == \'img\'">\
+              {{! idx }}\: <img src="{{! content }}" width="20" height="20">\
+            </div>\
+            <button v-on:click="addNewTodoAfter">+</button>\
+            <button v-on:click="up">^</button>\
+            <button v-on:click="down">V</button>\
+            <button v-on:click="$emit(\'remove\')">X</button>\
+          </li>\
+        ',
+        props: ['idx', 'type', 'content'],
+        methods: {
+          addNewTodoAfter: function () {
+            console.log(this.idx);
+            var obj = {'content':this.$parent.newTodoText,'type':'txt'};
+            this.$parent.todos.splice(this.idx + 1, 0, obj);
+            this.$parent.newTodoText = ''
+          },
+          up: function () {
+            console.log(this.idx);
+            var idx = this.idx;
+            if (idx == 0)
+              return false;
+
+            var tmp = this.$parent.todos[idx];
+            this.$parent.todos.splice(this.idx, 1);
+            this.$parent.todos.splice(this.idx - 1, 0, tmp);
+          },
+          down: function () {
+            console.log(this.idx);
+            var idx = this.idx;
+            var tmp = this.$parent.todos[idx];
+            this.$parent.todos.splice(this.idx, 1);
+            this.$parent.todos.splice(this.idx + 1, 0, tmp);
+          }
+        }
+      })
+
+      new Vue({
+        el: '#todo-list-example',
+        data: {
+          newTodoText: '',
+          todos: [
+            {'type':'txt', 'content':'Do the dishes'},
+            {'type':'txt', 'content':'Take out the trash'},
+            {'type':'img', 'content':'/static/images/avatar.jpg'},
+            {'type':'txt', 'content':'Mow the lawn'}
+          ]
+        },
+        methods: {
+          addNewTodo: function () {
+            this.todos.push({'content':this.newTodoText,'type':'txt'})
+            this.newTodoText = ''
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>

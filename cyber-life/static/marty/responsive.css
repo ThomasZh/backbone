@@ -1,0 +1,165 @@
+/*
+  __  __            _         
+ |  \/  | __ _ _ __| |_ _   _ 
+ | |\/| |/ _` | '__| __| | | |
+ | |  | | (_| | |  | |_| |_| |
+ |_|  |_|\__,_|_|   \__|\__, |
+                        |___/ 
+*/
+
+/* responsive.css ----------------------*/
+/*
+BREAKPOINTS
+	1025
+	321
+*/
+
+@media screen and (max-width: 555px), screen and (max-device-width: 1024px) {
+	body { background:#222 url('/theme/img/bg-mobile.jpg') center center fixed; }
+
+	/* keys ------------------*/
+	#keys #KeyTop,
+	#keys #KeyBottom { width:55px; height:50px; top:4px; left:54px; text-decoration:none; }
+	#keys #KeyLeft,
+	#keys #KeyRight { display:none; }
+
+	#keys #KeyTop:after { border-right:10px solid transparent; border-left:10px solid transparent; border-bottom:10px solid #4b5150; top:13px; left:16px; }
+	#keys #KeyBottom:after { border-right:10px solid transparent; border-left:10px solid transparent; border-top:10px solid #4b5150; top:13px; left:16px; }
+
+	#keys #KeyTop:before,
+	#keys #KeyBottom:before { content:''; display:block; text-indent:0; text-align:center; padding-top:27px; font-size:12px; color:#4b5150; font-weight:bold; font-family:verdana, serif; }
+	#keys #KeyTop:before { content:'MORE'; }
+	#keys #KeyBottom:before { content:'LESS'; }
+
+	#track #keys #KeyTop { display:block; }
+	#track #keys #KeyBottom { display:none; }
+	#track.adjusted #keys #KeyTop { display:none; }
+	#track.adjusted #keys #KeyBottom { display:block; }
+
+	/* track ------------------*/
+	#track { bottom:50px; z-index:700; }
+	#track:before { left:70px; right:85px; }
+	#track:after { display:none; }
+	#track #ticker-moment:before { left:40%; }
+
+	/* track adjusted ------------------*/
+	#track.adjusted { bottom:225px; }
+
+	/* about trigger ------------------*/
+	#about { display:none; }
+	#about-pane { display:none; }
+
+	/* slide trigger ------------------
+	#slides .slide-trigger { position:fixed !important; right:8px !important; bottom:-22px !important; font-size:15px; }
+	*/
+	#slides .slide-trigger { display:none !important; }
+
+	/* date ------------------*/
+	#dates { left:15px; }
+	#dates:before { display:none; }
+}
+
+
+/* All of mobile */
+@media screen and (max-device-width:480px) {
+	/* slides --------------- */
+	#slides { z-index:600; position:relative; left:auto; right:auto; top:auto; bottom:auto; }
+
+	/* slide ------------*/
+	#slides .slide { width:100%; }
+	#slides .slide[data-order="3"],
+	#slides .slide[data-order="4"],
+	#slides .slide[data-order="5"],
+	#slides .slide[data-order="6"],
+	#slides .slide[data-order="7"],
+	#slides .slide[data-order="8"],
+	#slides .slide[data-order="9"],
+	#slides .slide[data-order="10"],
+	#slides .slide[data-order="11"],
+	#slides .slide[data-order="12"],
+	#slides .slide[data-order="13"],
+	#slides .slide[data-order="14"],
+	#slides .slide[data-order="15"] { top:30px; right:auto; opacity:0; }
+	#slides .slide[data-order="16"] { top:30px; right:100%; }
+	#slides .slide[data-order="2"] { right:-100%; top:30px; }
+	#slides .slide[data-order="1"] { top:30px; right:auto; }
+
+	/* slide inner ------------*/
+	#slides .slide h2 { font-size:55px !important; white-space:normal; position:relative; line-height:90%; }
+	#slides .slide p img { position:absolute; left:40% !important; top:15px !important; width:45px !important; }
+	#slides .slide p { font-size:1.55em !important; text-align:center; margin:0 !important; width:auto !important; padding:70px 15px 0; }
+
+	/* slide adjusted ------------*/
+	#slides.adjusted { top:-1%; }
+	#slides.adjusted p img,
+	#slides.adjusted p { display:none; }
+
+	/* panes --------------*/
+	#panes { position:relative; margin:73% 0 0; height:auto; padding:20px 0; z-index:800; }
+	#panes .pane img { position:relative; top:auto; margin:-40px 0 0 -75px !important; width:125px; display:block; }
+	#panes .pane p { margin:0 0 1em; font-size:17px; padding:0 20px; }
+	#panes .pane .left p:first-child { padding-top:20px; }
+	#panes .pane li { font-size:17px; }
+
+	/* inner --------------*/
+	.inner { width:auto; }
+	.inner .left,
+	.inner .right { float:none; width:auto !important; }
+
+	/* Slide variations ---------------*/
+	/* yale */
+	#slides .slide[data-view="yale"] h2 {  }
+	#slides .slide[data-view="yale"] p { }
+
+	/* nclud */
+	#slides .slide[data-view="nclud"] p img { width:35px !important; }	
+
+	/* apple */
+	#slides .slide[data-view="apple"] h2 {  }
+	#slides .slide[data-view="apple"] p img { top:5px !important; }
+	#slides .slide[data-view="apple"] p { font-size:1.5em !important; }
+
+	/* print */
+	#slides .slide[data-view="print"] h2 { font-size:60px !important; }
+
+	/* puma */
+	#slides .slide[data-view="puma"] p img { width:65px !important; }
+
+	/* ncluded */
+	#slides .slide[data-view="ncluded"] p img { width:35px !important; }	
+
+	/* ogilvy */
+	#slides .slide[data-view="ogilvy"] p img { width:65px !important; }
+
+	/* cygnus */
+	#slides .slide[data-view="cygnus"] p img { width:65px !important; }	
+}
+
+/* Regular iphone and iphone 4 and iphone 5 portrait */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+	#slides .slide { padding:0 0 10%; }
+}
+
+/* iphone 5 */
+@media screen and (orientation: portrait) and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+	#slides .slide { padding:50px 0; }
+
+	#slides.adjusted .slide { padding:0; }
+	#track.adjusted { bottom:62%; }
+}
+@media screen and (orientation: landscape) and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+	#slides .slide { padding:10px 0 65px; }
+}
+
+/* Regular iphone and iphone 4 and iphone 5 landscape */
+@media screen and (max-device-width: 960px) and (max-device-width: 480px) and (orientation: landscape) {
+	#slides .slide h2 { font-size:46px !important; }
+	#slides .slide p { padding-top:15px; }
+	#slides .slide p img { display:none; }
+
+	/* track adjusted ---------- */
+	#track.adjusted { bottom:140px; }
+
+	/* panes --------------*/
+	#panes { margin:35% 0 0; }
+}
