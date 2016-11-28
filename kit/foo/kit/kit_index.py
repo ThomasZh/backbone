@@ -25,6 +25,10 @@ import uuid
 import smtplib
 import json as JSON # 启用别名，不会跟方法里的局部变量混淆
 from bson import json_util
+from tornado.escape import json_decode
+from tornado.escape import json_encode
+from tornado.httpclient import HTTPClient
+from tornado.httputil import url_concat
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
@@ -32,6 +36,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
 from comm import cur_file_dir
 from comm import timestamp_date
 from dao import kit_dao
+from wx import wx_wrap
+from global_const import *
 
 
 class IndexHandle(tornado.web.RequestHandler):
@@ -100,6 +106,46 @@ class ApiKitHandle(tornado.web.RequestHandler):
 
         # send mail by smtp
         os.system('mail -s "kits notify" thomas.zh@qq.com < ' + filename)
+
+        # send message to wx 公众号客户 by template
+        wx_access_token = wx_wrap.getAccessTokenByClientCredential(WX_APP_ID, WX_APP_SECRET)
+        logging.info("got wx_access_token %r", wx_access_token)
+
+        # touser = 店小二openid
+        # template_id = 成为会员通知
+        # url = 模版链接跳转地址
+        data = {
+            "touser" : "oy0Kxt7zNpZFEldQmHwFF-RSLNV0",
+            "template_id":"6Av7OQ6s5MlD96JZ4QggtHjObTUs9u9XFeBGRr7JX5g",
+            "url": "http://kit.7x24hs.com/",
+            "data": {
+                   "first": {
+                       "value":"keep in touch",
+                       "color":"#173177"
+                   },
+                   "address": {
+                       "value":app,
+                       "color":"#173177"
+                   },
+                   "VIPName": {
+                       "value":name,
+                       "color":"#173177"
+                   },
+                   "VIPPhone": {
+                       "value":email,
+                       "color":"#173177"
+                   },
+                   "remark": {
+                       "value":message,
+                       "color":"#173177"
+                   },
+                }
+            }
+        _json = json_encode(data)
+        url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+wx_access_token
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="POST", body=_json)
+        logging.info("got response %r", response.body)
 
         self.write("SUCCESS")
         self.finish()
