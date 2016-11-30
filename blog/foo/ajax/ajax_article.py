@@ -60,7 +60,7 @@ class AjaxArticleIndexXHR(tornado.web.RequestHandler):
                 article["timestamp"] = article["publish_time"]
                 article["publish_time"] = time_span(article["publish_time"])
 
-                url = "http://" + AUTH_HOST + "/auth/account/" + article['account_id']
+                url = "http://" + AUTH_HOST + "/auth/basic/" + article['account_id']
                 http_client = HTTPClient()
                 response = http_client.fetch(url, method="GET")
                 logging.info("got account response %r", response.body)

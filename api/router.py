@@ -33,20 +33,20 @@ def map():
         # 刷新（代替重新登录）
         ('/auth/refresh-token', getattr(api_auth, 'AuthRefreshTokenXHR')),
         # 注册
-        ('/auth/account', getattr(api_auth, 'AuthAccountXHR')),
-        # 查询个人基本信息
-        # 修改个人基本信息
-        ('/auth/account/([a-z0-9]*)', getattr(api_auth, 'AuthAccountXHR')),
+        ('/auth/basic', getattr(api_auth, 'AuthBasicXHR')),
+        # 查询用户账号基本信息
+        # 修改用户账号基本信息
+        ('/auth/basic/([a-z0-9]*)', getattr(api_auth, 'AuthBasicXHR')),
         # 获取验证码
-        ('/auth/pwd/verify-code', getattr(api_auth, 'AuthPwdVerifyCodeXHR')),
+        ('/auth/verify-code', getattr(api_auth, 'AuthVerifyCodeXHR')),
         # 修改密码
         ('/auth/pwd', getattr(api_auth, 'AuthPwdXHR')),
 
+        # 创建文章
         # 查询博客文章列表
         ('/blog/articles', getattr(blog_article, 'BlogAritcleIndexXHR')),
         # 查询某人博客文章列表
         ('/blog/accounts/([a-z0-9]*)/articles', getattr(blog_article, 'BlogAccountAritclesXHR')),
-        # 创建文章
         # 查询文章详情
         # 删除文章
         # 修改文章

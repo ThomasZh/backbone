@@ -24,7 +24,8 @@ MONGO_DB = "7x24hs"
 MONGO_USR = "7x24hs"
 MONGO_PWD = "123456"
 
-EXPIRES_IN = 7200 # 7200s
+TOKEN_EXPIRES_IN = 7200 # 2hours
+REFRESH_TOKEN_EXPIRES_IN = 1209600 # 2weeks
 AUTH_HOST = "api.7x24hs.com"
 APPID = "api.7x24hs.com"
 APP_SECRET = "api.7x24hs.com"

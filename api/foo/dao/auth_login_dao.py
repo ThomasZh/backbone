@@ -27,33 +27,33 @@ from global_const import *
 
 # login options
 # {'_id':'phone', 'md5pwd':pwd, 'salt':'salt', 'create_time':0, 'last_update_time':0,
-# 'last_apply_verify_code_time':0, 'verify_code':'1234'}
+# 'create_verify_code_time':0, 'verify_code':'1234'}
 class auth_login_dao(singleton):
-    __login_collection = None;
+    __auth_login_collection = None;
 
     def __init__(self):
-        if self.__login_collection is None:
+        if self.__auth_login_collection is None:
             conn = pymongo.MongoClient(MONGO_HOST, MONGO_PORT);
             db = conn[MONGO_DB];
             db.authenticate(MONGO_USR, MONGO_PWD);
-            self.__login_collection = db.auth_login;
+            self.__auth_login_collection = db.auth_login;
         else:
-            logging.info("auth_login_dao has inited......");
+            logging.info("__auth_login_collection has inited......");
 
 
     def create(self, json):
-        self.__login_collection.insert(json);
-        logging.info("create auth_login success......");
+        self.__auth_login_collection.insert(json);
+        logging.info("create login(auth_login) success......");
 
 
     def update(self, json):
         _id = json["_id"];
-        self.__login_collection.update({"_id":_id},{"$set":json});
-        logging.info("update auth_login success......");
+        self.__auth_login_collection.update({"_id":_id},{"$set":json});
+        logging.info("update login(auth_login) success......");
 
 
     def query_not_safe(self, login):
-        cursor = self.__login_collection.find({"_id":login})
+        cursor = self.__auth_login_collection.find({"_id":login})
         data = None
         for i in cursor:
             data = i

@@ -117,6 +117,7 @@ class BlogArticleHandler(tornado.web.RequestHandler):
         response = http_client.fetch(url, method="GET")
         logging.info("got article response %r", response.body)
         article = json_decode(response.body)
+        article["publish_time"] = time_span(article["publish_time"])
 
         if article.has_key('paragraphs'):
             html = markdown.markdown(article['paragraphs'])
@@ -140,7 +141,6 @@ class BlogArticleHandler(tornado.web.RequestHandler):
             logging.info("got html %r", html)
 
             article['paragraphs'] = html
-            article["publish_time"] = time_span(article["publish_time"])
 
         self.render('blog/article.html',
                 random=random,
@@ -278,8 +278,11 @@ class BlogArticleParagraphEditHandler(BaseHandler):
         article = json_decode(response.body)
 
         # 使用 markdown 将网页内容转换为 html 格式
-        html = markdown.markdown(article['paragraphs'])
-        article['paragraphs'] = html
+        if article.has_key('paragraphs'):
+            html = markdown.markdown(article['paragraphs'])
+            article['paragraphs'] = html
+        else:
+            article['paragraphs'] = ''
 
         self.render('blog/paragraphs-edit.html',
                 random=random,
@@ -331,6 +334,9 @@ class BlogArticleParagraphMarkdownHandler(BaseHandler):
         response = http_client.fetch(url, method="GET")
         logging.info("got response %r", response.body)
         article = json_decode(response.body)
+
+        if not article.has_key('paragraphs'):
+            article['paragraphs'] = ''
 
         self.render('blog/paragraphs-markdown.html',
                 random=random,

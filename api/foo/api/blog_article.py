@@ -34,8 +34,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
 from comm import *
 from global_const import *
 from dao import auth_login_dao
-from dao import auth_account_dao
-from dao import auth_access_token_dao
+from dao import auth_basic_dao
+from dao import auth_access_dao
 from dao import blog_article_dao
 
 from tornado.escape import json_encode, json_decode
@@ -67,7 +67,8 @@ class BlogAritcleIndexXHR(tornado.web.RequestHandler):
 
         # 删除 paragraphs 字段，减少数据加载量
         for article in articles:
-            article.pop('paragraphs')
+            if article.has_key('paragraphs'):
+                article.pop('paragraphs')
             article.pop('last_update_time')
             article.pop('create_time')
 
@@ -118,7 +119,7 @@ class BlogAritcleIndexXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -179,7 +180,7 @@ class BlogAritcleXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -237,7 +238,7 @@ class BlogAritcleXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -307,7 +308,7 @@ class BlogAritclePubXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -364,7 +365,7 @@ class BlogAritcleGaragraphXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')

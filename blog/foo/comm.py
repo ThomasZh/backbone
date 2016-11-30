@@ -36,34 +36,45 @@ class IndexHandle(tornado.web.RequestHandler):
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    def get_current_user(self):
-        # return self.get_secure_cookie("session_token")
+    __session_ticket = None;
 
-        session_token = self.get_secure_cookie("session_token")
-        logging.info("got session_token %r", session_token)
-        expires_at = self.get_secure_cookie("expires_at")
-        if expires_at is None or expires_at == "":
-            expires_at = 0
-        refresh_token = self.get_secure_cookie("refresh_token")
+
+    # 只有调用 self.get_current_user()后，再调用此函数
+    def get_session_ticket(self):
+        return self.__session_ticket
+
+
+    def get_current_user(self):
+        access_token = self.get_secure_cookie("access_token")
+        logging.info("got access_token %r from cookie", access_token)
+        if not access_token:
+            return None
+
+        url = "http://" + AUTH_HOST + "/auth/token"
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+access_token})
+        logging.info("session_ticket response %r", response.body)
+        session_ticket = json_decode(response.body)
 
         _timestamp = int(time.time())
-        if _timestamp > int(expires_at):
-            return session_token
+        expires_at = session_ticket['expires_at']
+        if _timestamp < expires_at:
+            logging.info("got current_timestamp %r < expires_at %r from session_ticket", _timestamp, expires_at)
+            self.__session_ticket = session_ticket
+            return session_ticket
         else:
+            refresh_token = session_ticket['refresh_token']
+            logging.info("got refresh_token %r from session_ticket", refresh_token)
+
             url = "http://" + AUTH_HOST + "/auth/refresh-token"
             http_client = HTTPClient()
             response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+refresh_token})
-            logging.info("got refresh-token response %r", response.body)
+            logging.info("got session_ticket response %r", response.body)
+            session_ticket = json_decode(response.body)
 
-            token = json_decode(response.body)
-            expires_at = _timestamp + token['expires_in']
-            session_token = token['access_token']
-            self.set_secure_cookie("session_token", session_token)
-            self.set_secure_cookie("expires_at", str(expires_at))
-            self.set_secure_cookie("refresh_token", token['refresh_token'])
-            self.set_secure_cookie("account_id", token['account_id'])
-
-            return session_token
+            self.set_secure_cookie("access_token", session_ticket['access_token'])
+            self.__session_ticket = session_ticket
+            return session_ticket
 
 
 class PageNotFoundHandler(tornado.web.RequestHandler):

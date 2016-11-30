@@ -576,12 +576,17 @@ $(function () {
     // var request = {
     //   phone: 'phone'
     // };
-    // //调用了jquery.json 库
+    // //调用 jquery.json 库
     // var encoded = $.toJSON( request );
     // var jsonStr = encoded;
 
+    //调用 jquery.cookie 库
+    //var _xsrf = $.cookie('_xsrf');
+
     $.ajax({
       type: "POST",
+      //url: "http://api.7x24hs.com/auth/verify-code",
+      //data: '{"_xsrf":"'+_xsrf+'", "appid":"APPID", "app_secret":"APP_SECRET", "phone": "' + phone + '"}',
       url: "/ajax/verify-code",
       data: '{"phone": "' + phone + '"}',
       dataType: 'json',

@@ -33,8 +33,7 @@ from tornado.httputil import url_concat
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
 
-from comm import cur_file_dir
-from comm import timestamp_date
+from comm import *
 from dao import kit_dao
 from wx import wx_wrap
 from global_const import *
@@ -88,64 +87,30 @@ class ApiKitHandle(tornado.web.RequestHandler):
         kit_dao.kit_dao().create(_json)
 
         # save message into file
-        _id = str(uuid.uuid1()).replace('-', '')
-        _date = timestamp_date(time.time())
-        path = cur_file_dir()
-        logging.info("got path %r", path)
-        filename = path + '/static/mail/' + _date + '/' + _id
-        logging.info("got filename %r", filename)
-        if not os.path.exists(path + "/static/mail/" + _date):
-            os.makedirs(path + "/static/mail/" + _date)
-        content = 'from: ' + name + '\n' \
-                + 'email: ' + email + '\n' \
-                + 'message: ' + message
-        logging.info("got content %r", content)
-        f = file(filename,'w')
-        f.write(content)
-        f.close()
-
+        # _id = str(uuid.uuid1()).replace('-', '')
+        # _date = timestamp_date(time.time())
+        # path = cur_file_dir()
+        # logging.info("got path %r", path)
+        # filename = path + '/static/mail/' + _date + '/' + _id
+        # logging.info("got filename %r", filename)
+        # if not os.path.exists(path + "/static/mail/" + _date):
+        #     os.makedirs(path + "/static/mail/" + _date)
+        # content = 'from: ' + name + '\n' \
+        #         + 'email: ' + email + '\n' \
+        #         + 'message: ' + message
+        # logging.info("got content %r", content)
+        # f = file(filename,'w')
+        # f.write(content)
+        # f.close()
         # send mail by smtp
-        os.system('mail -s "kits notify" thomas.zh@qq.com < ' + filename)
+        # os.system('mail -s "kits notify" thomas.zh@qq.com < ' + filename)
 
         # send message to wx 公众号客户 by template
         wx_access_token = wx_wrap.getAccessTokenByClientCredential(WX_APP_ID, WX_APP_SECRET)
         logging.info("got wx_access_token %r", wx_access_token)
-
-        # touser = 店小二openid
-        # template_id = 成为会员通知
-        # url = 模版链接跳转地址
-        data = {
-            "touser" : "oy0Kxt7zNpZFEldQmHwFF-RSLNV0",
-            "template_id":"6Av7OQ6s5MlD96JZ4QggtHjObTUs9u9XFeBGRr7JX5g",
-            "url": "http://kit.7x24hs.com/",
-            "data": {
-                   "first": {
-                       "value":"keep in touch",
-                       "color":"#173177"
-                   },
-                   "address": {
-                       "value":app,
-                       "color":"#173177"
-                   },
-                   "VIPName": {
-                       "value":name,
-                       "color":"#173177"
-                   },
-                   "VIPPhone": {
-                       "value":email,
-                       "color":"#173177"
-                   },
-                   "remark": {
-                       "value":message,
-                       "color":"#173177"
-                   },
-                }
-            }
-        _json = json_encode(data)
-        url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+wx_access_token
-        http_client = HTTPClient()
-        response = http_client.fetch(url, method="POST", body=_json)
-        logging.info("got response %r", response.body)
+        # openid = 店小二openid
+        openid = "oy0Kxt7zNpZFEldQmHwFF-RSLNV0"
+        wx_wrap.sendWorkflowMessage(wx_access_token, openid, app, name, email, message, timestamp)
 
         self.write("SUCCESS")
         self.finish()

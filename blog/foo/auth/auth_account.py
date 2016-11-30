@@ -60,16 +60,10 @@ class AuthLoginHandler(tornado.web.RequestHandler):
             _json = json_encode(body_data)
             http_client = HTTPClient()
             response = http_client.fetch(url, method="POST", body=_json)
-            logging.info("got token response %r", response.body)
+            logging.info("got session_ticket response %r", response.body)
+            session_ticket = json_decode(response.body)
 
-            token = json_decode(response.body)
-            _timestamp = int(time.time())
-            expires_at = _timestamp + token['expires_in']
-            self.set_secure_cookie("session_token", token['access_token'])
-            self.set_secure_cookie("expires_at", str(expires_at))
-            self.set_secure_cookie("refresh_token", token['refresh_token'])
-            self.set_secure_cookie("account_id", token['account_id'])
-
+            self.set_secure_cookie("access_token", session_ticket['access_token'])
             self.redirect("/profile")
         except:
             err_title = str( sys.exc_info()[0] );
@@ -97,14 +91,14 @@ class AuthRegisterHandler(tornado.web.RequestHandler):
         logging.info("phone %r", phone)
 
         try:
-            url = "http://" + AUTH_HOST + "/auth/account"
+            url = "http://" + AUTH_HOST + "/auth/basic"
             body_data = {"appid":APPID, "app_secret":APP_SECRET,
                     "login":phone, "pwd":md5pwd}
             logging.info("post body %r", body_data)
             _json = json_encode(body_data)
             http_client = HTTPClient()
             response = http_client.fetch(url, method="POST", body=_json)
-            logging.info("got token response %r", response.body)
+            logging.info("got register response %r", response.body)
 
             _err_msg = _("You have already register an account, please login.")
             self.render('auth/login.html', err_msg=_err_msg)
@@ -143,7 +137,7 @@ class AuthLostPwdHandler(tornado.web.RequestHandler):
             _json = json_encode(body_data)
             http_client = HTTPClient()
             response = http_client.fetch(url, method="POST", body=_json)
-            logging.info("got response %r", response.body)
+            logging.info("got lost-pwd response %r", response.body)
 
             _err_msg = _("Password already updated, please login.")
             self.render("auth/login.html", err_msg=_err_msg)
@@ -174,14 +168,11 @@ class AuthProfileHandler(BaseHandler):
     def get(self):
         logging.info(self.request)
 
-        session_token = self.get_secure_cookie("session_token")
-        account_id = self.get_secure_cookie("account_id")
-        logging.info("got session_token %r from cookie", session_token)
-        logging.info("got account_id %r from cookie", account_id)
+        session_ticket = self.get_session_ticket()
 
-        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
+        url = "http://" + AUTH_HOST + "/auth/basic/" + session_ticket['account_id']
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_ticket['access_token']})
         logging.info("got account response %r", response.body)
         account = json_decode(response.body)
 
@@ -192,12 +183,12 @@ class AuthLogoutHandler(BaseHandler):
     @tornado.web.authenticated  # if no session, redirect to login page
     def post(self):
         logging.info(self.request)
-        session_token = self.get_secure_cookie("session_token")
-        logging.info("got session_token response %r", session_token)
+
+        session_ticket = self.get_session_ticket()
 
         url = "http://" + AUTH_HOST + "/auth/token"
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="DELETE", headers={"Authorization":"Bearer "+session_token})
+        response = http_client.fetch(url, method="DELETE", headers={"Authorization":"Bearer "+session_ticket['access_token']})
         logging.info("got logout response %r", response.body)
 
         self.redirect("/login")
@@ -208,14 +199,11 @@ class AuthProfileEditHandler(BaseHandler):
     def get(self):
         logging.info(self.request)
 
-        session_token = self.get_secure_cookie("session_token")
-        account_id = self.get_secure_cookie("account_id")
-        logging.info("got session_token %r from cookie", session_token)
-        logging.info("got account_id %r from cookie", account_id)
+        session_ticket = self.get_session_ticket()
 
-        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
+        url = "http://" + AUTH_HOST + "/auth/basic/" + session_ticket['account_id']
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_ticket['access_token']})
         logging.info("got account response %r", response.body)
         _account = json_decode(response.body)
 
@@ -225,23 +213,20 @@ class AuthProfileEditHandler(BaseHandler):
     def post(self):
         logging.info(self.request)
 
-        session_token = self.get_secure_cookie("session_token")
-        account_id = self.get_secure_cookie("account_id")
-        logging.info("got session_token %r from cookie", session_token)
-        logging.info("got account_id %r from cookie", account_id)
+        session_ticket = self.get_session_ticket()
 
         nickname = self.get_argument("textNickname", "")
         logging.info("got nickname %r", nickname)
         avatar = self.get_argument("avatar", "")
         logging.info("got avatar %r", avatar)
 
-        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
-        body_data = {"account_id":account_id,
+        url = "http://" + AUTH_HOST + "/auth/basic/" + session_ticket['account_id']
+        body_data = {"account_id":session_ticket['account_id'],
                 "nickname":nickname, "avatar":avatar}
         logging.info("put body %r", body_data)
         _json = json_encode(body_data)
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_token})
+        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+session_ticket['access_token']})
         logging.info("got account response %r", response.body)
 
         self.redirect("/profile")
@@ -252,14 +237,11 @@ class AuthAvatarEditHandler(BaseHandler):
     def get(self):
         logging.info(self.request)
 
-        session_token = self.get_secure_cookie("session_token")
-        account_id = self.get_secure_cookie("account_id")
-        logging.info("got session_token %r from cookie", session_token)
-        logging.info("got account_id %r from cookie", account_id)
+        session_ticket = self.get_session_ticket()
 
-        url = "http://" + AUTH_HOST + "/auth/account/" + account_id
+        url = "http://" + AUTH_HOST + "/auth/basic/" + session_ticket['account_id']
         http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_token})
+        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+session_ticket['access_token']})
         logging.info("got account response %r", response.body)
         _account = json_decode(response.body)
 

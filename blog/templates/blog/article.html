@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="{{ static_url('mokki/core.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/nexus-ui.css') }}">
     <style type="text/css">
- 
+
     </style>
-  
+
   </head>
 
   <body>
@@ -37,10 +37,10 @@
             <span class="icon icon-left"></span>
           </a>
           <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/append?random={{ random }}">
-            <span class="fa fa-paragraph fa-2x"></span>
+            <span class="fa fa-paragraph"></span>
           </a>
           <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/markdown?random={{ random }}">
-            <span class="fa fa-code fa-2x"></span>
+            <span class="fa fa-code"></span>
           </a>
           <a class="button button-link button-nav pull-right" href="/blog/articles/{{ article['_id'] }}/paragraphs/edit?random={{ random }}">
             <span class="icon icon-edit"></span>
@@ -62,7 +62,7 @@
             <div class="article-banner-left"><i class="icon icon-left"></i></div>
             <div class="article-banner-right"><i class="icon icon-edit"></i></div>
           -->
-            <img class="banner-img" src="{{ article['image'] }}!794x452" />
+            <img class="banner-img" src="{{ article['image'] }}!750x445" />
 
             <!-- 文章基本信息 -->
             <ul class="list_msg">
@@ -93,7 +93,7 @@
 {% end %}
             </article>
           </div>
-          
+
         </div> <!-- content -->
       </div> <!-- page -->
     </div> <!-- page group -->
@@ -112,7 +112,7 @@
     <!-- customer js files -->
     <script type="text/javascript" src='{{ static_url("js/exif.js") }}'></script>
     <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
-    
+
     <script type='text/javascript' src='{{ static_url("js/blog-app.js") }}' charset='utf-8'></script>
 
   </body>

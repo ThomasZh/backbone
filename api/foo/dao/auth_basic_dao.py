@@ -25,43 +25,47 @@ from comm import singleton
 from global_const import *
 
 
-# login options
-# {'_id':'session_token', 'create_time':0, 'last_update_time':0,
-# 'account_id':'uuid'}
-class auth_access_token_dao(singleton):
-    __access_token_collection = None;
+# account options
+# {'_id':'uuid', 'create_time':0, 'last_update_time':0,
+# 'nickname':'', 'avatar':''}
+class auth_basic_dao(singleton):
+    __auth_basic_collection = None;
 
     def __init__(self):
-        if self.__access_token_collection is None:
+        if self.__auth_basic_collection is None:
             conn = pymongo.MongoClient(MONGO_HOST, MONGO_PORT);
             db = conn[MONGO_DB];
             db.authenticate(MONGO_USR, MONGO_PWD);
-            self.__access_token_collection = db.auth_access_token;
+            self.__auth_basic_collection = db.auth_basic;
         else:
-            logging.info("auth_access_token_dao has inited......");
+            logging.info("__auth_basic_collection has inited......");
 
 
     def create(self, json):
-        self.__access_token_collection.insert(json);
-        logging.info("create access_token success......");
+        self.__auth_basic_collection.insert(json);
+        logging.info("create account(auth_basic) success......");
 
 
-    def delete(self, _id):
-        self.__access_token_collection.remove({"_id":_id});
-        logging.info("delete access_token success......");
+    def update(self, json):
+        _id = json["_id"];
+        self.__auth_basic_collection.update({"_id":_id},{"$set":json});
+        logging.info("update account(auth_basic) success......");
 
 
-    def query(self, _id):
-        cursor = self.__access_token_collection.find({"_id":_id})
+    def query_not_safe(self, _id):
+        cursor = self.__auth_basic_collection.find({"_id":_id})
         data = None
         for i in cursor:
             data = i
         return data
 
 
-    def query_by_refresh(self, refresh_token):
-        cursor = self.__access_token_collection.find({"refresh_token":refresh_token})
-        data = None
-        for i in cursor:
-            data = i
+    def query(self, _id):
+        data = self.query_not_safe(_id)
+        if data:
+            if not data.has_key('nickname'):
+                data['nickname'] = ""
+            if not data.has_key('avatar'):
+                data['avatar'] = ""
+
         return data

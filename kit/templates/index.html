@@ -108,7 +108,7 @@
 				var name = $("#name").val();
 				var email = $("#email").val();
 				var message = $("#message").val();
-				$.post("/api/kits", {"app":"kit", "name":name, "email":email, "message":message}, function(result){
+				$.post("/api/kits", {"app":"kit.7x24hs.com", "name":name, "email":email, "message":message}, function(result){
 					alert('Send message success!');
 				});
 			}

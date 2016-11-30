@@ -51,13 +51,13 @@ class AjaxAuthVerifyCodeXHR(tornado.web.RequestHandler):
 
         phone = _body['phone']
         logging.info("got phone %r", phone)
-        if phone is None or phone == "":
+        if not phone:
             self.set_status(400) # Bad Request
             self.write('Bad Request')
             self.finish()
             return
 
-        url = "http://api.7x24hs.com/auth/pwd/verify-code"
+        url = "http://api.7x24hs.com/auth/verify-code"
         body_data = {"appid":APPID, "app_secret":APP_SECRET, "login":phone}
         logging.info("post body %r", body_data)
         _json = json_encode(body_data)

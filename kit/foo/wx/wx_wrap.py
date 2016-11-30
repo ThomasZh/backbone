@@ -23,7 +23,9 @@ import string
 import time
 
 from tornado.escape import json_decode
+from tornado.escape import json_encode
 from tornado.httpclient import HTTPClient
+from comm import *
 
 
 def getAccessTokenByClientCredential(appId, appSecret):
@@ -35,7 +37,39 @@ def getAccessTokenByClientCredential(appId, appSecret):
     return rs["access_token"]
 
 
-def sendTemplateMessage(access_token):
-    url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token
+def sendWorkflowMessage(access_token, openid, app, name, email, message, timestamp):
+    # touser = 店小二openid
+    # template_id = 工作流申请通知
+    # url = 模版链接跳转地址
+    data = {
+        "touser": openid,
+        "template_id": "k9tnl9iJXwBkSsm7AixEFrMIrEy06xIoMO-kOzNDfCA",
+        "url": "http://kit.7x24hs.com/",
+        "data": {
+           "first": {
+               "value":"来自系统: " + app,
+               "color":"#173177"
+           },
+           "keyword1": {
+               "value":"有一个用户在网页上给我们留言，需要您及时登录查看。",
+               "color":"#173177"
+           },
+           "keyword2": {
+               "value":name,
+               "color":"#173177"
+           },
+           "keyword3": {
+               "value":timestamp_datetime(timestamp),
+               "color":"#173177"
+           },
+           "remark": {
+               "value":"联络方式: "+ email + "\n" + message,
+               "color":"#173177"
+           },
+        }
+    }
+    _json = json_encode(data)
+    url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + access_token
     http_client = HTTPClient()
-    
+    response = http_client.fetch(url, method="POST", body=_json)
+    logging.info("got response %r", response.body)

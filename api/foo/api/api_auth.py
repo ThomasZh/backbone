@@ -35,8 +35,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../dao"))
 from comm import *
 from global_const import *
 from dao import auth_login_dao
-from dao import auth_account_dao
-from dao import auth_access_token_dao
+from dao import auth_basic_dao
+from dao import auth_access_dao
 
 from tornado.escape import json_encode, json_decode
 from tornado.httpclient import *
@@ -92,6 +92,8 @@ class AuthTokenXHR(tornado.web.RequestHandler):
             self.finish()
             return
 
+        # TODO check appid & app_secret
+
         _login = auth_login_dao.auth_login_dao().query_not_safe(login)
         if not _login:
             self.set_status(404) # Not Found
@@ -110,27 +112,27 @@ class AuthTokenXHR(tornado.web.RequestHandler):
         _timestamp = int(time.time())
         logging.info("timestamp %r", _timestamp)
         access_token = generate_uuid_str()
-        expires_at = _timestamp + EXPIRES_IN # expires_in 7200s
+        expires_at = _timestamp + TOKEN_EXPIRES_IN # 2hours
         refresh_token = generate_uuid_str()
         _json = {'_id':access_token, 'token_type':'Bearer',
                 'expires_at':expires_at,
                 'refresh_token':refresh_token,
                 'account_id':_login['account_id'],
                 'scope':'all'}
-        auth_access_token_dao.auth_access_token_dao().create(_json)
+        auth_access_dao.auth_access_dao().create(_json)
 
         self.set_status(200) # OK
-        token = {
+        session_ticket = {
             "access_token":access_token,
             "token_type":"Bearer",
-            "expires_in":EXPIRES_IN,
+            "expires_at":expires_at,
             "refresh_token":refresh_token,
             "account_id":_login['account_id'],
             "scope":"all"
         }
-        logging.info("got response %r", token)
+        logging.info("got session_ticket response %r", session_ticket)
 
-        self.finish(JSON.dumps(token))
+        self.finish(JSON.dumps(session_ticket))
         return
 
     # 删除（登出）
@@ -158,7 +160,7 @@ class AuthTokenXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        auth_access_token_dao.auth_access_token_dao().delete(access_token)
+        auth_access_dao.auth_access_dao().delete(access_token)
 
         self.set_status(200) # OK
         self.finish('OK')
@@ -189,15 +191,24 @@ class AuthTokenXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(404) # Not Found
             self.write('Not Found')
             self.finish()
             return
 
+        session_ticket = {
+            "access_token":token['_id'],
+            "token_type":"Bearer",
+            "expires_at":token['expires_at'],
+            "refresh_token":token['refresh_token'],
+            "account_id":token['account_id'],
+            "scope":"all"
+        }
+
         self.set_status(200) # OK
-        self.finish(JSON.dumps("OK"))
+        self.finish(JSON.dumps(session_ticket))
         return
 
 
@@ -235,7 +246,7 @@ class AuthRefreshTokenXHR(tornado.web.RequestHandler):
             return
         logging.info("got refresh_token %r", refresh_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query_by_refresh(refresh_token)
+        token = auth_access_dao.auth_access_dao().query_by_refresh(refresh_token)
         if token is None:
             self.set_status(404) # Not Found
             self.write('Not Found')
@@ -244,7 +255,7 @@ class AuthRefreshTokenXHR(tornado.web.RequestHandler):
 
         _timestamp = int(time.time())
         access_token = generate_uuid_str()
-        expires_at = _timestamp + EXPIRES_IN # expires_in 7200s
+        expires_at = _timestamp + TOKEN_EXPIRES_IN # 2hours
         refresh_token = generate_uuid_str()
         _json = {'_id':access_token,
                 'token_type':'Bearer',
@@ -252,25 +263,25 @@ class AuthRefreshTokenXHR(tornado.web.RequestHandler):
                 'refresh_token':refresh_token,
                 'account_id':token['account_id'],
                 'scope':'all'}
-        auth_access_token_dao.auth_access_token_dao().create(_json)
+        auth_access_dao.auth_access_dao().create(_json)
 
         self.set_status(200) # OK
-        token = {
+        session_ticket = {
             "access_token":access_token,
             "token_type":"Bearer",
-            "expires_in":EXPIRES_IN,
+            "expires_at":expires_at,
             "refresh_token":refresh_token,
             'account_id':token['account_id'],
             "scope":"all"
         }
         logging.info("got response %r", token)
-        self.finish(JSON.dumps(token))
+        self.finish(JSON.dumps(session_ticket))
         return
 
 
-# /auth/account
-# /auth/account/([a-z0-9]*)
-class AuthAccountXHR(tornado.web.RequestHandler):
+# /auth/basic
+# /auth/basic/([a-z0-9]*)
+class AuthBasicXHR(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header('Access-Control-Allow-Origin', '*')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
@@ -328,7 +339,7 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         logging.info("timestamp %r", _timestamp)
         account_id = generate_uuid_str()
         _json = {'_id':account_id, 'create_time':_timestamp}
-        auth_account_dao.auth_account_dao().create(_json)
+        auth_basic_dao.auth_basic_dao().create(_json)
 
         salt = generate_nonce_str()
         _hash_pwd = hash_pwd(md5pwd, salt)
@@ -379,7 +390,7 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         #     self.finish()
         #     return
 
-        account = auth_account_dao.auth_account_dao().query(account_id)
+        account = auth_basic_dao.auth_basic_dao().query(account_id)
         if account is None:
             self.set_status(404) # Not Found
             self.write('Not Found')
@@ -417,7 +428,7 @@ class AuthAccountXHR(tornado.web.RequestHandler):
             return
         logging.info("got access_token %r", access_token)
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -440,7 +451,7 @@ class AuthAccountXHR(tornado.web.RequestHandler):
             self.finish()
             return
 
-        token = auth_access_token_dao.auth_access_token_dao().query(access_token)
+        token = auth_access_dao.auth_access_dao().query(access_token)
         if token is None:
             self.set_status(403) # Forbidden
             self.write('Forbidden')
@@ -458,25 +469,26 @@ class AuthAccountXHR(tornado.web.RequestHandler):
         _timestamp = int(time.time())
         if not avatar:
             _json = {"_id":account_id, "nickname":nickname, "last_update_time":_timestamp}
-            auth_account_dao.auth_account_dao().update(_json)
+            auth_basic_dao.auth_basic_dao().update(_json)
         else:
             _json = {"_id":account_id, "nickname":nickname, "avatar":avatar,
                     "last_update_time":_timestamp}
-            auth_account_dao.auth_account_dao().update(_json)
+            auth_basic_dao.auth_basic_dao().update(_json)
 
         self.set_status(200) # OK
         self.finish('OK')
         return
 
 
-# /auth/pwd/verify-code
-class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
+# /auth/verify-code
+class AuthVerifyCodeXHR(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header('Access-Control-Allow-Origin', '*')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
         self.set_header('Access-Control-Max-Age', 1000)
         self.set_header('Access-Control-Allow-Headers', '*')
-        # self.set_header('Content-type', 'application/json')
+        self.set_header('Content-type', 'application/json')
+
 
     # 获取验证码
     # 使用 sup-http proxy 实现, sup-http仍调用sendcloud
@@ -488,10 +500,7 @@ class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
         logging.info(self.request.body)
 
         # 允许跨域访问
-        self.set_header('Access-Control-Allow-Origin', '*')
-        self.set_header('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS')
-        self.set_header('Access-Control-Max-Age', 1000)
-        self.set_header('Access-Control-Allow-Headers', '*')
+        self.set_default_headers()
 
         _body = json_decode(self.request.body)
         appid = None
@@ -580,91 +589,91 @@ class AuthPwdVerifyCodeXHR(tornado.web.RequestHandler):
 
 # 创建忘记密码的验证码
 # 使用sendcloud实现
-# class ApiSendCloudVcodeXHR(tornado.web.RequestHandler):
-#     @tornado.web.asynchronous
-#     @tornado.gen.coroutine
-#     def post(self):
-#         logging.info(self.request)
-#         logging.info(self.request.body)
-#         _body = json_decode(self.request.body)
-#
-#         phone = _body['phone']
-#         logging.info("got phone %r", phone)
-#         if phone is None or phone == "":
-#             self.set_status(400) # Bad Request
-#             self.write('Bad Request')
-#             self.finish()
-#             return
-#
-#         _login = auth_login_dao.auth_login_dao().query_not_safe(phone)
-#         if not _login:
-#             self.set_status(404) # Not Found
-#             self.write('Not Found')
-#             self.finish()
-#             return
-#
-#         _timestamp = int(time.time())
-#         logging.info("got timestamp %d", _timestamp)
-#         try:
-#             last_time = int(_login['last_apply_vcode_time'])
-#             logging.info("got last_time %d", last_time)
-#             if (_timestamp > last_time) and (_timestamp < last_time + 300): # ttl is 5 minutes
-#                 self.set_status(204) # No Content
-#                 self.write('No Content')
-#                 self.finish()
-#                 return
-#         except: # Not found last_apply_vcode_time
-#             logging.info("no found last_time")
-#
-#         # store phone verify code
-#         vcode = generate_verify_code()
-#         logging.info("got verify_code %r", vcode)
-#         _json = {"_id":phone, "vcode":vcode, "last_update_time":_timestamp,
-#                 "last_apply_vcode_time":_timestamp, "counts":0}
-#         auth_login_dao.auth_login_dao().update(_json)
-#
-#         # Logic: send sms by sendcloud
-#         param = {
-#             'smsUser': SMS_USER,
-#             'templateId': 151,
-#             'msgType': 0,
-#             'phone': phone,
-#             'vars': {'%ekey%': vcode},
-#         }
-#         sign = generate_sms_sign(SMS_KEY, param)
-#         param['signature'] = sign
-#
-#         headers = {'content-type': 'application/json'}
-#         _json = json_encode(param)
-#         logging.info("post body %r", _json)
-#         http_client = HTTPClient()
-#         response = None
-#         try:
-#             response = http_client.fetch(SMS_URL,
-#                     method="POST", headers=headers, body=_json)
-#             logging.info("got sendcloud sms response %r", response.body)
-#         except httpclient.HTTPError as e:
-#             # HTTPError is raised for non-200 responses; the response
-#             # can be found in e.response.
-#             logging.error("sendcloud sms error: %r", str(e))
-#             self.set_status(500) # Internal Server Error
-#             self.write(str(e))
-#             self.finish()
-#         except Exception as e:
-#             # Other errors are possible, such as IOError.
-#             logging.error("sendcloud sms error: %r", str(e))
-#             self.set_status(500) # Internal Server Error
-#             self.write(str(e))
-#             self.finish()
-#         else:
-#             # if no exception,get here
-#             self.set_status(200) # OK
-#             self.write('OK')
-#             self.finish()
-#         finally:
-#             http_client.close()
-#
-#         return
+class ApiSendCloudVcodeXHR(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def post(self):
+        logging.info(self.request)
+        logging.info(self.request.body)
+        _body = json_decode(self.request.body)
+
+        phone = _body['phone']
+        logging.info("got phone %r", phone)
+        if phone is None or phone == "":
+            self.set_status(400) # Bad Request
+            self.write('Bad Request')
+            self.finish()
+            return
+
+        _login = auth_login_dao.auth_login_dao().query_not_safe(phone)
+        if not _login:
+            self.set_status(404) # Not Found
+            self.write('Not Found')
+            self.finish()
+            return
+
+        _timestamp = int(time.time())
+        logging.info("got timestamp %d", _timestamp)
+        try:
+            last_time = int(_login['last_apply_vcode_time'])
+            logging.info("got last_time %d", last_time)
+            if (_timestamp > last_time) and (_timestamp < last_time + 300): # ttl is 5 minutes
+                self.set_status(204) # No Content
+                self.write('No Content')
+                self.finish()
+                return
+        except: # Not found last_apply_vcode_time
+            logging.info("no found last_time")
+
+        # store phone verify code
+        vcode = generate_verify_code()
+        logging.info("got verify_code %r", vcode)
+        _json = {"_id":phone, "vcode":vcode, "last_update_time":_timestamp,
+                "last_apply_vcode_time":_timestamp, "counts":0}
+        auth_login_dao.auth_login_dao().update(_json)
+
+        # Logic: send sms by sendcloud
+        param = {
+            'smsUser': SMS_USER,
+            'templateId': 151,
+            'msgType': 0,
+            'phone': phone,
+            'vars': {'%ekey%': vcode},
+        }
+        sign = generate_sms_sign(SMS_KEY, param)
+        param['signature'] = sign
+
+        headers = {'content-type': 'application/json'}
+        _json = json_encode(param)
+        logging.info("post body %r", _json)
+        http_client = HTTPClient()
+        response = None
+        try:
+            response = http_client.fetch(SMS_URL,
+                    method="POST", headers=headers, body=_json)
+            logging.info("got sendcloud sms response %r", response.body)
+        except httpclient.HTTPError as e:
+            # HTTPError is raised for non-200 responses; the response
+            # can be found in e.response.
+            logging.error("sendcloud sms error: %r", str(e))
+            self.set_status(500) # Internal Server Error
+            self.write(str(e))
+            self.finish()
+        except Exception as e:
+            # Other errors are possible, such as IOError.
+            logging.error("sendcloud sms error: %r", str(e))
+            self.set_status(500) # Internal Server Error
+            self.write(str(e))
+            self.finish()
+        else:
+            # if no exception,get here
+            self.set_status(200) # OK
+            self.write('OK')
+            self.finish()
+        finally:
+            http_client.close()
+
+        return
 
 
 # /auth/pwd
