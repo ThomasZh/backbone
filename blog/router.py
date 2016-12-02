@@ -12,6 +12,7 @@ from foo.auth import auth_account
 from foo.ajax import ajax_auth
 from foo.ajax import ajax_article
 from foo.blog import blog_article
+from foo.blog2 import blog2_article
 
 
 def map():
@@ -43,6 +44,10 @@ def map():
         ('/blog/articles/([a-z0-9]*)/paragraphs/edit', getattr(blog_article, 'BlogArticleParagraphEditHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/markdown', getattr(blog_article, 'BlogArticleParagraphMarkdownHandler')),
         ('/blog/articles/([a-z0-9]*)/paragraphs/append', getattr(blog_article, 'BlogArticleParagraphAppendHandler')),
+
+        # blog2
+        ('/blog2/articles', getattr(blog2_article, 'Blog2ArticleIndexHandler')),
+        ('/blog2/articles/([a-z0-9]*)', getattr(blog2_article, 'Blog2ArticleHandler')),
 
         # ajax
         ('/ajax/blog/accounts/([a-z0-9]*)/articles', getattr(ajax_article, 'AjaxAccountArticleXHR')),

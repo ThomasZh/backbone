@@ -31,6 +31,10 @@ from tornado.escape import json_encode, json_decode
 from tornado.httpclient import HTTPClient
 from tornado.httputil import url_concat
 from bson import json_util
+import urllib
+import html2text
+import markdown
+import re
 
 from comm import *
 from global_const import *
@@ -113,6 +117,44 @@ class AjaxAccountArticleXHR(tornado.web.RequestHandler):
 
 
 class AjaxArticleXHR(tornado.web.RequestHandler):
+    def get(self, article_id):
+        logging.info(self.request)
+        logging.info("got article_id %r from uri", article_id)
+
+        url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got article response %r", response.body)
+        article = json_decode(response.body)
+        article["publish_time"] = time_span(article["publish_time"])
+
+        if article.has_key('paragraphs'):
+            html = markdown.markdown(article['paragraphs'])
+            logging.info("got article paragraphs %r", html)
+
+            # 为图片延迟加载准备数据
+            # <img alt="" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/758f7478-d406-4f2e-9566-306a963fb979" />
+            # <img data-original="真实图片" src="占位符图片">
+            ptn="(<img alt=\"\" src=\"http[s]*://[\w\.\/\-]+\" />)"
+            img_ptn = re.compile(ptn)
+            imgs = img_ptn.findall(html)
+            for img in imgs:
+                logging.info("got img %r", img)
+                ptn="<img alt=\"\" src=\"(http[s]*://[\w\.\/\-]+)\" />"
+                url_ptn = re.compile(ptn)
+                urls = url_ptn.findall(html)
+                url = urls[0]
+                logging.info("got url %r", url)
+                # lazy load
+                #html = html.replace(img, "<img class=\"lazy\" width=\"100%\" data-original=\""+url+"\" />")
+                # not lazy load
+                html = html.replace(img, "<img class=\"lazy\" width=\"100%\" src=\""+url+"\" />")
+            logging.info("got html %r", html)
+
+            article['paragraphs'] = html
+        self.finish(JSON.dumps(article))
+
+
     def delete(self, article_id):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
