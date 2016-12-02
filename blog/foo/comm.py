@@ -21,6 +21,7 @@ import logging
 import time
 import datetime
 import random
+import sys
 
 from global_const import *
 from tornado.escape import json_encode, json_decode
@@ -50,11 +51,19 @@ class BaseHandler(tornado.web.RequestHandler):
         if not access_token:
             return None
 
-        url = "http://" + AUTH_HOST + "/auth/token"
-        http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+access_token})
-        logging.info("session_ticket response %r", response.body)
-        session_ticket = json_decode(response.body)
+        session_ticket = None
+        try:
+            url = "http://" + AUTH_HOST + "/auth/token"
+            http_client = HTTPClient()
+            response = http_client.fetch(url, method="GET", headers={"Authorization":"Bearer "+access_token})
+            logging.info("session_ticket response %r", response.body)
+            session_ticket = json_decode(response.body)
+        except:
+            err_title = str( sys.exc_info()[0] );
+            err_detail = str( sys.exc_info()[1] );
+            logging.error("error: %r info: %r", err_title, err_detail)
+            if err_detail == 'HTTP 404: Not Found':
+                return None
 
         _timestamp = int(time.time())
         expires_at = session_ticket['expires_at']

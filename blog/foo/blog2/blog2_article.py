@@ -335,24 +335,15 @@ class BlogArticleParagraphMarkdownHandler(BaseHandler):
         self.redirect('/blog/articles/mine?random=' + random)
 
 
-class BlogArticleParagraphAppendHandler(BaseHandler):
+class Blog2ArticleParagraphAppendHandler(BaseHandler):
     @tornado.web.authenticated  # if no session, redirect to login page
     def get(self, article_id):
         logging.info(self.request)
         logging.info("got article_id %r from uri", article_id)
 
-        random = random_x(8)
-        logging.info("got random %r", random)
-
-        url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
-        http_client = HTTPClient()
-        response = http_client.fetch(url, method="GET")
-        logging.info("got response %r", response.body)
-        article = json_decode(response.body)
-
-        self.render('blog/paragraphs-append.html',
+        self.render('blog2/paragraphs-append.html',
                 random=random,
-                article=article)
+                article_id=article_id)
 
 
     @tornado.web.authenticated  # if no session, redirect to login page

@@ -42,6 +42,10 @@ from bson import json_util
 class AuthLoginHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
+        _next = self.get_argument("next", "")
+        logging.info("_next %r", _next)
+
+        self.set_secure_cookie("next", _next)
         self.render('auth/login.html', err_msg='')
 
     @tornado.web.asynchronous
@@ -64,7 +68,14 @@ class AuthLoginHandler(tornado.web.RequestHandler):
             session_ticket = json_decode(response.body)
 
             self.set_secure_cookie("access_token", session_ticket['access_token'])
-            self.redirect("/profile")
+            _next = self.get_secure_cookie("next")
+            logging.info("_next %r", _next)
+
+            if _next:
+                self.set_secure_cookie("next", "")
+                self.redirect(_next)
+            else:
+                self.redirect("/profile")
         except:
             err_title = str( sys.exc_info()[0] );
             err_detail = str( sys.exc_info()[1] );

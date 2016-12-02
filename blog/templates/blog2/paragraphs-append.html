@@ -1,0 +1,659 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>添加段落</title>
+
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('vux/dist/vux.css') }}">
+    <script type='text/javascript' src="{{ static_url('vux/vue.js') }}"></script>
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+
+    <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
+
+  </head>
+
+  <body>
+    <!--include the components you need-->
+    <script src="/static/vux/dist/components/actionsheet/index.js"></script>
+    <script src="/static/vux/dist/components/address/index.js"></script>
+    <script src="/static/vux/dist/components/alert/index.js"></script>
+    <script src="/static/vux/dist/components/badge/index.js"></script>
+    <script src="/static/vux/dist/components/blur/index.js"></script>
+    <script src="/static/vux/dist/components/box/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab/index.js"></script>
+    <script src="/static/vux/dist/components/button-tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/calendar/index.js"></script>
+    <script src="/static/vux/dist/components/card/index.js"></script>
+    <script src="/static/vux/dist/components/cell/index.js"></script>
+    <script src="/static/vux/dist/components/checker/index.js"></script>
+    <script src="/static/vux/dist/components/checker-item/index.js"></script>
+    <script src="/static/vux/dist/components/checklist/index.js"></script>
+    <script src="/static/vux/dist/components/circle/index.js"></script>
+    <script src="/static/vux/dist/components/clocker/index.js"></script>
+    <script src="/static/vux/dist/components/color-picker/index.js"></script>
+    <script src="/static/vux/dist/components/confirm/index.js"></script>
+    <script src="/static/vux/dist/components/countdown/index.js"></script>
+    <script src="/static/vux/dist/components/countup/index.js"></script>
+    <script src="/static/vux/dist/components/date-formatter/index.js"></script>
+    <script src="/static/vux/dist/components/datetime/index.js"></script>
+    <script src="/static/vux/dist/components/dev-tip/index.js"></script>
+    <script src="/static/vux/dist/components/dialog/index.js"></script>
+    <script src="/static/vux/dist/components/divider/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox/index.js"></script>
+    <script src="/static/vux/dist/components/flexbox-item/index.js"></script>
+    <script src="/static/vux/dist/components/friendly-time/index.js"></script>
+    <script src="/static/vux/dist/components/group/index.js"></script>
+    <script src="/static/vux/dist/components/group-title/index.js"></script>
+    <script src="/static/vux/dist/components/icon/index.js"></script>
+    <script src="/static/vux/dist/components/inline-calendar/index.js"></script>
+    <script src="/static/vux/dist/components/inline-desc/index.js"></script>
+    <script src="/static/vux/dist/components/inview/index.js"></script>
+    <script src="/static/vux/dist/components/loading/index.js"></script>
+    <script src="/static/vux/dist/components/masker/index.js"></script>
+    <script src="/static/vux/dist/components/number-roller/index.js"></script>
+    <script src="/static/vux/dist/components/orientation/index.js"></script>
+    <script src="/static/vux/dist/components/panel/index.js"></script>
+    <script src="/static/vux/dist/components/picker/index.js"></script>
+    <script src="/static/vux/dist/components/popup/index.js"></script>
+    <script src="/static/vux/dist/components/popup-picker/index.js"></script>
+    <script src="/static/vux/dist/components/previewer/index.js"></script>
+    <script src="/static/vux/dist/components/progress/index.js"></script>
+    <script src="/static/vux/dist/components/qrcode/index.js"></script>
+    <script src="/static/vux/dist/components/radio/index.js"></script>
+    <script src="/static/vux/dist/components/range/index.js"></script>
+    <script src="/static/vux/dist/components/rater/index.js"></script>
+    <script src="/static/vux/dist/components/scroller/index.js"></script>
+    <script src="/static/vux/dist/components/search/index.js"></script>
+    <script src="/static/vux/dist/components/selector/index.js"></script>
+    <script src="/static/vux/dist/components/shake/index.js"></script>
+    <script src="/static/vux/dist/components/spinner/index.js"></script>
+    <script src="/static/vux/dist/components/sticky/index.js"></script>
+    <script src="/static/vux/dist/components/swiper/index.js"></script>
+    <script src="/static/vux/dist/components/swiper-item/index.js"></script>
+    <script src="/static/vux/dist/components/switch/index.js"></script>
+    <script src="/static/vux/dist/components/tab/index.js"></script>
+    <script src="/static/vux/dist/components/tab-item/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar/index.js"></script>
+    <script src="/static/vux/dist/components/tabbar-item/index.js"></script>
+    <script src="/static/vux/dist/components/timeline/index.js"></script>
+    <script src="/static/vux/dist/components/timeline-item/index.js"></script>
+    <script src="/static/vux/dist/components/tip/index.js"></script>
+    <script src="/static/vux/dist/components/toast/index.js"></script>
+    <script src="/static/vux/dist/components/wechat-emotion/index.js"></script>
+    <script src="/static/vux/dist/components/x-button/index.js"></script>
+    <script src="/static/vux/dist/components/x-header/index.js"></script>
+    <script src="/static/vux/dist/components/x-img/index.js"></script>
+    <script src="/static/vux/dist/components/x-input/index.js"></script>
+    <script src="/static/vux/dist/components/x-number/index.js"></script>
+    <script src="/static/vux/dist/components/x-textarea/index.js"></script>
+    <script>
+    // register components
+    Vue.component("actionsheet", vuxActionsheet);
+    Vue.component("address", vuxAddress);
+    Vue.component("alert", vuxAlert);
+    Vue.component("badge", vuxBadge);
+    Vue.component("blur", vuxBlur);
+    Vue.component("box", vuxBox);
+    Vue.component("button-tab", vuxButtonTab);
+    Vue.component("button-tab-item", vuxButtonTabItem);
+    Vue.component("calendar", vuxCalendar);
+    Vue.component("card", vuxCard);
+    Vue.component("cell", vuxCell);
+    Vue.component("checker", vuxChecker);
+    Vue.component("checker-item", vuxCheckerItem);
+    Vue.component("checklist", vuxChecklist);
+    Vue.component("circle", vuxCircle);
+    Vue.component("clocker", vuxClocker);
+    Vue.component("color-picker", vuxColorPicker);
+    Vue.component("confirm", vuxConfirm);
+    Vue.component("countdown", vuxCountdown);
+    Vue.component("countup", vuxCountup);
+    Vue.component("date-formatter", vuxDateFormatter);
+    Vue.component("datetime", vuxDatetime);
+    Vue.component("dev-tip", vuxDevTip);
+    Vue.component("dialog", vuxDialog);
+    Vue.component("divider", vuxDivider);
+    Vue.component("flexbox", vuxFlexbox);
+    Vue.component("flexbox-item", vuxFlexboxItem);
+    Vue.component("friendly-time", vuxFriendlyTime);
+    Vue.component("group", vuxGroup);
+    Vue.component("group-title", vuxGroupTitle);
+    Vue.component("icon", vuxIcon);
+    Vue.component("inline-calendar", vuxInlineCalendar);
+    Vue.component("inline-desc", vuxInlineDesc);
+    Vue.component("inview", vuxInview);
+    Vue.component("loading", vuxLoading);
+    Vue.component("masker", vuxMasker);
+    Vue.component("number-roller", vuxNumberRoller);
+    Vue.component("orientation", vuxOrientation);
+    Vue.component("panel", vuxPanel);
+    Vue.component("picker", vuxPicker);
+    Vue.component("popup", vuxPopup);
+    Vue.component("popup-picker", vuxPopupPicker);
+    Vue.component("previewer", vuxPreviewer);
+    Vue.component("progress", vuxProgress);
+    Vue.component("qrcode", vuxQrcode);
+    Vue.component("radio", vuxRadio);
+    Vue.component("range", vuxRange);
+    Vue.component("rater", vuxRater);
+    Vue.component("scroller", vuxScroller);
+    Vue.component("search", vuxSearch);
+    Vue.component("selector", vuxSelector);
+    Vue.component("shake", vuxShake);
+    Vue.component("spinner", vuxSpinner);
+    Vue.component("sticky", vuxSticky);
+    Vue.component("swiper", vuxSwiper);
+    Vue.component("swiper-item", vuxSwiperItem);
+    Vue.component("switch", vuxSwitch);
+    Vue.component("tab", vuxTab);
+    Vue.component("tab-item", vuxTabItem);
+    Vue.component("tabbar", vuxTabbar);
+    Vue.component("tabbar-item", vuxTabbarItem);
+    Vue.component("timeline", vuxTimeline);
+    Vue.component("timeline-item", vuxTimelineItem);
+    Vue.component("tip", vuxTip);
+    Vue.component("toast", vuxToast);
+    Vue.component("wechat-emotion", vuxWechatEmotion);
+    Vue.component("x-button", vuxXButton);
+    Vue.component("x-header", vuxXHeader);
+    Vue.component("x-img", vuxXImg);
+    Vue.component("x-input", vuxXInput);
+    Vue.component("x-number", vuxXNumber);
+    Vue.component("x-textarea", vuxXTextarea);
+    </script>
+
+
+    <div id="main-form" style="background-color:#d9d9d9">
+      <div class="content">
+        <div class="vux-scroller-header-box">
+          <div style="height:46px;">
+            <x-header>Add Paragraph</x-header>
+          </div>
+        </div>
+
+        <div class="bd">
+          <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+              <div class="weui_cell_bd weui_cell_primary">
+                <div class="weui_uploader">
+                  <div class="weui_uploader_hd weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">上传图片</div>
+                    <div class="weui_cell_ft">{{! fileCounter }}/9</div>
+                  </div>
+                  <div class="weui_uploader_bd">
+                    <ul class="weui_uploader_files">
+                      <li
+                        is="oneFile"
+                        v-for="(idx, file) in files"
+                        v-bind:file="file"
+                        v-bind:idx="idx"
+                      ></li>
+                    </ul>
+                    <div class="weui_uploader_input_wrp">
+                      <x-input type="file" class="weui_uploader_input" accept="image/jpg,image/jpeg,image/png,image/gif"
+                        v-ref:input></x-input>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <group title="评论">
+          <x-textarea :max="200" placeholder="请填写详细信息" :value.sync="comment"></x-textarea>
+        </group>
+
+        <div class="weui_btn_area">
+          <x-button type="primary" @click="click">确定</x-button>
+        </div>
+
+        <toast :show.sync="dialog2" type="cancel">请上传图片或输入描述</toast>
+        <toast :show.sync="dialog" type="warn">最多只能上传9个文件</toast>
+
+        <dialog :show.sync="dialog" class="dialog-demo">
+          <div class="weui_dialog_hd">
+            <strong class="weui_dialog_title">提示</strong>
+          </div>
+          <div class="weui_dialog_bd">最多只能上传9个文件</div>
+          <div class="weui_dialog_ft">
+            <a @click="dialog=false" class="weui_btn_dialog primary">确定</a>
+          </div>
+        </dialog>
+
+        <dialog :show.sync="dialog2" class="dialog-demo">
+          <div class="weui_dialog_hd">
+            <strong class="weui_dialog_title">提示</strong>
+          </div>
+          <div class="weui_dialog_bd">请上传图片或输入描述</div>
+          <div class="weui_dialog_ft">
+            <a @click="dialog2=false" class="weui_btn_dialog primary">确定</a>
+          </div>
+        </dialog>
+
+        <!-- uploading toast -->
+        <loading :show="loading" :text="loadingText"></loading>
+      </div>
+    </div>
+
+    <script>
+      Vue.component('oneFile', {
+        template: '\
+          <li class="weui_uploader_file">\
+            <img :src="file" width="80">\
+          </li>\
+        ',
+        props: ['idx','file'],
+        methods: {
+        }
+      })
+
+      var app = new Vue({
+        el: '#main-form',
+        data () {
+          return {
+            loading: false,
+            loadingText: '图片上传中...',
+            dialog: false,
+            dialog2: false,
+            files: [],
+            comment: '',
+            fileCounter: 0,
+            lastFile: ''
+          }
+        },
+        created: function () {
+        },
+        methods: {
+          showDialog() {
+            this.dialog = true;
+          },
+          getFileCounter () {
+            return this.fileCounter;
+          },
+          showLoading () {
+            this.loading = true;
+          },
+          hideLoading () {
+            this.loading = false;
+          },
+          click () {
+            console.log('comment', this.comment);
+            console.log('files', this.files);
+            if (this.comment == null || this.comment == undefined || this.comment == '') {
+              if (this.fileCounter == 0) {
+                this.dialog2 = true;
+                return false;
+              }
+            }
+          },
+          uploading(filename) {
+            console.log('uploading filename', filename);
+            if (filename == null || filename == undefined || filename == '') {
+              this.loading = false;
+            } else {
+              this.loading = true;
+            }
+          },
+          uploaded(filename) {
+            console.log('uploaded filename', filename);
+            if (filename == null || filename == undefined || filename == '') {
+            } else {
+              this.files.push(filename);
+              this.fileCounter += 1;
+              console.log('files', this.files);
+            }
+          }
+        }
+      })
+    </script>
+
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+
+    <!-- fileinput -->
+  	<script src="{{ static_url("upyun/js/spark-md5.min.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/async.js") }}"></script>
+  	<script src="{{ static_url("upyun/js/upyun-mu.js") }}"></script>
+
+    <!-- customer js files -->
+    <script type="text/javascript" src='{{ static_url("js/exif.js") }}'></script>
+    <script type="text/javascript" src='{{ static_url("js/mobileBUGFix.mini.js") }}'></script>
+
+    <script>
+      var lastImgUrl;
+
+      $(function () {
+        $("input[type=file]").each(function() {
+          var _this = $(this);
+          _this.localResizeIMG({
+            width : 800,
+            quality : 0.6,
+            success : function(result) {
+              fileCounter = app.getFileCounter();
+              if (fileCounter == 9) {
+                app.showDialog();
+                return false;
+              } else {
+                app.showLoading();
+              }
+
+              //获取后缀名
+              var att = pre.substr(pre.lastIndexOf("."));
+              //压缩后图片的base64字符串
+              var base64_string = result.clearBase64;
+              //console.log(base64_string);
+              //图片预览
+              var imgObj = $("#img");
+              imgObj.attr("src", "data:image/jpeg;base64," + base64_string)                                      .show();
+              //拼接data字符串，传递会后台
+              var fileData = $("#fileData");
+              fileData.val(att + "," + imgObj.attr("src"));
+              //console.log(fileData);
+
+              var blob = dataURLtoBlob(result.base64);
+              //console.log(blob);
+
+              lastImgUrl = uploadBlogImgToUpyun(blob);
+              console.log('lastImgUrl', lastImgUrl);
+            }
+          });
+        });
+
+        document.addEventListener('uploaded', function(e) {
+          app.uploaded(lastImgUrl+"!200x200");
+          app.hideLoading();
+        });
+      });
+
+
+      ////////////////////////////////////////////////////////////////////
+      // 图片压缩上传,
+      // 引用LocalResizeIMG.js（插件主体）及mobileBUGFix.mini.js（移动端的补丁）
+
+      var pre;//源图片名称
+      var Orientation = null;//图片方向角
+
+      /**
+       * 获得base64
+       * @param {Object} obj
+       * @param {Number} [obj.width] 图片需要压缩的宽度，高度会跟随调整
+       * @param {Number} [obj.quality=0.8] 压缩质量，不压缩为1
+       * @param {Function} [obj.before(this, blob, file)] 处理前函数,this指向的是input:file
+       * @param {Function} obj.success(obj) 处理后函数
+       *
+       */
+      $.fn.localResizeIMG = function(obj) {
+        this.on('change', function() {
+          var file = this.files[0];
+          pre = file.name;
+          var URL = window.URL || window.webkitURL;
+          var blob = URL.createObjectURL(file);
+
+          //获取照片方向角属性，用户旋转控制
+          EXIF.getData(file, function() {
+            //alert(EXIF.pretty(file));
+            EXIF.getAllTags(file);
+            Orientation = EXIF.getTag(file, 'Orientation');
+            //alert(Orientation);
+            //return;
+          });
+
+          // 执行前函数
+          if ($.isFunction(obj.before)) {
+            obj.before(this, blob, file);
+          }
+
+          _create(blob, file);
+          this.value = ''; // 清空临时数据
+        });
+
+        /**
+         * 生成base64
+         * @param blob 通过file获得的二进制
+         */
+        function _create(blob, file) {
+          var img = new Image();
+          img.src = blob;
+
+          img.onload = function() {
+            var that = this;
+
+            //生成比例
+            var w = that.width, h = that.height, scale = w / h;
+            w = obj.width || w;
+            h = w / scale;
+
+            //生成canvas
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            $(canvas).attr({
+              width : w,
+              height : h
+            });
+            ctx.drawImage(that, 0, 0, w, h);
+
+            /**
+             * 生成base64
+             * 兼容修复移动设备需要引入mobileBUGFix.js
+             */
+            var base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
+
+            // 修复IOS
+            if (navigator.userAgent.match(/iphone/i)) {
+              console.log('iphone');
+              //alert(w + ',' + h);
+              //如果方向角不为1，都需要进行旋转
+              if (Orientation != "" && Orientation != 1){
+                switch(Orientation){
+                  case 6://需要顺时针（向左）90度旋转
+                      //alert('需要顺时针（向左）90度旋转');
+                      rotateImg(this,'left',canvas);
+                      break;
+                  case 8://需要逆时针（向右）90度旋转
+                      //alert('需要顺时针（向右）90度旋转');
+                      rotateImg(this,'right',canvas);
+                      break;
+                  case 3://需要180度旋转
+                      //alert('需要180度旋转');
+                      rotateImg(this,'right',canvas);//转两次
+                      rotateImg(this,'right',canvas);
+                      break;
+                  default:
+                    //alert('未旋转处理');
+                    break;
+                }
+              }
+
+              // var mpImg = new MegaPixImage(img);
+              // mpImg.render(canvas, {
+              //   maxWidth : w,
+              //   maxHeight : h,
+              //   quality : obj.quality || 0.8
+              // });
+              base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
+            } else if (navigator.userAgent.match(/Android/i)) { // 修复android
+              var encoder = new JPEGEncoder();
+              base64 = encoder.encode(ctx.getImageData(0, 0, w, h),
+                    obj.quality * 100 || 80);
+            } else {
+              //如果方向角不为1，都需要进行旋转
+              if (Orientation != "" && Orientation != 1){
+                switch(Orientation){
+                  case 6://需要顺时针（向左）90度旋转
+                      //alert('需要顺时针（向左）90度旋转');
+                      rotateImg(this,'left',canvas);
+                      break;
+                  case 8://需要逆时针（向右）90度旋转
+                      //alert('需要顺时针（向右）90度旋转');
+                      rotateImg(this,'right',canvas);
+                      break;
+                  case 3://需要180度旋转
+                      //alert('需要180度旋转');
+                      rotateImg(this,'right',canvas);//转两次
+                      rotateImg(this,'right',canvas);
+                      break;
+                  default:
+                    //alert('未旋转处理');
+                    break;
+                }
+              }
+
+              // var mpImg = new MegaPixImage(img);
+              // mpImg.render(canvas, {
+              //   maxWidth : w,
+              //   maxHeight : h,
+              //   quality : obj.quality || 0.8
+              // });
+              base64 = canvas.toDataURL('image/jpeg', obj.quality || 0.6);
+            }
+
+            // 生成结果
+            var result = {
+              base64 : base64,
+              clearBase64 : base64.substr(base64.indexOf(',') + 1)
+            };
+
+            // 执行后函数
+            obj.success(result);
+          };
+        }
+      };
+
+
+      //对图片旋转处理 added by lzk
+      function rotateImg(img, direction,canvas) {
+        //alert(img);
+        //最小与最大旋转方向，图片旋转4次后回到原方向
+        var min_step = 0;
+        var max_step = 3;
+        //var img = document.getElementById(pid);
+        if (img == null)return;
+        //img的高度和宽度不能在img元素隐藏后获取，否则会出错
+        var height = img.height;
+        var width = img.width;
+        //var step = img.getAttribute('step');
+        var step = 2;
+        if (step == null) {
+            step = min_step;
+        }
+        if (direction == 'right') {
+            step++;
+            //旋转到原位置，即超过最大值
+            step > max_step && (step = min_step);
+        } else {
+            step--;
+            step < min_step && (step = max_step);
+        }
+        //img.setAttribute('step', step);
+        /*var canvas = document.getElementById('pic_' + pid);
+        if (canvas == null) {
+            img.style.display = 'none';
+            canvas = document.createElement('canvas');
+            canvas.setAttribute('id', 'pic_' + pid);
+            img.parentNode.appendChild(canvas);
+        }  */
+        //旋转角度以弧度值为参数
+        var degree = step * 90 * Math.PI / 180;
+        var ctx = canvas.getContext('2d');
+        switch (step) {
+            case 0:
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0);
+                break;
+            case 1:
+                canvas.width = height;
+                canvas.height = width;
+                ctx.rotate(degree);
+                ctx.drawImage(img, 0, -height);
+                break;
+            case 2:
+                canvas.width = width;
+                canvas.height = height;
+                ctx.rotate(degree);
+                ctx.drawImage(img, -width, -height);
+                break;
+            case 3:
+                canvas.width = height;
+                canvas.height = width;
+                ctx.rotate(degree);
+                ctx.drawImage(img, -width, 0);
+                break;
+        }
+      }
+
+      // image:data 转成 blob格式
+      function dataURLtoBlob(dataUrl) {
+        var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+      }
+
+
+      // 上传blob到upyun
+      function uploadBlogImgToUpyun(blob) {
+        var config = {
+          // 空间名称
+          bucket : 'bighorn',
+          // 上传请求过期时间
+          expiration : parseInt((new Date().getTime() + 3600000) / 1000),
+          // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+          form_api_secret : 'minNcL/cabhEznMeFpYhEQFsH+k='
+        };
+
+        var instance = new Sand(config);
+        var options = {
+          'notify_url' : 'http://upyun.com',
+          //"allow-file-type":"jpg,jpeg,png",
+          //"x-gmkerl-value": "150", /// 如需缩小功能,这必须输入(缩略图宽度/像素)
+          //"x-gmkerl-quality": "95", /// 可选(图片压缩质量,默认 95)
+          //"x-gmkerl-unsharp": "True", /// 可选(是否进行锐化处理,默认锐化)
+          //"x-gmkerl-rotate": "auto", /// 可选(是否进行图片旋转)
+          //"x-gmkerl-clip" : "800x800s300a300", /// 可选(是否进行图片裁剪)
+        };
+        instance.setOptions(options);
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var filename = '/blog/' + d.getFullYear() + '/' + month + '/' + d.getDate() + '/' + uuid();
+        console.log(filename);
+        instance.upload_blob(filename, blob);
+
+        return 'http://bighorn.b0.upaiyun.com' + filename;
+      }
+
+
+      function uuid() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+          s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        var uuid = s.join("");
+        return uuid;
+      }
+
+      // 图片压缩上传,
+      // 引用LocalResizeIMG.js（插件主体）及mobileBUGFix.mini.js（移动端的补丁）
+      ////////////////////////////////////////////////////////////////////
+
+    </script>
+  </body>
+</html>

@@ -48,6 +48,7 @@ def map():
         # blog2
         ('/blog2/articles', getattr(blog2_article, 'Blog2ArticleIndexHandler')),
         ('/blog2/articles/([a-z0-9]*)', getattr(blog2_article, 'Blog2ArticleHandler')),
+        ('/blog2/articles/([a-z0-9]*)/paragraphs/append', getattr(blog2_article, 'Blog2ArticleParagraphAppendHandler')),
 
         # ajax
         ('/ajax/blog/accounts/([a-z0-9]*)/articles', getattr(ajax_article, 'AjaxAccountArticleXHR')),
