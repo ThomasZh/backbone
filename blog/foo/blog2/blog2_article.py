@@ -342,7 +342,6 @@ class Blog2ArticleParagraphAppendHandler(BaseHandler):
         logging.info("got article_id %r from uri", article_id)
 
         self.render('blog2/paragraphs-append.html',
-                random=random,
                 article_id=article_id)
 
 

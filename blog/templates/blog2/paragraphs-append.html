@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ static_url('vux/dist/vux.css') }}">
     <script type='text/javascript' src="{{ static_url('vux/vue.js') }}"></script>
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("js/json2.js") }}'></script>
 
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
 
@@ -193,7 +194,7 @@
                     <ul class="weui_uploader_files">
                       <li
                         is="oneFile"
-                        v-for="(idx, file) in files"
+                        v-for="(idx, file) in icons"
                         v-bind:file="file"
                         v-bind:idx="idx"
                       ></li>
@@ -219,27 +220,6 @@
 
         <toast :show.sync="dialog2" type="cancel">请上传图片或输入描述</toast>
         <toast :show.sync="dialog" type="warn">最多只能上传9个文件</toast>
-
-        <dialog :show.sync="dialog" class="dialog-demo">
-          <div class="weui_dialog_hd">
-            <strong class="weui_dialog_title">提示</strong>
-          </div>
-          <div class="weui_dialog_bd">最多只能上传9个文件</div>
-          <div class="weui_dialog_ft">
-            <a @click="dialog=false" class="weui_btn_dialog primary">确定</a>
-          </div>
-        </dialog>
-
-        <dialog :show.sync="dialog2" class="dialog-demo">
-          <div class="weui_dialog_hd">
-            <strong class="weui_dialog_title">提示</strong>
-          </div>
-          <div class="weui_dialog_bd">请上传图片或输入描述</div>
-          <div class="weui_dialog_ft">
-            <a @click="dialog2=false" class="weui_btn_dialog primary">确定</a>
-          </div>
-        </dialog>
-
         <!-- uploading toast -->
         <loading :show="loading" :text="loadingText"></loading>
       </div>
@@ -265,6 +245,7 @@
             loadingText: '图片上传中...',
             dialog: false,
             dialog2: false,
+            icons: [],
             files: [],
             comment: '',
             fileCounter: 0,
@@ -295,6 +276,29 @@
                 return false;
               }
             }
+
+            var data = {"paragraphs": this.comment, "files":this.files}
+            // 提交修改的数据，页面导向article
+            $.ajax({
+               type: "POST",
+               url: "/ajax/blog/articles/{{ article_id }}/paragraphs/append",
+               cache: false,
+               async: true,
+               dataType: 'json',
+               contentType: 'application/json',
+               data: JSON.stringify(data),
+               success: function(data){
+                 location.href = "/blog2/articles/{{ article_id }}";
+               },
+               error: function(XMLHttpRequest, textStatus, errorThrown) {
+                 if (XMLHttpRequest.status == 200) {
+                   location.href = "/blog2/articles/{{ article_id }}";
+                 }
+               },
+               complete: function(XMLHttpRequest, textStatus) {
+                 this; // 调用本次AJAX请求时传递的options参数
+               }
+            })
           },
           uploading(filename) {
             console.log('uploading filename', filename);
@@ -308,6 +312,7 @@
             console.log('uploaded filename', filename);
             if (filename == null || filename == undefined || filename == '') {
             } else {
+              this.icons.push(filename+"!200x200");
               this.files.push(filename);
               this.fileCounter += 1;
               console.log('files', this.files);
@@ -370,7 +375,7 @@
         });
 
         document.addEventListener('uploaded', function(e) {
-          app.uploaded(lastImgUrl+"!200x200");
+          app.uploaded(lastImgUrl);
           app.hideLoading();
         });
       });

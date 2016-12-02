@@ -179,6 +179,52 @@ class AjaxArticleXHR(tornado.web.RequestHandler):
         self.finish()
 
 
+class AjaxArticleParagraphAppendHandler(BaseHandler):
+    @tornado.web.authenticated  # if no session, redirect to login page
+    def post(self, article_id):
+        logging.info(self.request)
+        logging.info(self.request.body)
+        logging.info("got article_id %r from uri", article_id)
+
+        data = json_decode(self.request.body)
+        logging.info("got data %r from body", data)
+        paragraphs = "<p>" + data["paragraphs"] + "</p>"
+        logging.info("got paragraphs %r", paragraphs)
+        filenames = data["files"]
+        logging.info("got filenames %r", len(filenames))
+
+        access_token = self.get_secure_cookie("access_token")
+        logging.info("got access_token %r from cookie", access_token)
+
+        # 取得文章原来段落的内容
+        url = "http://"+AUTH_HOST+"/blog/articles/"+article_id
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="GET")
+        logging.info("got article response %r", response.body)
+        article = json_decode(response.body)
+
+        # 加入新段落
+        old_paragraphs = ""
+        if article.has_key('paragraphs'):
+            old_paragraphs = article['paragraphs']
+        for filename in filenames:
+            logging.info("got filename %r", filename)
+            if filename:
+                old_paragraphs += "![](" + filename +  ")"
+        old_paragraphs += paragraphs
+
+        # 修改文章段落内容
+        url = "http://" + AUTH_HOST + "/blog/articles/" + article_id + "/paragraphs"
+        body_data = {'paragraphs':old_paragraphs}
+        logging.info("put body %r", body_data)
+        _json = json_encode(body_data)
+        http_client = HTTPClient()
+        response = http_client.fetch(url, method="PUT", body=_json, headers={"Authorization":"Bearer "+access_token})
+        logging.info("got token response %r", response.body)
+
+        self.finish()
+
+
 class AjaxArticlePubXHR(tornado.web.RequestHandler):
     def put(self, article_id):
         logging.info(self.request)

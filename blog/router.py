@@ -55,6 +55,7 @@ def map():
         ('/ajax/blog/articles/([a-z0-9]*)', getattr(ajax_article, 'AjaxArticleXHR')),
         ('/ajax/blog/articles/([a-z0-9]*)/pub', getattr(ajax_article, 'AjaxArticlePubXHR')),
         ('/ajax/blog/articles', getattr(ajax_article, 'AjaxArticleIndexXHR')),
+        ('/ajax/blog/articles/([a-z0-9]*)/paragraphs/append', getattr(ajax_article, 'AjaxArticleParagraphAppendHandler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))
