@@ -73,3 +73,9 @@ class JourneyLayoutHandler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
         self.render('journey/layout.html')
+
+
+class JourneyEditHandler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('journey/journey-edit.html')
