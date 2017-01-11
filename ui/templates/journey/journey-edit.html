@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="{{ static_url('weui/lib/weui.min.css') }}">
     <script type='text/javascript' src="{{ static_url('vux/vue-2.1.4.js') }}"></script>
     <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
-    <script type='text/javascript' src='{{ static_url("js/jquery.lazyload.js") }}' charset='utf-8'></script>
     <script type='text/javascript' src='{{ static_url("light7/js/light7.min.js") }}' charset='utf-8'></script>
 
 
@@ -121,29 +120,23 @@
     <script>
       Vue.component('oneParagraph', {
         template: '\
-        <div>\
+        <div :id="idx">\
           <h4>{{! paragraph.title }}</h4>\
           <div v-if="paragraph.gallery == 1 && paragraph.type == 0" class="row">\
             <div class="col-100 no-gutter">\
-              <img class="lazy" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/b8fb1152-ddd3-48ec-80dd-470cb66f56fb!600x300"/>\
+              <img v-for="img in paragraph.imgs" class="lazy" :src="img"/>\
             </div>\
           </div>\
           <div v-else-if="paragraph.gallery == 2 && paragraph.type == 0" class="row">\
-            <div class="col-50 no-gutter">\
-              <img class="lazy" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!300x300"/>\
-            </div>\
-            <div class="col-50 no-gutter">\
-              <img class="lazy" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!300x300"/>\
+            <div v-for="img in paragraph.imgs" class="col-50 no-gutter">\
+              <img class="lazy" :src="img"/>\
             </div>\
           </div>\
           <div v-else-if="paragraph.gallery == 2 && paragraph.type == 1" class="row">\
-            <div class="col-100 no-gutter">\
-              <img class="lazy" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/086587c3-f6c5-40e7-8ca0-e12f571cf5d8!600x300"/>\
-            </div>\
-          </div>\
-          <div class="row">\
-            <div class="col-100 no-gutter">\
-              <img class="lazy" src="http://bighorn.b0.upaiyun.com/blog/2016/11/2/1a591303-f033-44fc-92cd-8e86e2da5aaa!600x300"/>\
+            <div v-for="img in paragraph.imgs" class="row">\
+              <div class="col-100 no-gutter">\
+                <img class="lazy" :src="img"/>\
+              </div>\
             </div>\
           </div>\
           <div class="row">\
@@ -186,14 +179,15 @@
               var paragraph = this.paragraph;
               var idx = this.idx;
 
-              var wait = 5; // 0.5s
+              var wait = 1; // 0.5s
               function time(t) {
                 console.log('wait', wait);
                 if (wait == 0) {
                   paragraphs.splice(idx - 1, 0, paragraph);
+                  location.href = "#"+(idx-1);
                 } else {
                   wait--;
-                  setTimeout(function () { time(t) }, 100)
+                  setTimeout(function () { time(t) }, 500)
                 }
               }
               time(wait);
@@ -210,14 +204,15 @@
               var paragraph = this.paragraph;
               var idx = this.idx;
 
-              var wait = 5; // 0.5s
+              var wait = 1; // 0.5s
               function time(t) {
                 console.log('wait', wait);
                 if (wait == 0) {
                   paragraphs.splice(idx + 1, 0, paragraph);
+                  location.href = "#"+idx;
                 } else {
                   wait--;
-                  setTimeout(function () { time(t) }, 100)
+                  setTimeout(function () { time(t) }, 500)
                 }
               }
               time(wait);
@@ -231,7 +226,11 @@
           },
           add () {
             console.log(this.$parent.$parent);
-            data = {"title":"titleN", "content":"contentN", "show":true, "edit":false, "moving":false};
+            data = {"title":"titleN", "content":"contentN",
+              "show":true, "edit":false, "moving":false,
+              "gallery":1, "type":0,
+              "imgs":["http://bighorn.b0.upaiyun.com/blog/2016/11/2/b8fb1152-ddd3-48ec-80dd-470cb66f56fb!600x300"]
+            };
             // 删除自己
             this.$parent.$parent.paragraphs.splice(this.idx, 0, data);
           },
@@ -282,38 +281,6 @@
         }
       })
     </script>
-
-<script>
-$(function () {
-  //页面初始化
-  $(document).on("pageInit", "#page-layout", function(e, id, page) {
-
-    $('img.lazy').lazyload( {
-      container: $(".content"),
-  //      threshold: 100,                    //当图片顶部距离显示区域还有100像素时，就开始加载
-      placeholder: "/static/images/grey.gif",      // 图片未加载时，占位
-      effect_speed: 1000,                // 效果出现的时间
-      effect: "fadeIn",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
-  //      event: 'touchstart',                   // 滚动滚轮时触发，可以是：click、mouseover等
-  //      data_attribute: 'data-original',   // img标签中保存url的自定义属性，默认：data-original
-      skip_invisible: true,              // 是否跳过已经隐藏的图片（display:none）
-      failure_limit: 2,                  // 由于延迟加载是根据Dom从上到下执行
-                                         // 如果遇到Dom位置在上，但是图片定位在下导致看不到，那么会以为之后的图片不在应用延迟加载
-                                         // 此处的failure_limit用于限制如果出现N个【Dom位置在上，但是图片定位在下】才终止
-      appear: function(){                // 当图片位置刚出现在视图时，触发此事件
-        $(this).attr('src');
-        //$(this).attr('src', $(this).attr('data-original'));
-      },
-      load: function(){                  // 当图片路径加载之后，触发此事件
-        $(this).attr('src');
-        //$(this).attr('src', $(this).attr('data-original'));
-      }
-
-    });
-
-  });
-});
-</script>
 
   </body>
 </html>

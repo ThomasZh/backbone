@@ -114,3 +114,50 @@ class ApiKitHandle(tornado.web.RequestHandler):
 
         self.write("SUCCESS")
         self.finish()
+
+
+class SysErrorHandle(tornado.web.RequestHandler):
+    def get(self, error_id):
+        logging.info(self.request)
+        logging.info("got error_id %r in uri", error_id)
+
+        data = kit_dao.kit_dao().query(error_id)
+        data['create_time'] = timestamp_datetime(data['create_time'])
+
+        self.render('sys-error.html', sys_error=data)
+
+
+class ApiSysErrorHandle(tornado.web.RequestHandler):
+    def post(self):
+        logging.info(self.request)
+
+        app = self.get_argument("app", "")
+        sys = self.get_argument("sys", "")
+        level = self.get_argument("level", "")
+        message = self.get_argument("message", "")
+        app = app.encode("utf-8")
+        sys = sys.encode("utf-8")
+        level = level.encode("utf-8")
+        message = message.encode("utf-8")
+        logging.info("got app %r", app)
+        logging.info("got sys %r", sys)
+        logging.info("got level %r", level)
+        logging.info("got message %r", message)
+
+        # save message into mongodb
+        timestamp = time.time()
+        _id = generate_uuid_str()
+        _json = {'_id':_id,
+                'app':app, 'sys':sys, 'level':level, 'message':message,
+                'create_time':timestamp}
+        kit_dao.kit_dao().create(_json)
+
+        # send message to wx 公众号客户 by template
+        wx_access_token = wx_wrap.getAccessTokenByClientCredential(WX_APP_ID, WX_APP_SECRET)
+        logging.info("got wx_access_token %r", wx_access_token)
+        # openid = 店小二openid
+        openid = "oy0Kxt7zNpZFEldQmHwFF-RSLNV0"
+        wx_wrap.sendSysErrorMessage(wx_access_token, openid, _id, app, sys, level, message, timestamp)
+
+        self.write("SUCCESS")
+        self.finish()

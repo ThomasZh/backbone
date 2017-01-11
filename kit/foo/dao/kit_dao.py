@@ -54,3 +54,11 @@ class kit_dao(singleton):
         for i in cursor:
             array.append(i)
         return array
+
+
+    def query(self, _id):
+        cursor = self.__kit_collection.find({"_id":_id})
+        data = None
+        for i in cursor:
+            data = i
+        return data

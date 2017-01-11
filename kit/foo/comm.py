@@ -67,3 +67,11 @@ def timestamp_datetime(value):
 class PageNotFoundHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('comm/page_404.html')
+
+
+def generate_uuid_str():
+    return str(uuid.uuid1()).replace('-', '')
+
+
+def generate_nonce_str():
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))

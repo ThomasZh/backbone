@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ks-phone">
+  <head>
+    <meta charset="utf-8">
+    <meta name="aplus-terminal" content="1" />
+    <meta name="apple-mobile-web-app-title" content="Aplan" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="spm-id" content="a222t.7900232">
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <title>MUI Demo</title>
+
+    <link rel="stylesheet" href="{{ static_url('mui/dist/css/mui.min.css') }}">
+
+  </head>
+
+  <body>
+
+    <div>
+      <div class="mui-input-row mui-checkbox">
+        <label>checkbox示例</label>
+        <input name="checkbox1" value="Item 1" type="checkbox" checked>
+      </div>
+      <div class="mui-input-row mui-radio">
+      	<label>radio</label>
+      	<input name="radio1" type="radio">
+      </div>
+      <!-- 简洁模式开关关闭状态 -->
+      <div class="mui-switch mui-switch-mini">
+        <div class="mui-switch-handle"></div>
+      </div>
+      <!-- 简洁模式开关打开状态 -->
+      <div class="mui-switch mui-switch-mini mui-active">
+        <div class="mui-switch-handle"></div>
+      </div>
+      <div class="mui-input-row">
+        <label>快速删除</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入内容">
+      </div>
+      <div class="mui-input-group">
+          <div class="mui-input-row">
+              <label>用户名：</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+          <div class="mui-input-row">
+              <label>密码：</label>
+              <input type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码">
+          </div>
+      </div>
+      <div class="mui-numbox" data-numbox-step='10' data-numbox-min='0' data-numbox-max='100'>
+        <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+        <input class="mui-numbox-input" type="number" />
+        <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+      </div>
+
+      <div>
+        <label>radio示例</label>
+      </div>
+      <ul class="mui-table-view mui-table-view-radio">
+      	<li class="mui-table-view-cell">
+      		<a class="mui-navigate-right">Item 1</a>
+      	</li>
+      	<li class="mui-table-view-cell mui-selected">
+      		<a class="mui-navigate-right">Item 2</a>
+      	</li>
+      	<li class="mui-table-view-cell">
+      		<a class="mui-navigate-right">Item 3</a>
+      	</li>
+      </ul>
+    </div>
+
+    <script type='text/javascript' src='{{ static_url("js/jquery-3.1.0.min.js") }}' charset='utf-8'></script>
+    <script type='text/javascript' src='{{ static_url("mui/dist/js/mui.min.js") }}' charset='utf-8'></script>
+
+  </body>
+</html>

@@ -73,3 +73,41 @@ def sendWorkflowMessage(access_token, openid, app, name, email, message, timesta
     http_client = HTTPClient()
     response = http_client.fetch(url, method="POST", body=_json)
     logging.info("got response %r", response.body)
+
+
+def sendSysErrorMessage(access_token, openid, _id, app, sys, level, message, timestamp):
+    # touser = 店小二openid
+    # template_id = 系统报警通知
+    # url = 模版链接跳转地址
+    data = {
+        "touser": openid,
+        "template_id": "KaamuLGDkc7wCabWC9pu898tpnne17whRdXiMFSXCfM",
+        "url": "http://kit.7x24hs.com/sys-error/"+_id,
+        "data": {
+           "first": {
+               "value":"请注意业务系统("+app+")报警内容",
+               "color":"#173177"
+           },
+           "keyword1": {
+               "value":sys,
+               "color":"#173177"
+           },
+           "keyword2": {
+               "value":timestamp_datetime(timestamp),
+               "color":"#173177"
+           },
+           "keyword3": {
+               "value":level,
+               "color":"#173177"
+           },
+           "remark": {
+               "value":message,
+               "color":"#173177"
+           },
+        }
+    }
+    _json = json_encode(data)
+    url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + access_token
+    http_client = HTTPClient()
+    response = http_client.fetch(url, method="POST", body=_json)
+    logging.info("got response %r", response.body)

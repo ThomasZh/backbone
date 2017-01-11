@@ -18,6 +18,8 @@ def map():
         # GET: 根据 HTTP header 收集客户端相关信息：是否手机、操作系统、浏览器等信息。
         (r'/', getattr(kit_index, 'IndexHandle')),
         (r'/api/kits', getattr(kit_index, 'ApiKitHandle')),
+        (r'/api/sys-error', getattr(kit_index, 'ApiSysErrorHandle')),
+        (r'/sys-error/([a-z0-9]*)', getattr(kit_index, 'SysErrorHandle')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

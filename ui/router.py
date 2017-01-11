@@ -13,6 +13,8 @@ from foo.ui import ui_bf
 from foo.ui import ui_club
 from foo.ui import ui_blog
 from foo.ui import ui_journey
+from foo.ui import ui_mui
+from foo.ui import ui_amaze
 from foo.api import api_blog
 
 
@@ -66,6 +68,22 @@ def map():
         (r'/journey/rich-text-edit', getattr(ui_journey, 'JourneyRichTextEditHandler')),
         (r'/journey/layout', getattr(ui_journey, 'JourneyLayoutHandler')),
         (r'/journey/edit', getattr(ui_journey, 'JourneyEditHandler')),
+
+        (r'/mui', getattr(ui_mui, 'MuiIndexHandler')),
+
+        (r'/amazeui', getattr(ui_amaze, 'AmazeIndexHandler')),
+        (r'/amazeui/1', getattr(ui_amaze, 'AmazeIndex1Handler')),
+        (r'/amazeui/2', getattr(ui_amaze, 'AmazeIndex2Handler')),
+        (r'/amazeui/3', getattr(ui_amaze, 'AmazeIndex3Handler')),
+        (r'/amazeui/4', getattr(ui_amaze, 'AmazeIndex4Handler')),
+        (r'/amazeui/5', getattr(ui_amaze, 'AmazeIndex5Handler')),
+        (r'/amazeui/6', getattr(ui_amaze, 'AmazeIndex6Handler')),
+        (r'/amazeui/7', getattr(ui_amaze, 'AmazeIndex7Handler')),
+        (r'/amazeui/8', getattr(ui_amaze, 'AmazeIndex8Handler')),
+        (r'/amazeui/9', getattr(ui_amaze, 'AmazeIndex9Handler')),
+        (r'/amazeui/10', getattr(ui_amaze, 'AmazeIndex10Handler')),
+        (r'/amazeui/11', getattr(ui_amaze, 'AmazeIndex11Handler')),
+        (r'/amazeui/12', getattr(ui_amaze, 'AmazeIndex12Handler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))
