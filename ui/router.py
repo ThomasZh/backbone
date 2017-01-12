@@ -84,6 +84,7 @@ def map():
         (r'/amazeui/10', getattr(ui_amaze, 'AmazeIndex10Handler')),
         (r'/amazeui/11', getattr(ui_amaze, 'AmazeIndex11Handler')),
         (r'/amazeui/12', getattr(ui_amaze, 'AmazeIndex12Handler')),
+        (r'/amazeui/13', getattr(ui_amaze, 'AmazeIndex13Handler')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

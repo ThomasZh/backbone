@@ -97,3 +97,8 @@ class AmazeIndex12Handler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
         self.render('amazeui/12.空间动态列表页.html')
+
+class AmazeIndex13Handler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('amazeui/13.社区.html')
