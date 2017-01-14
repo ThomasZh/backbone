@@ -102,3 +102,8 @@ class AmazeIndex13Handler(tornado.web.RequestHandler):
     def get(self):
         logging.info(self.request)
         self.render('amazeui/13.社区.html')
+
+class AmazeIndex14Handler(tornado.web.RequestHandler):
+    def get(self):
+        logging.info(self.request)
+        self.render('amazeui/14.活动列表.html')
