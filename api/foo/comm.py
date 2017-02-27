@@ -189,6 +189,18 @@ def datetime_timestamp(dt):
      return int(_timestamp)
 
 
+class BaseHandler(tornado.web.RequestHandler):
+    # 允许跨域访问
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+        self.set_header('Access-Control-Max-Age', 1000)
+        #self.set_header("Access-Control-Allow-Headers",
+        #    "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
+        self.set_header('Access-Control-Allow-Headers', '*')
+        self.set_header('Content-type', 'application/json')
+
+
 class PageNotFoundHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('comm/page_404.html')

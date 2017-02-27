@@ -26,7 +26,7 @@ from global_const import *
 
 
 # login options
-# {'_id':'phone', 'md5pwd':pwd, 'salt':'salt', 'create_time':0, 'last_update_time':0,
+# {'_id':'phone|email', 'md5pwd':pwd, 'salt':'salt', 'create_time':0, 'last_update_time':0,
 # 'create_verify_code_time':0, 'verify_code':'1234'}
 class auth_login_dao(singleton):
     __auth_login_collection = None;

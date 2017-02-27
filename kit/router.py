@@ -20,6 +20,7 @@ def map():
         (r'/api/kits', getattr(kit_index, 'ApiKitHandle')),
         (r'/api/sys-error', getattr(kit_index, 'ApiSysErrorHandle')),
         (r'/sys-error/([a-z0-9]*)', getattr(kit_index, 'SysErrorHandle')),
+        (r'/workflow/([a-z0-9]*)', getattr(kit_index, 'WorkflowHandle')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))

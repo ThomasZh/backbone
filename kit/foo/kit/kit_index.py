@@ -80,9 +80,34 @@ class ApiKitHandle(tornado.web.RequestHandler):
         logging.info("got email %r", email)
         logging.info("got message %r", message)
 
+        if not app:
+            try:
+                req_body = json_decode(self.request.body)
+                app = req_body['app']
+                name = req_body['name']
+                email = req_body['email']
+                message = req_body['message']
+                app = app.encode("utf-8")
+                name = name.encode("utf-8")
+                email = email.encode("utf-8")
+                message = message.encode("utf-8")
+                if not app or not name or not email or not message:
+                    logging.warn("Bad Request(400): create kit req_body=[%r]", self.request.body)
+                    self.set_status(400) # Bad Request
+                    self.write('Bad Request')
+                    self.finish()
+                    return
+            except:
+                logging.warn("Bad Request(400): create kit req_body=[%r]", self.request.body)
+                self.set_status(400) # Bad Request
+                self.write('Bad Request')
+                self.finish()
+                return
+
         # save message into mongodb
         timestamp = time.time()
-        _json = {'app':app, 'name':name, 'email':email, 'message':message,
+        _id = generate_uuid_str()
+        _json = {'_id':_id, 'app':app, 'name':name, 'email':email, 'message':message,
                 'create_time':timestamp}
         kit_dao.kit_dao().create(_json)
 
@@ -110,7 +135,7 @@ class ApiKitHandle(tornado.web.RequestHandler):
         logging.info("got wx_access_token %r", wx_access_token)
         # openid = 店小二openid
         openid = "oy0Kxt7zNpZFEldQmHwFF-RSLNV0"
-        wx_wrap.sendWorkflowMessage(wx_access_token, openid, app, name, email, message, timestamp)
+        wx_wrap.sendWorkflowMessage(wx_access_token, openid, _id, app, name, email, message, timestamp)
 
         self.write("SUCCESS")
         self.finish()
@@ -125,6 +150,18 @@ class SysErrorHandle(tornado.web.RequestHandler):
         data['create_time'] = timestamp_datetime(data['create_time'])
 
         self.render('sys-error.html', sys_error=data)
+
+
+class WorkflowHandle(tornado.web.RequestHandler):
+    def get(self, workflow_id):
+        logging.info(self.request)
+        logging.info("got workflow_id %r in uri", workflow_id)
+
+        data = kit_dao.kit_dao().query(workflow_id)
+        data['create_time'] = timestamp_datetime(data['create_time'])
+        logging.info("got workflow %r", data)
+
+        self.render('workflow.html', data=data)
 
 
 class ApiSysErrorHandle(tornado.web.RequestHandler):

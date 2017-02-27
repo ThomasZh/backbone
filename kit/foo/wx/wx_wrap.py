@@ -37,14 +37,14 @@ def getAccessTokenByClientCredential(appId, appSecret):
     return rs["access_token"]
 
 
-def sendWorkflowMessage(access_token, openid, app, name, email, message, timestamp):
+def sendWorkflowMessage(access_token, openid, _id, app, name, email, message, timestamp):
     # touser = 店小二openid
     # template_id = 工作流申请通知
     # url = 模版链接跳转地址
     data = {
         "touser": openid,
         "template_id": "k9tnl9iJXwBkSsm7AixEFrMIrEy06xIoMO-kOzNDfCA",
-        "url": "http://kit.7x24hs.com/",
+        "url": "http://kit.7x24hs.com/workflow/"+_id,
         "data": {
            "first": {
                "value":"来自系统: " + app,
