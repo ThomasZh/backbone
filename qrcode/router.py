@@ -18,6 +18,7 @@ def map():
         (r'/', getattr(comm, 'IndexHandle')),
         (r'/demo-ui', getattr(comm, 'DemoUiHandle')),
         (r'/api/qrcode', getattr(comm, 'ApiQrcodeHandle')),
+        (r'/api/image-verify', getattr(comm, 'ApiImageVerifyXHR')),
 
         # comm
         ('.*', getattr(comm, 'PageNotFoundHandler'))
